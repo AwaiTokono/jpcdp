@@ -3,7 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>JPCC — Japan Protestant Church Command Center</title>
+<title>JAPAN PROTESTANT CHURCH DIGITAL PLATFORM</title>
+<meta property="og:title" content="JAPAN PROTESTANT CHURCH DIGITAL PLATFORM">
+<meta property="og:description" content="日本プロテスタント教会 地理的・人的・財政的構造の推計分析">
+<meta name="twitter:title" content="JAPAN PROTESTANT CHURCH DIGITAL PLATFORM">
+<meta name="twitter:description" content="日本プロテスタント教会 地理的・人的・財政的構造の推計分析">
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Space+Grotesk:wght@300;400;600;700&family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
@@ -27,26 +31,17 @@
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
 body{background:var(--bg);color:var(--text);font-family:'JetBrains Mono',monospace;line-height:1.6;overflow-x:hidden;min-height:100vh;}
-
-/* scanline overlay */
 body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.03) 2px,rgba(0,0,0,.03) 4px);pointer-events:none;z-index:9999;}
-
-/* grid bg */
 body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(255,255,255,.015) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.015) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;}
 
-/* ── NAV ── */
 nav{position:sticky;top:0;z-index:500;background:rgba(7,9,15,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border2);padding:0 2rem;display:flex;align-items:center;gap:2rem;}
 .nav-logo{font-size:.72rem;font-weight:700;letter-spacing:.2em;color:var(--amber);padding:.85rem 0;white-space:nowrap;}
 .nav-logo span{color:var(--text2);}
 .nav-status{display:flex;align-items:center;gap:.4rem;font-size:.6rem;letter-spacing:.12em;color:var(--teal);}
 .nav-status::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--teal);animation:pulse 2s ease-in-out infinite;}
 @keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(0,201,167,.4);}50%{opacity:.7;box-shadow:0 0 0 4px rgba(0,201,167,0);}}
-.nav-links{display:flex;margin-left:auto;}
-.nav-links a{display:block;padding:.85rem .75rem;color:var(--text2);text-decoration:none;font-size:.62rem;letter-spacing:.1em;transition:color .15s;}
-.nav-links a:hover{color:var(--amber);}
-.nav-ver{font-size:.58rem;color:var(--text3);letter-spacing:.1em;margin-left:.5rem;padding:.85rem 0;}
+.nav-ver{font-size:.58rem;color:var(--text3);letter-spacing:.1em;margin-left:auto;padding:.85rem 0;}
 
-/* ── HERO ── */
 .hero{padding:5rem 0 3.5rem;border-bottom:1px solid var(--border);position:relative;overflow:hidden;}
 .hero-glow{position:absolute;top:-20%;left:50%;transform:translateX(-50%);width:600px;height:400px;background:radial-gradient(ellipse,rgba(232,160,32,.06) 0%,transparent 70%);pointer-events:none;}
 .hero-inner{max-width:1280px;margin:0 auto;padding:0 2rem;}
@@ -59,17 +54,21 @@ nav{position:sticky;top:0;z-index:500;background:rgba(7,9,15,.92);backdrop-filte
 .hero-meta span{display:flex;align-items:center;gap:.35rem;}
 .hero-meta span::before{content:'//';color:var(--amber);font-size:.55rem;}
 
-/* ── KPI ROW ── */
 .kpi-row{background:var(--bg1);border-bottom:1px solid var(--border);}
 .kpi-inner{max-width:1280px;margin:0 auto;padding:0 2rem;display:grid;grid-template-columns:repeat(5,1fr);}
-.kpi-cell{padding:1.4rem 1rem;border-right:1px solid var(--border);}
+.kpi-cell{padding:1.4rem 1rem;border-right:1px solid var(--border);opacity:0;animation:kfade .5s ease forwards;}
 .kpi-cell:last-child{border-right:none;}
+.kpi-cell:nth-child(1){animation-delay:.08s;}
+.kpi-cell:nth-child(2){animation-delay:.16s;}
+.kpi-cell:nth-child(3){animation-delay:.24s;}
+.kpi-cell:nth-child(4){animation-delay:.32s;}
+.kpi-cell:nth-child(5){animation-delay:.4s;}
+@keyframes kfade{to{opacity:1;}}
 .kpi-label{font-size:.55rem;letter-spacing:.15em;color:var(--text3);text-transform:uppercase;margin-bottom:.3rem;}
 .kpi-value{font-size:2rem;font-weight:700;color:var(--white);line-height:1;font-family:'Space Grotesk',sans-serif;}
 .kpi-unit{font-size:.9rem;font-family:'JetBrains Mono',monospace;color:var(--amber);}
 .kpi-desc{font-size:.58rem;color:var(--text3);margin-top:.2rem;}
 
-/* ── CONTENT ── */
 .content{max-width:1280px;margin:0 auto;padding:3rem 2rem 6rem;}
 .sec{margin-bottom:4rem;}
 .sec-head{display:flex;align-items:center;gap:1rem;margin-bottom:1.75rem;padding-bottom:.6rem;border-bottom:1px solid var(--border);}
@@ -77,21 +76,18 @@ nav{position:sticky;top:0;z-index:500;background:rgba(7,9,15,.92);backdrop-filte
 .sec-title{font-family:'Space Grotesk',sans-serif;font-size:1.4rem;font-weight:600;color:var(--white);letter-spacing:-.01em;}
 .sec-en{font-size:.6rem;letter-spacing:.18em;color:var(--text3);margin-left:auto;text-transform:uppercase;}
 
-/* ── CARDS ── */
 .card{background:var(--bg1);border:1px solid var(--border);padding:1.4rem;transition:border-color .2s,box-shadow .2s;}
 .card:hover{border-color:rgba(232,160,32,.25);box-shadow:0 0 20px rgba(232,160,32,.04);}
 .card-label{font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:var(--amber);margin-bottom:.35rem;}
 .card-title{font-size:.82rem;color:var(--text2);margin-bottom:1.1rem;font-weight:400;line-height:1.4;}
 
-/* ── GRID ── */
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);}
-.g2 > *{background:var(--bg1);}
+.g2>*{background:var(--bg1);}
 .g3{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);}
-.g3 > *{background:var(--bg1);}
+.g3>*{background:var(--bg1);}
 .g21{display:grid;grid-template-columns:2fr 1fr;gap:1.5rem;}
 .gap-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;}
 
-/* ── CHART WRAPPER ── */
 .chart-box{padding:1.4rem;background:var(--bg1);border:1px solid var(--border);}
 .chart-box:hover{border-color:rgba(232,160,32,.2);}
 .chart-lbl{font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:var(--amber);margin-bottom:.3rem;}
@@ -101,12 +97,10 @@ nav{position:sticky;top:0;z-index:500;background:rgba(7,9,15,.92);backdrop-filte
 .donut-big{display:block;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.6rem;color:var(--white);line-height:1;}
 .donut-sm{display:block;font-size:.5rem;letter-spacing:.1em;color:var(--text3);margin-top:.2rem;}
 
-/* ── LEGEND ── */
 .legend{display:flex;flex-wrap:wrap;gap:.4rem .85rem;margin-top:.8rem;}
 .legend-item{display:flex;align-items:center;gap:.3rem;font-size:.62rem;color:var(--text2);}
 .ldot{width:7px;height:7px;flex-shrink:0;}
 
-/* ── STAT BARS ── */
 .sbar{margin-bottom:.75rem;}
 .sbar:last-child{margin-bottom:0;}
 .sbar-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.22rem;}
@@ -115,12 +109,10 @@ nav{position:sticky;top:0;z-index:500;background:rgba(7,9,15,.92);backdrop-filte
 .sbar-track{height:4px;background:rgba(255,255,255,.05);}
 .sbar-fill{height:100%;width:0;transition:width 1.4s cubic-bezier(.16,1,.3,1);}
 
-/* ── INSIGHT ── */
 .insight{background:rgba(232,160,32,.04);border:1px solid rgba(232,160,32,.15);border-left:3px solid var(--amber);padding:1.2rem 1.5rem;margin:1.5rem 0;}
 .insight p{font-size:.76rem;color:var(--text2);line-height:1.85;}
 .insight strong{color:var(--amber2);}
 
-/* ── FLOW ── */
 .flow{display:grid;grid-template-columns:1fr 32px 1fr 32px 1fr;gap:0;align-items:center;}
 .fnode{padding:.75rem .6rem;border:1px solid var(--border);text-align:center;}
 .fnode.n{background:rgba(232,160,32,.08);border-color:rgba(232,160,32,.3);}
@@ -132,7 +124,6 @@ nav{position:sticky;top:0;z-index:500;background:rgba(7,9,15,.92);backdrop-filte
 @keyframes arrowPulse{0%,100%{opacity:.4;transform:translateX(0);}50%{opacity:1;transform:translateX(3px);}}
 .flow-col{display:flex;flex-direction:column;gap:.4rem;}
 
-/* ── SCENARIO ── */
 .sc-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);margin-bottom:1.25rem;}
 .sc-cell{background:var(--bg1);padding:1.1rem;text-align:center;}
 .sc-cell.mid{background:rgba(232,160,32,.06);}
@@ -141,13 +132,11 @@ nav{position:sticky;top:0;z-index:500;background:rgba(7,9,15,.92);backdrop-filte
 .sc-cell.mid .sc-val{color:var(--amber);}
 .sc-sub{font-size:.58rem;color:var(--text3);}
 
-/* ── UCCJ STATS ── */
 .uccj-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);margin-bottom:1px;}
 .uccj-cell{background:var(--bg1);padding:.85rem 1rem;text-align:center;}
 .uccj-v{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.4rem;color:var(--white);line-height:1;margin-bottom:.15rem;}
 .uccj-l{font-size:.55rem;color:var(--text3);letter-spacing:.06em;}
 
-/* ── TABLE ── */
 .dtable{width:100%;border-collapse:collapse;font-size:.74rem;}
 .dtable th{background:var(--bg2);color:var(--text3);padding:.55rem .85rem;text-align:left;font-size:.55rem;letter-spacing:.12em;text-transform:uppercase;font-weight:400;border-bottom:1px solid var(--border);}
 .dtable td{padding:.55rem .85rem;border-bottom:1px solid var(--border);color:var(--text);vertical-align:middle;}
@@ -158,7 +147,6 @@ nav{position:sticky;top:0;z-index:500;background:rgba(7,9,15,.92);backdrop-filte
 .bg{background:rgba(232,160,32,.12);color:var(--amber);border:1px solid rgba(232,160,32,.2);}
 .br{background:rgba(255,85,85,.1);color:var(--red);border:1px solid rgba(255,85,85,.2);}
 
-/* ── REC CARDS ── */
 .rec-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--border);margin-bottom:2rem;}
 .rec-card{background:var(--bg1);padding:1.25rem;transition:background .2s;}
 .rec-card:hover{background:var(--bg2);}
@@ -167,14 +155,11 @@ nav{position:sticky;top:0;z-index:500;background:rgba(7,9,15,.92);backdrop-filte
 .rec-t{font-size:.78rem;font-weight:600;color:var(--white);margin-bottom:.35rem;line-height:1.3;}
 .rec-body{font-size:.68rem;color:var(--text2);line-height:1.65;}
 
-/* ── SECTION DIVIDER ── */
 .div-line{height:1px;background:linear-gradient(90deg,transparent,var(--border2),transparent);margin:3rem 0;}
-
-/* ── ORN ── */
 .orn{text-align:center;font-size:.55rem;letter-spacing:.5em;color:var(--text3);margin:2.5rem 0;display:flex;align-items:center;gap:1rem;}
 .orn::before,.orn::after{content:'';flex:1;height:1px;background:var(--border);}
 
-/* ══════════════ BROADLISTENING ══════════════ */
+/* BROADLISTENING */
 .bl-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);margin-bottom:1.5rem;}
 .bl-step{background:var(--bg1);padding:1.1rem 1.3rem;display:flex;gap:.85rem;align-items:flex-start;}
 .bl-step-num{font-family:'Space Grotesk',sans-serif;font-size:2rem;font-weight:700;color:rgba(255,255,255,.04);line-height:1;flex-shrink:0;}
@@ -182,8 +167,6 @@ nav{position:sticky;top:0;z-index:500;background:rgba(7,9,15,.92);backdrop-filte
 .bl-step-desc{font-size:.66rem;color:var(--text2);line-height:1.55;}
 
 .bl-layout{display:grid;grid-template-columns:1fr 300px;gap:1.5rem;align-items:start;margin-bottom:1.5rem;}
-
-/* Form */
 .bl-form{background:var(--bg1);border:1px solid var(--border);}
 .bl-form-head{background:var(--bg2);padding:.85rem 1.3rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:.6rem;}
 .bl-form-head::before{content:'>';color:var(--teal);}
@@ -211,7 +194,6 @@ nav{position:sticky;top:0;z-index:500;background:rgba(7,9,15,.92);backdrop-filte
 .bl-msg.ok{background:rgba(0,201,167,.08);color:var(--teal);border:1px solid rgba(0,201,167,.2);display:block;}
 .bl-msg.err{background:rgba(255,85,85,.08);color:var(--red);border:1px solid rgba(255,85,85,.2);display:block;}
 
-/* Sidebar stats */
 .bl-sidebar{display:flex;flex-direction:column;gap:1rem;}
 .bl-stat-card{background:var(--bg1);border:1px solid var(--border);}
 .bl-stat-head{background:var(--bg2);padding:.65rem 1rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
@@ -228,7 +210,6 @@ nav{position:sticky;top:0;z-index:500;background:rgba(7,9,15,.92);backdrop-filte
 .bl-stat-fill.teal{background:var(--teal);}
 .bl-empty-sm{font-size:.68rem;color:var(--text3);font-style:italic;text-align:center;padding:.6rem 0;}
 
-/* Voice cards */
 .bl-voices-wrap{background:var(--bg1);border:1px solid var(--border);margin-bottom:1.5rem;}
 .bl-voices-head{padding:.85rem 1.3rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:var(--bg2);}
 .bl-voices-title{display:flex;align-items:baseline;gap:.75rem;}
@@ -255,19 +236,16 @@ nav{position:sticky;top:0;z-index:500;background:rgba(7,9,15,.92);backdrop-filte
 .bl-empty-full{text-align:center;padding:3rem 1rem;color:var(--text3);font-size:.72rem;background:var(--bg1);}
 .bl-empty-icon{font-size:1.75rem;display:block;margin-bottom:.45rem;opacity:.3;}
 
-/* AI Synth */
 .bl-synth{background:var(--bg1);border:1px solid var(--border);}
 .bl-synth-head{background:var(--bg2);padding:.85rem 1.3rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
 .bl-synth-head-title{font-size:.72rem;letter-spacing:.1em;color:var(--white);}
 .bl-synth-badge{font-size:.5rem;letter-spacing:.12em;text-transform:uppercase;background:rgba(232,160,32,.12);color:var(--amber);border:1px solid rgba(232,160,32,.25);padding:.12rem .45rem;}
 .bl-synth-body{padding:1.3rem;}
-.bl-synth-desc{font-size:.7rem;color:var(--text2);line-height:1.8;margin-bottom:1rem;padding-bottom:1rem;border-bottom:1px solid var(--border);}
-.bl-synth-desc small{display:block;margin-top:.35rem;color:var(--text3);font-size:.62rem;}
-.bl-key-row{display:grid;grid-template-columns:1fr auto;gap:.5rem;margin-bottom:1rem;}
-.bl-key-input{font-family:'JetBrains Mono',monospace;font-size:.68rem;padding:.55rem .75rem;border:1px solid var(--border);background:var(--bg);outline:none;color:var(--text);transition:border-color .15s;width:100%;}
-.bl-key-input:focus{border-color:rgba(232,160,32,.4);}
-.bl-key-save{padding:.55rem 1rem;background:var(--bg2);color:var(--text2);border:1px solid var(--border);cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:.08em;transition:all .15s;white-space:nowrap;}
-.bl-key-save:hover{border-color:var(--amber);color:var(--amber);}
+.synth-step{background:var(--bg2);border:1px solid var(--border);padding:1.3rem 1.5rem;margin-bottom:1rem;}
+.synth-step-header{display:flex;align-items:center;gap:.65rem;margin-bottom:.6rem;}
+.synth-step-num{font-size:.55rem;letter-spacing:.18em;background:var(--amber);color:var(--bg);padding:.15rem .5rem;font-weight:700;}
+.synth-step-title{font-size:.85rem;font-weight:600;color:var(--white);}
+.synth-step-desc{font-size:.74rem;color:var(--text2);line-height:1.85;margin-bottom:.85rem;}
 .bl-synth-btn{background:var(--amber);color:var(--bg);border:none;padding:.7rem 1.6rem;font-family:'JetBrains Mono',monospace;font-size:.72rem;font-weight:700;cursor:pointer;transition:all .18s;display:inline-flex;align-items:center;gap:.45rem;letter-spacing:.08em;}
 .bl-synth-btn:hover{background:var(--amber2);}
 .bl-synth-btn:disabled{opacity:.35;cursor:not-allowed;}
@@ -277,29 +255,18 @@ nav{position:sticky;top:0;z-index:500;background:rgba(7,9,15,.92);backdrop-filte
 @keyframes spin{to{transform:rotate(360deg);}}
 .bl-synth-result{display:none;margin-top:1.3rem;border-top:1px solid rgba(232,160,32,.2);padding-top:1.3rem;}
 .bl-synth-result.show{display:block;}
-.synth-step{background:var(--bg2);border:1px solid var(--border);padding:1.3rem 1.5rem;margin-bottom:1rem;}
-.synth-step-header{display:flex;align-items:center;gap:.65rem;margin-bottom:.6rem;}
-.synth-step-num{font-size:.55rem;letter-spacing:.18em;background:var(--amber);color:var(--bg);padding:.15rem .5rem;font-weight:700;}
-.synth-step-title{font-size:.85rem;font-weight:600;color:var(--white);}
-.synth-step-desc{font-size:.74rem;color:var(--text2);line-height:1.85;margin-bottom:.85rem;}
-.synth-hint{font-size:.65rem;color:var(--text3);margin-top:.5rem;line-height:1.7;}
-.synth-result-section{}
 .synth-result-label{font-size:.8rem;font-weight:600;color:var(--white);margin-bottom:.3rem;}
 .synth-result-hint{font-size:.68rem;color:var(--text3);margin-bottom:.75rem;line-height:1.6;}
-.bl-synth-result-label{font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:var(--amber);margin-bottom:.85rem;}
 .bl-theme-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:1px;background:var(--border);margin-bottom:1rem;}
 .bl-theme-card{background:var(--bg);padding:.9rem;border-top:2px solid var(--amber);}
 .bl-theme-label{font-size:.52rem;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);margin-bottom:.28rem;}
 .bl-theme-body{font-size:.7rem;color:var(--text2);line-height:1.65;}
-.bl-full-head{font-size:.55rem;letter-spacing:.15em;text-transform:uppercase;color:var(--text3);margin-bottom:.35rem;}
 .bl-full-text{font-size:.74rem;line-height:1.9;color:var(--text2);white-space:pre-wrap;background:var(--bg);padding:1rem 1.2rem;border:1px solid var(--border);border-left:2px solid var(--amber);}
 
-/* ── FOOTER ── */
 footer{background:var(--bg1);border-top:1px solid var(--border);padding:2rem;text-align:center;}
 footer p{font-size:.6rem;color:var(--text3);letter-spacing:.07em;line-height:2.2;}
 footer strong{color:var(--amber);}
 
-/* ── ANIMATIONS ── */
 .reveal{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease;}
 .reveal.vis{opacity:1;transform:none;}
 .stagger>*{opacity:0;transform:translateY(16px);transition:opacity .45s ease,transform .45s ease;}
@@ -309,14 +276,6 @@ footer strong{color:var(--amber);}
 .stagger.vis>*:nth-child(4){opacity:1;transform:none;transition-delay:.28s;}
 .stagger.vis>*:nth-child(5){opacity:1;transform:none;transition-delay:.36s;}
 
-.kpi-cell{opacity:0;animation:kfade .5s ease forwards;}
-@keyframes kfade{to{opacity:1;}}
-.kpi-cell:nth-child(1){animation-delay:.08s;}
-.kpi-cell:nth-child(2){animation-delay:.16s;}
-.kpi-cell:nth-child(3){animation-delay:.24s;}
-.kpi-cell:nth-child(4){animation-delay:.32s;}
-.kpi-cell:nth-child(5){animation-delay:.4s;}
-
 @media(max-width:1024px){
   .bl-layout{grid-template-columns:1fr;}
   .rec-grid{grid-template-columns:1fr 1fr;}
@@ -325,22 +284,17 @@ footer strong{color:var(--amber);}
 @media(max-width:768px){
   .gap-grid,.g2,.g21{grid-template-columns:1fr;}
   .kpi-inner{grid-template-columns:repeat(3,1fr);}
-  nav{flex-wrap:wrap;}
-  .nav-links{display:none;}
 }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
   <div class="nav-logo">JPCDP <span>// JAPAN PROTESTANT CHURCH DIGITAL PLATFORM</span></div>
   <div class="nav-status">OPERATIONAL</div>
-
   <div class="nav-ver">v2026.03.06</div>
 </nav>
 
-<!-- HERO -->
 <section class="hero">
   <div class="hero-glow"></div>
   <div class="hero-inner">
@@ -358,32 +312,31 @@ footer strong{color:var(--amber);}
   </div>
 </section>
 
-<!-- KPI -->
 <section class="kpi-row">
   <div class="kpi-inner">
     <div class="kpi-cell">
       <div class="kpi-label">総教会数</div>
-      <div class="kpi-value"><span class="count-num" data-target="7660" data-suffix="">0</span></div>
+      <div class="kpi-value"><span class="count-num" data-target="7660">0</span></div>
       <div class="kpi-desc">2026年初推定</div>
     </div>
     <div class="kpi-cell">
       <div class="kpi-label">教会員数</div>
-      <div class="kpi-value"><span class="count-num" data-target="555210" data-suffix="">0</span></div>
+      <div class="kpi-value"><span class="count-num" data-target="555210">0</span></div>
       <div class="kpi-desc">推定値</div>
     </div>
     <div class="kpi-cell">
       <div class="kpi-label">無教会地域</div>
-      <div class="kpi-value"><span class="count-num" data-target="1793" data-suffix=""><span class="kpi-unit" style="font-size:1rem"></span></span>1,793</div>
+      <div class="kpi-value"><span class="count-num" data-target="1793">0</span></div>
       <div class="kpi-desc">旧市町村ベース</div>
     </div>
     <div class="kpi-cell">
       <div class="kpi-label">全国収入 中央推定</div>
-      <div class="kpi-value"><span class="count-num" data-target="604" data-suffix=""><span class="kpi-unit">億</span></span></div>
+      <div class="kpi-value"><span class="count-num" data-target="604">0</span><span class="kpi-unit">億</span></div>
       <div class="kpi-desc">472〜772億円レンジ</div>
     </div>
     <div class="kpi-cell">
       <div class="kpi-label">牧師謝礼比率</div>
-      <div class="kpi-value"><span class="count-num" data-target="67" data-suffix=""><span class="kpi-unit">%</span></span></div>
+      <div class="kpi-value"><span class="count-num" data-target="67">0</span><span class="kpi-unit">%</span></div>
       <div class="kpi-desc">経常支出に占める割合</div>
     </div>
   </div>
@@ -391,21 +344,18 @@ footer strong{color:var(--amber);}
 
 <main class="content">
 
-<!-- SEC 01 GEO -->
 <section id="geo" class="sec">
   <div class="sec-head reveal">
     <span class="sec-num">01</span>
     <h2 class="sec-title">地理的分布</h2>
     <span class="sec-en">GEOGRAPHIC DISTRIBUTION</span>
   </div>
-
   <div class="gap-grid stagger reveal">
     <div class="chart-box">
       <div class="chart-lbl">立地区分</div>
       <div class="chart-ttl">都市部・地方部の教会比率</div>
-      <div class="chart-wrap" style="height:210px;">
-        <canvas id="cUrban"></canvas>
-        <div class="donut-abs"><span class="donut-big count-num" data-target="7660" data-suffix="">0</span><span class="donut-sm">TOTAL</span></div>
+      <div class="chart-wrap" style="height:210px;"><canvas id="cUrban"></canvas>
+        <div class="donut-abs"><span class="donut-big">7,660</span><span class="donut-sm">TOTAL</span></div>
       </div>
       <div class="legend">
         <div class="legend-item"><div class="ldot" style="background:#e8a020;"></div>都市部（DID） 5,362（70%）</div>
@@ -415,19 +365,14 @@ footer strong{color:var(--amber);}
     <div class="chart-box">
       <div class="chart-lbl">駅からの距離帯</div>
       <div class="chart-ttl">距離帯別 教会数（4区分）</div>
-      <div class="chart-wrap" style="height:210px;">
-        <canvas id="cStation"></canvas>
-      </div>
+      <div class="chart-wrap" style="height:210px;"><canvas id="cStation"></canvas></div>
     </div>
   </div>
-
   <div class="gap-grid stagger reveal" style="margin-top:1.5rem;">
     <div class="chart-box">
       <div class="chart-lbl">アクセス 1km基準</div>
       <div class="chart-ttl">駅近・駅遠 教会数</div>
-      <div class="chart-wrap" style="height:160px;">
-        <canvas id="cNearFar"></canvas>
-      </div>
+      <div class="chart-wrap" style="height:160px;"><canvas id="cNearFar"></canvas></div>
       <div class="legend">
         <div class="legend-item"><div class="ldot" style="background:#e8a020;"></div>駅近（1km以内） 4,596</div>
         <div class="legend-item"><div class="ldot" style="background:#4d9fff;"></div>駅遠（1km超） 3,064</div>
@@ -436,16 +381,13 @@ footer strong{color:var(--amber);}
     <div class="chart-box">
       <div class="chart-lbl">過疎地域</div>
       <div class="chart-ttl">過疎・非過疎地域の教会数</div>
-      <div class="chart-wrap" style="height:160px;">
-        <canvas id="cSparse"></canvas>
-      </div>
+      <div class="chart-wrap" style="height:160px;"><canvas id="cSparse"></canvas></div>
       <div class="legend">
         <div class="legend-item"><div class="ldot" style="background:#ff5555;"></div>過疎地域 536</div>
         <div class="legend-item"><div class="ldot" style="background:#e8a020;"></div>非過疎地域 7,124</div>
       </div>
     </div>
   </div>
-
   <div class="chart-box reveal" style="margin-top:1.5rem;">
     <div class="chart-lbl">構造分析</div>
     <div class="chart-ttl" style="margin-bottom:1rem;">都市集中と地方孤立の同時進行</div>
@@ -463,27 +405,22 @@ footer strong{color:var(--amber);}
       </div>
     </div>
   </div>
-
   <div class="insight reveal"><p><strong>地理的示唆：</strong>都市集中が進むほど地方の空白・担任不足・世代交代断絶が懸念される。駅近教会は<strong>開かれた入口</strong>を持ちやすく、郊外型は<strong>共同体の濃さ</strong>が育つが担い手の移動負荷が増える。立地に応じた牧会設計が必要。</p></div>
 </section>
 
 <div class="orn">// 02</div>
 
-<!-- SEC 02 VACANT -->
 <section id="vacant" class="sec">
   <div class="sec-head reveal">
     <span class="sec-num">02</span>
     <h2 class="sec-title">無教会地域</h2>
     <span class="sec-en">CHURCH-FREE REGIONS</span>
   </div>
-
   <div class="gap-grid stagger reveal">
     <div class="chart-box">
       <div class="chart-lbl">空白地域分析</div>
       <div class="chart-ttl">教会未設置エリア（旧市町村区分）</div>
-      <div class="chart-wrap" style="height:210px;">
-        <canvas id="cVacant"></canvas>
-      </div>
+      <div class="chart-wrap" style="height:210px;"><canvas id="cVacant"></canvas></div>
     </div>
     <div class="chart-box">
       <div class="chart-lbl">人口規模別内訳</div>
@@ -493,38 +430,34 @@ footer strong{color:var(--amber);}
         <div class="sbar"><div class="sbar-top"><div class="sbar-lbl">人口3,000〜5万人（URA）</div><div class="sbar-val">1,473か所</div></div><div class="sbar-track"><div class="sbar-fill" style="background:var(--amber);" data-w="82.2"></div></div></div>
         <div class="sbar"><div class="sbar-top"><div class="sbar-lbl">優先度高い（7,000人以上）</div><div class="sbar-val">809か所</div></div><div class="sbar-track"><div class="sbar-fill" style="background:var(--teal);" data-w="45.1"></div></div></div>
       </div>
-      <p style="margin-top:1.1rem;font-size:.7rem;color:var(--text2);line-height:1.8;border-top:1px solid var(--border);padding-top:.85rem;">▶ <strong style="color:var(--amber);">人口7,000人以上の優先地域が809か所（全体の45%）</strong>存在。無教会が"中間規模の町の空白"として顕在化している。</p>
+      <p style="margin-top:1.1rem;font-size:.7rem;color:var(--text2);line-height:1.8;border-top:1px solid var(--border);padding-top:.85rem;">▶ <strong style="color:var(--amber);">人口7,000人以上の優先地域が809か所（全体の45%）</strong>存在。</p>
     </div>
   </div>
-
   <div class="insight reveal"><p><strong>戦略的示唆：</strong>常設教会だけでなく、<strong>巡回・兼牧・分散集会・オンライン接続</strong>を組み合わせて接触の濃度を上げる戦略が現実的。優先地域809か所への戦略的アプローチが急務。</p></div>
 </section>
 
 <div class="orn">// 03</div>
 
-<!-- SEC 03 FINANCE -->
 <section id="finance" class="sec">
   <div class="sec-head reveal">
     <span class="sec-num">03</span>
     <h2 class="sec-title">財政構造</h2>
     <span class="sec-en">FINANCIAL OVERVIEW</span>
   </div>
-
   <div class="chart-box reveal" style="margin-bottom:1.5rem;">
     <div class="chart-lbl">参照統計 — 日本基督教団（UCCJ）2021年度</div>
     <div class="chart-ttl" style="margin-bottom:.85rem;">スケールアップの基準となった UCCJ 実績値</div>
     <div class="uccj-row">
-      <div class="uccj-cell"><div class="uccj-v count-num" data-target="1660" data-suffix="">0</div><div class="uccj-l">教会・伝道所数</div></div>
-      <div class="uccj-cell"><div class="uccj-v count-num" data-target="73548" data-suffix="">0</div><div class="uccj-l">現住陪餐会員</div></div>
-      <div class="uccj-cell"><div class="uccj-v">102.3<span style="font-size:.8rem;font-family:'JetBrains Mono',monospace;color:var(--amber);">億</span></div><div class="uccj-l">経常収入</div></div>
+      <div class="uccj-cell"><div class="uccj-v"><span class="count-num" data-target="1660">0</span></div><div class="uccj-l">教会・伝道所数</div></div>
+      <div class="uccj-cell"><div class="uccj-v"><span class="count-num" data-target="73548">0</span></div><div class="uccj-l">現住陪餐会員</div></div>
+      <div class="uccj-cell"><div class="uccj-v"><span class="count-num" data-target="102.3">0</span><span style="font-size:.8rem;font-family:'JetBrains Mono',monospace;color:var(--amber);">億</span></div><div class="uccj-l">経常収入</div></div>
     </div>
     <div class="uccj-row">
-      <div class="uccj-cell"><div class="uccj-v">616<span style="font-size:.8rem;font-family:'JetBrains Mono',monospace;color:var(--amber);">万</span></div><div class="uccj-l">教会あたり平均収入</div></div>
-      <div class="uccj-cell"><div class="uccj-v">13.9<span style="font-size:.8rem;font-family:'JetBrains Mono',monospace;color:var(--amber);">万</span></div><div class="uccj-l">教会員あたり平均収入</div></div>
-      <div class="uccj-cell"><div class="uccj-v">75.6<span style="font-size:.8rem;font-family:'JetBrains Mono',monospace;color:var(--amber);">億</span></div><div class="uccj-l">経常支出</div></div>
+      <div class="uccj-cell"><div class="uccj-v"><span class="count-num" data-target="616">0</span><span style="font-size:.8rem;font-family:'JetBrains Mono',monospace;color:var(--amber);">万</span></div><div class="uccj-l">教会あたり平均収入</div></div>
+      <div class="uccj-cell"><div class="uccj-v"><span class="count-num" data-target="13.9">0</span><span style="font-size:.8rem;font-family:'JetBrains Mono',monospace;color:var(--amber);">万</span></div><div class="uccj-l">教会員あたり平均収入</div></div>
+      <div class="uccj-cell"><div class="uccj-v"><span class="count-num" data-target="75.6">0</span><span style="font-size:.8rem;font-family:'JetBrains Mono',monospace;color:var(--amber);">億</span></div><div class="uccj-l">経常支出</div></div>
     </div>
   </div>
-
   <div class="chart-box reveal" style="margin-bottom:1.5rem;">
     <div class="chart-lbl">全国スケール推定 — シナリオ比較</div>
     <div class="chart-ttl" style="margin-bottom:.85rem;">経常収入シナリオ比較（2026年 · 億円）</div>
@@ -533,11 +466,8 @@ footer strong{color:var(--amber);}
       <div class="sc-cell mid"><div class="sc-lbl">シナリオC · 中央推定</div><div class="sc-val">604<span style="font-size:.85rem;">億</span></div><div class="sc-sub">60,399,411,362円</div></div>
       <div class="sc-cell"><div class="sc-lbl">シナリオB · 会員あたり</div><div class="sc-val">772<span style="font-size:.85rem;color:var(--text3);">億</span></div><div class="sc-sub">77,253,038,758円</div></div>
     </div>
-    <div class="chart-wrap" style="height:175px;margin-top:1rem;">
-      <canvas id="cScenario"></canvas>
-    </div>
+    <div class="chart-wrap" style="height:175px;margin-top:1rem;"><canvas id="cScenario"></canvas></div>
   </div>
-
   <div class="gap-grid stagger reveal">
     <div class="chart-box">
       <div class="chart-lbl">UCCJ 収入内訳（2021年度）</div>
@@ -555,7 +485,7 @@ footer strong{color:var(--amber);}
       <div class="chart-ttl">用途別 構成比（総額 75.6億円）</div>
       <div class="chart-wrap" style="height:195px;">
         <canvas id="cExpense"></canvas>
-        <div class="donut-abs"><span class="donut-big count-num" data-target="67" data-suffix="">0</span><span class="donut-sm">% 牧師謝礼</span></div>
+        <div class="donut-abs"><span class="donut-big">67</span><span class="donut-sm">% 牧師謝礼</span></div>
       </div>
       <div class="legend">
         <div class="legend-item"><div class="ldot" style="background:#e8a020;"></div>牧師謝礼 67%</div>
@@ -564,7 +494,6 @@ footer strong{color:var(--amber);}
       </div>
     </div>
   </div>
-
   <div class="gap-grid stagger reveal" style="margin-top:1.5rem;">
     <div class="chart-box">
       <div class="chart-lbl">全国推定 · 収入内訳（中央推定C=604億円）</div>
@@ -577,27 +506,24 @@ footer strong{color:var(--amber);}
       <div class="chart-wrap" style="height:180px;"><canvas id="cExpenseNat"></canvas></div>
     </div>
   </div>
-
-  <div class="insight reveal"><p><strong>財政の示唆：</strong>支出の<strong>67%が牧師謝礼（人件費）</strong>を占める。担任不足や統合・巡回の圧力が増すほど支出構造の最適化が急務。献金動員だけでなく<strong>支出構造の見直し</strong>と小さな共同体の継続可能性設計が課題の本質。</p></div>
+  <div class="insight reveal"><p><strong>財政の示唆：</strong>支出の<strong>67%が牧師謝礼（人件費）</strong>を占める。担任不足や統合・巡回の圧力が増すほど支出構造の最適化が急務。</p></div>
 </section>
 
 <div class="orn">// 04</div>
 
-<!-- SEC 04 PASTOR -->
 <section id="pastor" class="sec">
   <div class="sec-head reveal">
     <span class="sec-num">04</span>
     <h2 class="sec-title">教職者配置</h2>
     <span class="sec-en">PASTORAL RESOURCES</span>
   </div>
-
   <div class="gap-grid stagger reveal">
     <div class="chart-box">
       <div class="chart-lbl">配置比率</div>
       <div class="chart-ttl">牧師配置別 教会数（推定）</div>
       <div class="chart-wrap" style="height:210px;">
         <canvas id="cPastor"></canvas>
-        <div class="donut-abs"><span class="donut-big count-num" data-target="88" data-suffix="">0</span><span class="donut-sm">% 常駐配置</span></div>
+        <div class="donut-abs"><span class="donut-big">88</span><span class="donut-sm">% 常駐配置</span></div>
       </div>
       <div class="legend">
         <div class="legend-item"><div class="ldot" style="background:#e8a020;"></div>常駐 6,740（88%）</div>
@@ -616,13 +542,11 @@ footer strong{color:var(--amber);}
       </div>
     </div>
   </div>
-
-  <div class="insight reveal"><p><strong>人材配置の示唆：</strong>無牧・兼牧の増加は「失敗」ではなく<strong>構造変化の兆候</strong>。地方・過疎ほど兼牧比率が上がる可能性が高く、交通・宿泊・オンライン・記録継承（アーカイブ）の整備が実質的な牧会インフラとなる。</p></div>
+  <div class="insight reveal"><p><strong>人材配置の示唆：</strong>無牧・兼牧の増加は<strong>構造変化の兆候</strong>。交通・宿泊・オンライン・記録継承（アーカイブ）の整備が実質的な牧会インフラとなる。</p></div>
 </section>
 
 <div class="orn">// 05</div>
 
-<!-- SEC 05 REC -->
 <section id="rec" class="sec">
   <div class="sec-head reveal">
     <span class="sec-num">05</span>
@@ -634,13 +558,12 @@ footer strong{color:var(--amber);}
     <div class="rec-card"><div class="rec-n">2</div><div class="rec-icon">🏠</div><div class="rec-t">小規模教会の支援</div><div class="rec-body">教会統合・兼牧推奨・シェア会計等で支出構造を最適化。小さな共同体でも継続可能な収支モデルを模索する。</div></div>
     <div class="rec-card"><div class="rec-n">3</div><div class="rec-icon">🚉</div><div class="rec-t">アクセス別戦略</div><div class="rec-body">駅近は地域開放型の「入口」づくりを強化。駅遠は信徒間の結びつき・ケアプログラムに注力する。</div></div>
     <div class="rec-card"><div class="rec-n">4</div><div class="rec-icon">👥</div><div class="rec-t">人材配置の再構築</div><div class="rec-body">無牧・兼牧増加を前向きに捉え、巡回牧師制度と教会記録の電子化（アーカイブ）を制度化する。</div></div>
-    <div class="rec-card"><div class="rec-n">5</div><div class="rec-icon">📊</div><div class="rec-t">データドリブン戦略</div><div class="rec-body">GIS集計（住所×駅×DID×過疎指定）による実測で推定を検証し、地域別優先度の定量化を目指す。</div></div>
+    <div class="rec-card"><div class="rec-n">5</div><div class="rec-icon">📊</div><div class="rec-t">データドリブン戦略</div><div class="rec-body">GIS集計による実測で推定を検証し、地域別優先度の定量化を目指す。</div></div>
   </div>
 </section>
 
 <div class="orn">// 06</div>
 
-<!-- SEC 06 DATA -->
 <section id="data" class="sec">
   <div class="sec-head reveal">
     <span class="sec-num">06</span>
@@ -682,7 +605,6 @@ footer strong{color:var(--amber);}
 
 <div class="orn">// 07</div>
 
-<!-- SEC 07 BROADLISTENING -->
 <section id="voices" class="sec">
   <div class="sec-head reveal">
     <span class="sec-num">07</span>
@@ -773,8 +695,6 @@ footer strong{color:var(--amber);}
       <span class="bl-synth-badge">Powered by Claude</span>
     </div>
     <div class="bl-synth-body">
-
-      <!-- STEP 1 -->
       <div class="synth-step">
         <div class="synth-step-header">
           <span class="synth-step-num">STEP 1</span>
@@ -782,8 +702,6 @@ footer strong{color:var(--amber);}
         </div>
         <p class="synth-step-desc">上の「外部からの声」フォームから声を投稿してください。投稿が多いほど分析の精度が上がります。</p>
       </div>
-
-      <!-- STEP 2 -->
       <div class="synth-step">
         <div class="synth-step-header">
           <span class="synth-step-num">STEP 2</span>
@@ -793,21 +711,18 @@ footer strong{color:var(--amber);}
         <button class="bl-synth-btn" id="bl-synth-btn" onclick="blSynthesize()">▶ 分析を開始する</button>
         <div class="bl-loading" id="bl-loading"><div class="bl-spinner"></div><span>Claudeが分析中です。しばらくお待ちください…</span></div>
       </div>
-
-      <!-- RESULT -->
       <div class="bl-synth-result" id="bl-synth-result">
-        <div class="synth-result-section">
+        <div style="margin-bottom:1.25rem;">
           <div class="synth-result-label">📌 抽出されたテーマ</div>
           <p class="synth-result-hint">投稿から共通して見られたトピックです。</p>
           <div class="bl-theme-grid" id="bl-themes"></div>
         </div>
-        <div class="synth-result-section" style="margin-top:1.25rem;">
+        <div>
           <div class="synth-result-label">📝 総合要約と政策への示唆</div>
           <p class="synth-result-hint">全体の傾向と、今後の戦略立案に活かせる示唆をまとめました。</p>
           <div class="bl-full-text" id="bl-full-text"></div>
         </div>
       </div>
-
     </div>
   </div>
 </section>
@@ -826,11 +741,11 @@ footer strong{color:var(--amber);}
 
 <script>
 /* ══ CHARTS ══ */
-const C={amber:'#e8a020',amber2:'#f5c46e',teal:'#00c9a7',red:'#ff5555',blue:'#4d9fff',muted:'rgba(255,255,255,0.12)'};
+const C={amber:'#e8a020',amber2:'#f5c46e',teal:'#00c9a7',red:'#ff5555',blue:'#4d9fff'};
 Chart.defaults.font.family="'JetBrains Mono',monospace";
 Chart.defaults.color='#7a8899';
 
-const chartDefs={}, chartInst={}, chartTriggered=new Set();
+const chartDefs={},chartInst={},chartTriggered=new Set();
 
 function mkDonut(id,labels,data,colors,cutout='66%'){
   chartDefs[id]={kind:'donut',labels,realData:data,colors,cutout};
@@ -887,7 +802,6 @@ Object.keys(chartDefs).forEach(id=>{const el=document.getElementById(id);if(el)c
 
 /* ══ COUNTER ══ */
 function animCounter(el,target,dur=1800){
-  const suf=el.getAttribute('data-suffix')||'';
   const isFloat=!Number.isInteger(target);
   let start=null;
   const step=ts=>{
@@ -895,9 +809,9 @@ function animCounter(el,target,dur=1800){
     const p=Math.min((ts-start)/dur,1);
     const ease=1-Math.pow(1-p,4);
     const val=target*ease;
-    el.textContent=(isFloat?val.toFixed(1):Math.round(val).toLocaleString())+suf;
+    el.textContent=(isFloat?val.toFixed(1):Math.round(val).toLocaleString());
     if(p<1)requestAnimationFrame(step);
-    else el.textContent=(isFloat?target.toFixed(1):target.toLocaleString())+suf;
+    else el.textContent=(isFloat?target.toFixed(1):target.toLocaleString());
   };
   requestAnimationFrame(step);
 }
@@ -906,6 +820,12 @@ function animCounter(el,target,dur=1800){
 const revealObs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');revealObs.unobserve(e.target);}}),{threshold:.07});
 document.querySelectorAll('.reveal,.stagger').forEach(el=>revealObs.observe(el));
 
+// KPI行は即時アニメーション
+setTimeout(()=>{
+  document.querySelectorAll('.kpi-row .count-num[data-target]').forEach(el=>animCounter(el,parseFloat(el.getAttribute('data-target'))));
+},300);
+
+// その他はスクロール検知
 const cTriggered=new WeakSet();
 const cObs=new IntersectionObserver(entries=>entries.forEach(e=>{
   if(e.isIntersecting&&!cTriggered.has(e.target)){
@@ -914,7 +834,7 @@ const cObs=new IntersectionObserver(entries=>entries.forEach(e=>{
     cObs.unobserve(e.target);
   }
 }),{threshold:.2});
-document.querySelectorAll('.kpi-row,.chart-box,.uccj-cell,.donut-abs').forEach(el=>cObs.observe(el));
+document.querySelectorAll('.chart-box,.uccj-cell').forEach(el=>cObs.observe(el));
 
 const bTriggered=new WeakSet();
 const bObs=new IntersectionObserver(entries=>entries.forEach(e=>{
@@ -927,9 +847,9 @@ const bObs=new IntersectionObserver(entries=>entries.forEach(e=>{
 document.querySelectorAll('.chart-box,.bl-stat-body').forEach(el=>bObs.observe(el));
 
 /* ══ SUPABASE CONFIG ══ */
-const SUPABASE_URL = 'https://xfljrjpvbexfsaxjrqwj.supabase.co';
-const SUPABASE_KEY = 'sb_publishable_5KKymLL5D7GngiykVPUmFQ_zQ0Fd50Z';
-const SB_HEADERS = {'Content-Type':'application/json','apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY};
+const SUPABASE_URL='https://xfljrjpvbexfsaxjrqwj.supabase.co';
+const SUPABASE_KEY='sb_publishable_5KKymLL5D7GngiykVPUmFQ_zQ0Fd50Z';
+const SB_HEADERS={'Content-Type':'application/json','apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY};
 
 async function sbSelect(){
   const res=await fetch(`${SUPABASE_URL}/rest/v1/voices?select=*&order=created_at.desc`,{headers:SB_HEADERS});
@@ -1017,24 +937,22 @@ async function blClearAll(){
   blRender();
 }
 
-function blSaveKey(){
-  const k=document.getElementById('bl-apikey').value.trim();
-  if(!k){alert('APIキーを入力してください');return;}
-  localStorage.setItem(BL_APIKEY,k);alert('APIキーを保存しました');
-}
-
 async function blSynthesize(){
-  const {data:voices}=await sb.from('voices').select('*').order('created_at',{ascending:false});
-  if(!voices.length){alert('投稿がありません');return;}
-  const btn=document.getElementById('bl-synth-btn'),loading=document.getElementById('bl-loading'),result=document.getElementById('bl-synth-result');
+  const btn=document.getElementById('bl-synth-btn');
+  const loading=document.getElementById('bl-loading');
+  const result=document.getElementById('bl-synth-result');
+  let voices=[];
+  try{voices=await sbSelect();}catch(e){alert('データ取得エラー: '+e.message);return;}
+  if(!Array.isArray(voices)||voices.length===0){alert('投稿がありません');return;}
   btn.disabled=true;loading.classList.add('show');result.classList.remove('show');
   const voiceText=voices.map((v,i)=>`[声 ${i+1}] 立場:${v.role} / アクセス:${v.access}\n課題：${v.challenge}\n${v.idea?'提案：'+v.idea:''}\n${v.comment?'コメント：'+v.comment:''}`).join('\n---\n');
   const prompt=`以下は日本のプロテスタント教会統計報告書への「外部からの声」です。BroadListening手法で分析してください。\n\n${voiceText}\n\n## 出力形式（JSONのみ）\n{"themes":[{"label":"テーマ名（10字以内）","body":"説明（50字以内）"}],"summary":"総合要約（200〜300字）","suggestions":["示唆1","示唆2","示唆3"]}`;
   try{
-    // ★ プロキシ経由でリクエスト（APIキーはサーバー側で管理）
-    const res=await fetch('/api/synthesize',{method:'POST',
+    const res=await fetch('/api/synthesize',{
+      method:'POST',
       headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:prompt}]})});
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:prompt}]})
+    });
     if(!res.ok){const e=await res.json();throw new Error(e.error?.message||res.statusText);}
     const data=await res.json();
     const raw=data.content.map(b=>b.text||'').join('');
