@@ -1008,6 +1008,9 @@ function blRenderStats(cid,data,keys,colorClass){
 }
 
 async function blClearAll(){
+  const pwd=prompt('管理者パスワードを入力してください：');
+  if(pwd===null)return;
+  if(pwd!=='awai2026'){alert('パスワードが違います');return;}
   if(!confirm('すべての投稿を削除しますか？'))return;
   await sbDeleteAll();
   document.getElementById('bl-synth-result').classList.remove('show');
