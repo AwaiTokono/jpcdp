@@ -6,7 +6,6 @@
 <title>JPCC — Japan Protestant Church Command Center</title>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Space+Grotesk:wght@300;400;600;700&family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 :root{
   --bg:#07090f;
@@ -929,8 +928,21 @@ document.querySelectorAll('.chart-box,.bl-stat-body').forEach(el=>bObs.observe(e
 
 /* ══ SUPABASE CONFIG ══ */
 const SUPABASE_URL = 'https://xfljrjpvbexfsaxjrqwj.supabase.co';
-const SUPABASE_ANON_KEY = 'sb_publishable_5KKymLL5D7GngiykVPUmFQ_zQ0Fd50Z';
-const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+const SUPABASE_KEY = 'sb_publishable_5KKymLL5D7GngiykVPUmFQ_zQ0Fd50Z';
+const SB_HEADERS = {'Content-Type':'application/json','apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY};
+
+async function sbSelect(){
+  const res=await fetch(`${SUPABASE_URL}/rest/v1/voices?select=*&order=created_at.desc`,{headers:SB_HEADERS});
+  return res.json();
+}
+async function sbInsert(row){
+  const res=await fetch(`${SUPABASE_URL}/rest/v1/voices`,{method:'POST',headers:{...SB_HEADERS,'Prefer':'return=representation'},body:JSON.stringify(row)});
+  if(!res.ok){const e=await res.json();throw new Error(JSON.stringify(e));}
+  return res.json();
+}
+async function sbDeleteAll(){
+  await fetch(`${SUPABASE_URL}/rest/v1/voices?id=gte.0`,{method:'DELETE',headers:SB_HEADERS});
+}
 
 /* ══ BROADLISTENING ══ */
 function blShowMsg(txt,type){const el=document.getElementById('bl-msg');el.textContent=txt;el.className='bl-msg '+type;el.style.display='block';setTimeout(()=>el.style.display='none',4000);}
@@ -945,18 +957,19 @@ async function blSubmit(){
   if(!role){blShowMsg('立場を選択してください','err');return;}
   if(!access){blShowMsg('アクセス状況を選択してください','err');return;}
   if(!challenge){blShowMsg('最大の課題を入力してください','err');return;}
-  const {error}=await sb.from('voices').insert([{role,access,challenge,idea,comment}]);
-  if(error){blShowMsg('エラー: '+error.message,'err');return;}
-  document.querySelectorAll('input[name="role"]').forEach(r=>r.checked=false);
-  document.getElementById('bl-access').value='';
-  ['bl-challenge','bl-idea','bl-comment'].forEach(id=>document.getElementById(id).value='');
-  blShowMsg('// SUBMITTED — ありがとうございます','ok');
-  blRender();
+  try{
+    await sbInsert({role,access,challenge,idea,comment});
+    document.querySelectorAll('input[name="role"]').forEach(r=>r.checked=false);
+    document.getElementById('bl-access').value='';
+    ['bl-challenge','bl-idea','bl-comment'].forEach(id=>document.getElementById(id).value='');
+    blShowMsg('// SUBMITTED — ありがとうございます','ok');
+    blRender();
+  }catch(e){blShowMsg('エラー: '+e.message,'err');}
 }
 
 async function blRender(){
-  const {data:voices,error}=await sb.from('voices').select('*').order('created_at',{ascending:false});
-  if(error){console.error(error);return;}
+  const voices=await sbSelect();
+  if(!Array.isArray(voices))return;
   document.getElementById('bl-total-count').textContent=voices.length;
   const numEl=document.getElementById('bl-voice-num');
   if(numEl)numEl.textContent=voices.length;
@@ -996,7 +1009,7 @@ function blRenderStats(cid,data,keys,colorClass){
 
 async function blClearAll(){
   if(!confirm('すべての投稿を削除しますか？'))return;
-  await sb.from('voices').delete().neq('id',0);
+  await sbDeleteAll();
   document.getElementById('bl-synth-result').classList.remove('show');
   blRender();
 }
