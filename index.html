@@ -12,21 +12,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
 :root{
-  --bg:#07090f;
-  --bg1:#0d1117;
-  --bg2:#111827;
-  --bg3:#1a2235;
-  --border:rgba(255,255,255,.06);
-  --border2:rgba(255,255,255,.12);
-  --text:#c9d1e0;
-  --text2:#7a8899;
-  --text3:#4a5568;
-  --amber:#e8a020;
-  --amber2:#f5c46e;
-  --teal:#00c9a7;
-  --red:#ff5555;
-  --blue:#4d9fff;
-  --white:#f0f4ff;
+  --bg:#07090f;--bg1:#0d1117;--bg2:#111827;--bg3:#1a2235;
+  --border:rgba(255,255,255,.06);--border2:rgba(255,255,255,.12);
+  --text:#c9d1e0;--text2:#7a8899;--text3:#4a5568;
+  --amber:#e8a020;--amber2:#f5c46e;--teal:#00c9a7;--red:#ff5555;--blue:#4d9fff;--white:#f0f4ff;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
@@ -58,11 +47,7 @@ nav{position:sticky;top:0;z-index:500;background:rgba(7,9,15,.92);backdrop-filte
 .kpi-inner{max-width:1280px;margin:0 auto;padding:0 2rem;display:grid;grid-template-columns:repeat(5,1fr);}
 .kpi-cell{padding:1.4rem 1rem;border-right:1px solid var(--border);opacity:0;animation:kfade .5s ease forwards;}
 .kpi-cell:last-child{border-right:none;}
-.kpi-cell:nth-child(1){animation-delay:.08s;}
-.kpi-cell:nth-child(2){animation-delay:.16s;}
-.kpi-cell:nth-child(3){animation-delay:.24s;}
-.kpi-cell:nth-child(4){animation-delay:.32s;}
-.kpi-cell:nth-child(5){animation-delay:.4s;}
+.kpi-cell:nth-child(1){animation-delay:.08s;}.kpi-cell:nth-child(2){animation-delay:.16s;}.kpi-cell:nth-child(3){animation-delay:.24s;}.kpi-cell:nth-child(4){animation-delay:.32s;}.kpi-cell:nth-child(5){animation-delay:.4s;}
 @keyframes kfade{to{opacity:1;}}
 .kpi-label{font-size:.55rem;letter-spacing:.15em;color:var(--text3);text-transform:uppercase;margin-bottom:.3rem;}
 .kpi-value{font-size:2rem;font-weight:700;color:var(--white);line-height:1;font-family:'Space Grotesk',sans-serif;}
@@ -76,18 +61,7 @@ nav{position:sticky;top:0;z-index:500;background:rgba(7,9,15,.92);backdrop-filte
 .sec-title{font-family:'Space Grotesk',sans-serif;font-size:1.4rem;font-weight:600;color:var(--white);letter-spacing:-.01em;}
 .sec-en{font-size:.6rem;letter-spacing:.18em;color:var(--text3);margin-left:auto;text-transform:uppercase;}
 
-.card{background:var(--bg1);border:1px solid var(--border);padding:1.4rem;transition:border-color .2s,box-shadow .2s;}
-.card:hover{border-color:rgba(232,160,32,.25);box-shadow:0 0 20px rgba(232,160,32,.04);}
-.card-label{font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:var(--amber);margin-bottom:.35rem;}
-.card-title{font-size:.82rem;color:var(--text2);margin-bottom:1.1rem;font-weight:400;line-height:1.4;}
-
-.g2{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);}
-.g2>*{background:var(--bg1);}
-.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);}
-.g3>*{background:var(--bg1);}
-.g21{display:grid;grid-template-columns:2fr 1fr;gap:1.5rem;}
 .gap-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;}
-
 .chart-box{padding:1.4rem;background:var(--bg1);border:1px solid var(--border);}
 .chart-box:hover{border-color:rgba(232,160,32,.2);}
 .chart-lbl{font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:var(--amber);margin-bottom:.3rem;}
@@ -96,13 +70,11 @@ nav{position:sticky;top:0;z-index:500;background:rgba(7,9,15,.92);backdrop-filte
 .donut-abs{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;pointer-events:none;}
 .donut-big{display:block;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.6rem;color:var(--white);line-height:1;}
 .donut-sm{display:block;font-size:.5rem;letter-spacing:.1em;color:var(--text3);margin-top:.2rem;}
-
 .legend{display:flex;flex-wrap:wrap;gap:.4rem .85rem;margin-top:.8rem;}
 .legend-item{display:flex;align-items:center;gap:.3rem;font-size:.62rem;color:var(--text2);}
 .ldot{width:7px;height:7px;flex-shrink:0;}
 
-.sbar{margin-bottom:.75rem;}
-.sbar:last-child{margin-bottom:0;}
+.sbar{margin-bottom:.75rem;}.sbar:last-child{margin-bottom:0;}
 .sbar-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.22rem;}
 .sbar-lbl{font-size:.68rem;color:var(--text);}
 .sbar-val{font-size:.62rem;color:var(--amber);font-weight:500;}
@@ -155,17 +127,24 @@ nav{position:sticky;top:0;z-index:500;background:rgba(7,9,15,.92);backdrop-filte
 .rec-t{font-size:.78rem;font-weight:600;color:var(--white);margin-bottom:.35rem;line-height:1.3;}
 .rec-body{font-size:.68rem;color:var(--text2);line-height:1.65;}
 
-.div-line{height:1px;background:linear-gradient(90deg,transparent,var(--border2),transparent);margin:3rem 0;}
-.orn{text-align:center;font-size:.55rem;letter-spacing:.5em;color:var(--text3);margin:2.5rem 0;display:flex;align-items:center;gap:1rem;}
-.orn::before,.orn::after{content:'';flex:1;height:1px;background:var(--border);}
+/* ── HEATMAP ── */
+.heatmap-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;margin-bottom:1rem;}
+.hm-cell{padding:1.1rem;text-align:center;position:relative;transition:transform .2s;}
+.hm-cell:hover{transform:scale(1.02);z-index:2;}
+.hm-label{font-size:.6rem;color:rgba(255,255,255,.85);letter-spacing:.05em;margin-bottom:.4rem;line-height:1.4;}
+.hm-rate{font-family:'Space Grotesk',sans-serif;font-size:2rem;font-weight:700;color:#fff;line-height:1;}
+.hm-sub{font-size:.55rem;color:rgba(255,255,255,.6);margin-top:.25rem;}
+.hm-risk{display:inline-block;margin-top:.35rem;font-size:.55rem;padding:.1rem .4rem;background:rgba(0,0,0,.25);color:rgba(255,255,255,.7);}
+.heatmap-legend{margin-top:.5rem;}
+.heatmap-legend-bar{height:10px;background:linear-gradient(90deg,#1a3a2a,#e8a020,#ff5555);margin-bottom:.3rem;}
+.heatmap-legend-labels{display:flex;justify-content:space-between;font-size:.58rem;color:var(--text3);}
 
-/* BROADLISTENING */
+/* ── BROADLISTENING ── */
 .bl-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);margin-bottom:1.5rem;}
 .bl-step{background:var(--bg1);padding:1.1rem 1.3rem;display:flex;gap:.85rem;align-items:flex-start;}
 .bl-step-num{font-family:'Space Grotesk',sans-serif;font-size:2rem;font-weight:700;color:rgba(255,255,255,.04);line-height:1;flex-shrink:0;}
 .bl-step-title{font-size:.75rem;font-weight:600;color:var(--white);margin-bottom:.18rem;}
 .bl-step-desc{font-size:.66rem;color:var(--text2);line-height:1.55;}
-
 .bl-layout{display:grid;grid-template-columns:1fr 300px;gap:1.5rem;align-items:start;margin-bottom:1.5rem;}
 .bl-form{background:var(--bg1);border:1px solid var(--border);}
 .bl-form-head{background:var(--bg2);padding:.85rem 1.3rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:.6rem;}
@@ -180,7 +159,6 @@ nav{position:sticky;top:0;z-index:500;background:rgba(7,9,15,.92);backdrop-filte
 .bl-radio{display:none;}
 .bl-radio-label{padding:.3rem .7rem;border:1px solid var(--border);font-size:.66rem;cursor:pointer;color:var(--text2);transition:all .15s;}
 .bl-radio:checked+.bl-radio-label{background:rgba(232,160,32,.1);color:var(--amber);border-color:rgba(232,160,32,.35);}
-.bl-radio-label:hover{border-color:var(--border2);color:var(--text);}
 .bl-select,.bl-textarea{width:100%;font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--text);background:var(--bg);border:1px solid var(--border);padding:.58rem .8rem;outline:none;transition:border-color .15s;appearance:none;line-height:1.5;}
 .bl-select:focus,.bl-textarea:focus{border-color:rgba(232,160,32,.4);}
 .bl-textarea{resize:vertical;min-height:68px;line-height:1.7;}
@@ -193,15 +171,13 @@ nav{position:sticky;top:0;z-index:500;background:rgba(7,9,15,.92);backdrop-filte
 .bl-msg{font-size:.7rem;flex:1;padding:.38rem .65rem;display:none;}
 .bl-msg.ok{background:rgba(0,201,167,.08);color:var(--teal);border:1px solid rgba(0,201,167,.2);display:block;}
 .bl-msg.err{background:rgba(255,85,85,.08);color:var(--red);border:1px solid rgba(255,85,85,.2);display:block;}
-
 .bl-sidebar{display:flex;flex-direction:column;gap:1rem;}
 .bl-stat-card{background:var(--bg1);border:1px solid var(--border);}
 .bl-stat-head{background:var(--bg2);padding:.65rem 1rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
 .bl-stat-head-label{font-size:.55rem;letter-spacing:.15em;text-transform:uppercase;color:var(--text3);}
 .bl-stat-count{font-family:'Space Grotesk',sans-serif;font-size:1.3rem;font-weight:700;color:var(--amber);line-height:1;}
 .bl-stat-body{padding:.85rem 1rem;}
-.bl-stat-row{margin-bottom:.6rem;}
-.bl-stat-row:last-child{margin-bottom:0;}
+.bl-stat-row{margin-bottom:.6rem;}.bl-stat-row:last-child{margin-bottom:0;}
 .bl-stat-lbl{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.2rem;}
 .bl-stat-name{font-size:.64rem;color:var(--text2);}
 .bl-stat-val{font-size:.6rem;color:var(--amber);}
@@ -209,7 +185,6 @@ nav{position:sticky;top:0;z-index:500;background:rgba(7,9,15,.92);backdrop-filte
 .bl-stat-fill{height:100%;background:var(--amber);width:0;transition:width 1.2s cubic-bezier(.16,1,.3,1);}
 .bl-stat-fill.teal{background:var(--teal);}
 .bl-empty-sm{font-size:.68rem;color:var(--text3);font-style:italic;text-align:center;padding:.6rem 0;}
-
 .bl-voices-wrap{background:var(--bg1);border:1px solid var(--border);margin-bottom:1.5rem;}
 .bl-voices-head{padding:.85rem 1.3rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:var(--bg2);}
 .bl-voices-title{display:flex;align-items:baseline;gap:.75rem;}
@@ -235,7 +210,6 @@ nav{position:sticky;top:0;z-index:500;background:rgba(7,9,15,.92);backdrop-filte
 .bl-card-comment{margin-top:.4rem;font-size:.66rem;color:var(--text3);padding-top:.38rem;border-top:1px solid var(--border);}
 .bl-empty-full{text-align:center;padding:3rem 1rem;color:var(--text3);font-size:.72rem;background:var(--bg1);}
 .bl-empty-icon{font-size:1.75rem;display:block;margin-bottom:.45rem;opacity:.3;}
-
 .bl-synth{background:var(--bg1);border:1px solid var(--border);}
 .bl-synth-head{background:var(--bg2);padding:.85rem 1.3rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
 .bl-synth-head-title{font-size:.72rem;letter-spacing:.1em;color:var(--white);}
@@ -263,10 +237,8 @@ nav{position:sticky;top:0;z-index:500;background:rgba(7,9,15,.92);backdrop-filte
 .bl-theme-body{font-size:.7rem;color:var(--text2);line-height:1.65;}
 .bl-full-text{font-size:.74rem;line-height:1.9;color:var(--text2);white-space:pre-wrap;background:var(--bg);padding:1rem 1.2rem;border:1px solid var(--border);border-left:2px solid var(--amber);}
 
-footer{background:var(--bg1);border-top:1px solid var(--border);padding:2rem;text-align:center;}
-footer p{font-size:.6rem;color:var(--text3);letter-spacing:.07em;line-height:2.2;}
-footer strong{color:var(--amber);}
-
+.orn{text-align:center;font-size:.55rem;letter-spacing:.5em;color:var(--text3);margin:2.5rem 0;display:flex;align-items:center;gap:1rem;}
+.orn::before,.orn::after{content:'';flex:1;height:1px;background:var(--border);}
 .reveal{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease;}
 .reveal.vis{opacity:1;transform:none;}
 .stagger>*{opacity:0;transform:translateY(16px);transition:opacity .45s ease,transform .45s ease;}
@@ -276,25 +248,24 @@ footer strong{color:var(--amber);}
 .stagger.vis>*:nth-child(4){opacity:1;transform:none;transition-delay:.28s;}
 .stagger.vis>*:nth-child(5){opacity:1;transform:none;transition-delay:.36s;}
 
-@media(max-width:1024px){
-  .bl-layout{grid-template-columns:1fr;}
-  .rec-grid{grid-template-columns:1fr 1fr;}
-  .bl-steps{grid-template-columns:1fr;}
-}
-@media(max-width:768px){
-  .gap-grid,.g2,.g21{grid-template-columns:1fr;}
-  .kpi-inner{grid-template-columns:repeat(3,1fr);}
-}
+footer{background:var(--bg1);border-top:1px solid var(--border);padding:2rem;text-align:center;}
+footer p{font-size:.6rem;color:var(--text3);letter-spacing:.07em;line-height:2.2;}
+footer strong{color:var(--amber);}
+
+@media(max-width:1024px){.bl-layout{grid-template-columns:1fr;}.rec-grid{grid-template-columns:1fr 1fr;}.bl-steps{grid-template-columns:1fr;}.heatmap-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:768px){.gap-grid{grid-template-columns:1fr;}.kpi-inner{grid-template-columns:repeat(3,1fr);}.heatmap-grid{grid-template-columns:1fr;}}
 </style>
 </head>
 <body>
 
+<!-- NAV -->
 <nav>
   <div class="nav-logo">JPCDP <span>// JAPAN PROTESTANT CHURCH DIGITAL PLATFORM</span></div>
   <div class="nav-status">OPERATIONAL</div>
   <div class="nav-ver">v2026.03.06</div>
 </nav>
 
+<!-- HERO -->
 <section class="hero">
   <div class="hero-glow"></div>
   <div class="hero-inner">
@@ -302,160 +273,103 @@ footer strong{color:var(--amber);}
     <h1 class="hero-title">日本プロテスタント教会<br><em>デジタルプラットホーム</em></h1>
     <p class="hero-sub">地理的・人的・財政的構造の推計分析 — 正統プロテスタント諸教派を対象</p>
     <div class="hero-meta">
-      <span>推定教会数 7,660</span>
-      <span>推定教会員 555,210人</span>
-      <span>1教会あたり 72.5人</span>
-      <span>キリスト教人口比 約0.83%</span>
-      <span>基準年 2026年初</span>
-      <span>作成 合同会社 AWAI</span>
+      <span>推定教会数 7,660</span><span>推定教会員 555,210人</span><span>1教会あたり 72.5人</span>
+      <span>キリスト教人口比 約0.83%</span><span>基準年 2026年初</span><span>作成 合同会社 AWAI</span>
     </div>
   </div>
 </section>
 
+<!-- KPI -->
 <section class="kpi-row">
   <div class="kpi-inner">
-    <div class="kpi-cell">
-      <div class="kpi-label">総教会数</div>
-      <div class="kpi-value"><span class="count-num" data-target="7660">0</span></div>
-      <div class="kpi-desc">2026年初推定</div>
-    </div>
-    <div class="kpi-cell">
-      <div class="kpi-label">教会員数</div>
-      <div class="kpi-value"><span class="count-num" data-target="555210">0</span></div>
-      <div class="kpi-desc">推定値</div>
-    </div>
-    <div class="kpi-cell">
-      <div class="kpi-label">無教会地域</div>
-      <div class="kpi-value"><span class="count-num" data-target="1793">0</span></div>
-      <div class="kpi-desc">旧市町村ベース</div>
-    </div>
-    <div class="kpi-cell">
-      <div class="kpi-label">全国収入 中央推定</div>
-      <div class="kpi-value"><span class="count-num" data-target="604">0</span><span class="kpi-unit">億</span></div>
-      <div class="kpi-desc">472〜772億円レンジ</div>
-    </div>
-    <div class="kpi-cell">
-      <div class="kpi-label">牧師謝礼比率</div>
-      <div class="kpi-value"><span class="count-num" data-target="67">0</span><span class="kpi-unit">%</span></div>
-      <div class="kpi-desc">経常支出に占める割合</div>
-    </div>
+    <div class="kpi-cell"><div class="kpi-label">総教会数</div><div class="kpi-value"><span class="count-num" data-target="7660">0</span></div><div class="kpi-desc">2026年初推定</div></div>
+    <div class="kpi-cell"><div class="kpi-label">教会員数</div><div class="kpi-value"><span class="count-num" data-target="555210">0</span></div><div class="kpi-desc">推定値</div></div>
+    <div class="kpi-cell"><div class="kpi-label">無教会地域</div><div class="kpi-value"><span class="count-num" data-target="1793">0</span></div><div class="kpi-desc">旧市町村ベース</div></div>
+    <div class="kpi-cell"><div class="kpi-label">全国収入 中央推定</div><div class="kpi-value"><span class="count-num" data-target="604">0</span><span class="kpi-unit">億</span></div><div class="kpi-desc">472〜772億円レンジ</div></div>
+    <div class="kpi-cell"><div class="kpi-label">牧師謝礼比率</div><div class="kpi-value"><span class="count-num" data-target="67">0</span><span class="kpi-unit">%</span></div><div class="kpi-desc">経常支出に占める割合</div></div>
   </div>
 </section>
 
 <main class="content">
 
+<!-- 01 地理的分布 -->
 <section id="geo" class="sec">
-  <div class="sec-head reveal">
-    <span class="sec-num">01</span>
-    <h2 class="sec-title">地理的分布</h2>
-    <span class="sec-en">GEOGRAPHIC DISTRIBUTION</span>
-  </div>
+  <div class="sec-head reveal"><span class="sec-num">01</span><h2 class="sec-title">地理的分布</h2><span class="sec-en">GEOGRAPHIC DISTRIBUTION</span></div>
   <div class="gap-grid stagger reveal">
     <div class="chart-box">
-      <div class="chart-lbl">立地区分</div>
-      <div class="chart-ttl">都市部・地方部の教会比率</div>
-      <div class="chart-wrap" style="height:210px;"><canvas id="cUrban"></canvas>
-        <div class="donut-abs"><span class="donut-big">7,660</span><span class="donut-sm">TOTAL</span></div>
-      </div>
-      <div class="legend">
-        <div class="legend-item"><div class="ldot" style="background:#e8a020;"></div>都市部（DID） 5,362（70%）</div>
-        <div class="legend-item"><div class="ldot" style="background:#4d9fff;"></div>地方部（非DID） 2,298（30%）</div>
-      </div>
+      <div class="chart-lbl">立地区分</div><div class="chart-ttl">都市部・地方部の教会比率</div>
+      <div class="chart-wrap" style="height:210px;"><canvas id="cUrban"></canvas><div class="donut-abs"><span class="donut-big">7,660</span><span class="donut-sm">TOTAL</span></div></div>
+      <div class="legend"><div class="legend-item"><div class="ldot" style="background:#e8a020;"></div>都市部（DID） 5,362（70%）</div><div class="legend-item"><div class="ldot" style="background:#4d9fff;"></div>地方部（非DID） 2,298（30%）</div></div>
     </div>
     <div class="chart-box">
-      <div class="chart-lbl">駅からの距離帯</div>
-      <div class="chart-ttl">距離帯別 教会数（4区分）</div>
+      <div class="chart-lbl">駅からの距離帯</div><div class="chart-ttl">距離帯別 教会数（4区分）</div>
       <div class="chart-wrap" style="height:210px;"><canvas id="cStation"></canvas></div>
     </div>
   </div>
   <div class="gap-grid stagger reveal" style="margin-top:1.5rem;">
     <div class="chart-box">
-      <div class="chart-lbl">アクセス 1km基準</div>
-      <div class="chart-ttl">駅近・駅遠 教会数</div>
+      <div class="chart-lbl">アクセス 1km基準</div><div class="chart-ttl">駅近・駅遠 教会数</div>
       <div class="chart-wrap" style="height:160px;"><canvas id="cNearFar"></canvas></div>
-      <div class="legend">
-        <div class="legend-item"><div class="ldot" style="background:#e8a020;"></div>駅近（1km以内） 4,596</div>
-        <div class="legend-item"><div class="ldot" style="background:#4d9fff;"></div>駅遠（1km超） 3,064</div>
-      </div>
+      <div class="legend"><div class="legend-item"><div class="ldot" style="background:#e8a020;"></div>駅近（1km以内） 4,596</div><div class="legend-item"><div class="ldot" style="background:#4d9fff;"></div>駅遠（1km超） 3,064</div></div>
     </div>
     <div class="chart-box">
-      <div class="chart-lbl">過疎地域</div>
-      <div class="chart-ttl">過疎・非過疎地域の教会数</div>
+      <div class="chart-lbl">過疎地域</div><div class="chart-ttl">過疎・非過疎地域の教会数</div>
       <div class="chart-wrap" style="height:160px;"><canvas id="cSparse"></canvas></div>
-      <div class="legend">
-        <div class="legend-item"><div class="ldot" style="background:#ff5555;"></div>過疎地域 536</div>
-        <div class="legend-item"><div class="ldot" style="background:#e8a020;"></div>非過疎地域 7,124</div>
-      </div>
+      <div class="legend"><div class="legend-item"><div class="ldot" style="background:#ff5555;"></div>過疎地域 536</div><div class="legend-item"><div class="ldot" style="background:#e8a020;"></div>非過疎地域 7,124</div></div>
     </div>
   </div>
   <div class="chart-box reveal" style="margin-top:1.5rem;">
-    <div class="chart-lbl">構造分析</div>
-    <div class="chart-ttl" style="margin-bottom:1rem;">都市集中と地方孤立の同時進行</div>
+    <div class="chart-lbl">構造分析</div><div class="chart-ttl" style="margin-bottom:1rem;">都市集中と地方孤立の同時進行</div>
     <div class="flow">
       <div class="fnode n"><div class="fnode-t">都市集中</div><div class="fnode-s">5,362教会 / 70%</div></div>
       <div class="farrow">⟹</div>
-      <div class="flow-col">
-        <div class="fnode p"><div class="fnode-t">地方空白</div><div class="fnode-s">1,793 無教会地域</div></div>
-        <div class="fnode p"><div class="fnode-t">担任不足</div><div class="fnode-s">無牧・兼牧 各6%</div></div>
-      </div>
+      <div class="flow-col"><div class="fnode p"><div class="fnode-t">地方空白</div><div class="fnode-s">1,793 無教会地域</div></div><div class="fnode p"><div class="fnode-t">担任不足</div><div class="fnode-s">無牧・兼牧 各6%</div></div></div>
       <div class="farrow">⟹</div>
-      <div class="flow-col">
-        <div class="fnode s"><div class="fnode-t">分散集会・巡回</div><div class="fnode-s">対策A</div></div>
-        <div class="fnode s"><div class="fnode-t">記録アーカイブ整備</div><div class="fnode-s">対策B</div></div>
-      </div>
+      <div class="flow-col"><div class="fnode s"><div class="fnode-t">分散集会・巡回</div><div class="fnode-s">対策A</div></div><div class="fnode s"><div class="fnode-t">記録アーカイブ整備</div><div class="fnode-s">対策B</div></div></div>
     </div>
   </div>
-  <div class="insight reveal"><p><strong>地理的示唆：</strong>都市集中が進むほど地方の空白・担任不足・世代交代断絶が懸念される。駅近教会は<strong>開かれた入口</strong>を持ちやすく、郊外型は<strong>共同体の濃さ</strong>が育つが担い手の移動負荷が増える。立地に応じた牧会設計が必要。</p></div>
+  <div class="insight reveal"><p><strong>地理的示唆：</strong>都市集中が進むほど地方の空白・担任不足・世代交代断絶が懸念される。立地に応じた牧会設計が必要。</p></div>
 </section>
 
 <div class="orn">// 02</div>
 
+<!-- 02 無教会地域 -->
 <section id="vacant" class="sec">
-  <div class="sec-head reveal">
-    <span class="sec-num">02</span>
-    <h2 class="sec-title">無教会地域</h2>
-    <span class="sec-en">CHURCH-FREE REGIONS</span>
-  </div>
+  <div class="sec-head reveal"><span class="sec-num">02</span><h2 class="sec-title">無教会地域</h2><span class="sec-en">CHURCH-FREE REGIONS</span></div>
   <div class="gap-grid stagger reveal">
     <div class="chart-box">
-      <div class="chart-lbl">空白地域分析</div>
-      <div class="chart-ttl">教会未設置エリア（旧市町村区分）</div>
+      <div class="chart-lbl">空白地域分析</div><div class="chart-ttl">教会未設置エリア（旧市町村区分）</div>
       <div class="chart-wrap" style="height:210px;"><canvas id="cVacant"></canvas></div>
     </div>
     <div class="chart-box">
-      <div class="chart-lbl">人口規模別内訳</div>
-      <div class="chart-ttl">無教会地域の優先度分類</div>
+      <div class="chart-lbl">人口規模別内訳</div><div class="chart-ttl">無教会地域の優先度分類</div>
       <div style="margin-top:.4rem;">
         <div class="sbar"><div class="sbar-top"><div class="sbar-lbl">教会未設置地域（合計）</div><div class="sbar-val">1,793か所</div></div><div class="sbar-track"><div class="sbar-fill" style="background:var(--red);" data-w="100"></div></div></div>
         <div class="sbar"><div class="sbar-top"><div class="sbar-lbl">人口3,000〜5万人（URA）</div><div class="sbar-val">1,473か所</div></div><div class="sbar-track"><div class="sbar-fill" style="background:var(--amber);" data-w="82.2"></div></div></div>
         <div class="sbar"><div class="sbar-top"><div class="sbar-lbl">優先度高い（7,000人以上）</div><div class="sbar-val">809か所</div></div><div class="sbar-track"><div class="sbar-fill" style="background:var(--teal);" data-w="45.1"></div></div></div>
       </div>
-      <p style="margin-top:1.1rem;font-size:.7rem;color:var(--text2);line-height:1.8;border-top:1px solid var(--border);padding-top:.85rem;">▶ <strong style="color:var(--amber);">人口7,000人以上の優先地域が809か所（全体の45%）</strong>存在。</p>
     </div>
   </div>
-  <div class="insight reveal"><p><strong>戦略的示唆：</strong>常設教会だけでなく、<strong>巡回・兼牧・分散集会・オンライン接続</strong>を組み合わせて接触の濃度を上げる戦略が現実的。優先地域809か所への戦略的アプローチが急務。</p></div>
+  <div class="insight reveal"><p><strong>戦略的示唆：</strong>優先地域809か所への<strong>巡回・兼牧・分散集会・オンライン接続</strong>を組み合わせた戦略が急務。</p></div>
 </section>
 
 <div class="orn">// 03</div>
 
+<!-- 03 財政構造 -->
 <section id="finance" class="sec">
-  <div class="sec-head reveal">
-    <span class="sec-num">03</span>
-    <h2 class="sec-title">財政構造</h2>
-    <span class="sec-en">FINANCIAL OVERVIEW</span>
-  </div>
+  <div class="sec-head reveal"><span class="sec-num">03</span><h2 class="sec-title">財政構造</h2><span class="sec-en">FINANCIAL OVERVIEW</span></div>
   <div class="chart-box reveal" style="margin-bottom:1.5rem;">
     <div class="chart-lbl">参照統計 — 日本基督教団（UCCJ）2021年度</div>
     <div class="chart-ttl" style="margin-bottom:.85rem;">スケールアップの基準となった UCCJ 実績値</div>
     <div class="uccj-row">
       <div class="uccj-cell"><div class="uccj-v"><span class="count-num" data-target="1660">0</span></div><div class="uccj-l">教会・伝道所数</div></div>
       <div class="uccj-cell"><div class="uccj-v"><span class="count-num" data-target="73548">0</span></div><div class="uccj-l">現住陪餐会員</div></div>
-      <div class="uccj-cell"><div class="uccj-v"><span class="count-num" data-target="102.3">0</span><span style="font-size:.8rem;font-family:'JetBrains Mono',monospace;color:var(--amber);">億</span></div><div class="uccj-l">経常収入</div></div>
+      <div class="uccj-cell"><div class="uccj-v"><span class="count-num" data-target="102.3">0</span><span style="font-size:.8rem;color:var(--amber);">億</span></div><div class="uccj-l">経常収入</div></div>
     </div>
     <div class="uccj-row">
-      <div class="uccj-cell"><div class="uccj-v"><span class="count-num" data-target="616">0</span><span style="font-size:.8rem;font-family:'JetBrains Mono',monospace;color:var(--amber);">万</span></div><div class="uccj-l">教会あたり平均収入</div></div>
-      <div class="uccj-cell"><div class="uccj-v"><span class="count-num" data-target="13.9">0</span><span style="font-size:.8rem;font-family:'JetBrains Mono',monospace;color:var(--amber);">万</span></div><div class="uccj-l">教会員あたり平均収入</div></div>
-      <div class="uccj-cell"><div class="uccj-v"><span class="count-num" data-target="75.6">0</span><span style="font-size:.8rem;font-family:'JetBrains Mono',monospace;color:var(--amber);">億</span></div><div class="uccj-l">経常支出</div></div>
+      <div class="uccj-cell"><div class="uccj-v"><span class="count-num" data-target="616">0</span><span style="font-size:.8rem;color:var(--amber);">万</span></div><div class="uccj-l">教会あたり平均収入</div></div>
+      <div class="uccj-cell"><div class="uccj-v"><span class="count-num" data-target="13.9">0</span><span style="font-size:.8rem;color:var(--amber);">万</span></div><div class="uccj-l">教会員あたり平均収入</div></div>
+      <div class="uccj-cell"><div class="uccj-v"><span class="count-num" data-target="75.6">0</span><span style="font-size:.8rem;color:var(--amber);">億</span></div><div class="uccj-l">経常支出</div></div>
     </div>
   </div>
   <div class="chart-box reveal" style="margin-bottom:1.5rem;">
@@ -470,70 +384,42 @@ footer strong{color:var(--amber);}
   </div>
   <div class="gap-grid stagger reveal">
     <div class="chart-box">
-      <div class="chart-lbl">UCCJ 収入内訳（2021年度）</div>
-      <div class="chart-ttl">献金タイプ別 構成比</div>
+      <div class="chart-lbl">UCCJ 収入内訳（2021年度）</div><div class="chart-ttl">献金タイプ別 構成比</div>
       <div class="chart-wrap" style="height:195px;"><canvas id="cIncome"></canvas></div>
-      <div class="legend">
-        <div class="legend-item"><div class="ldot" style="background:#e8a020;"></div>月定献金 ~50億</div>
-        <div class="legend-item"><div class="ldot" style="background:#4d9fff;"></div>礼拝献金 ~16億</div>
-        <div class="legend-item"><div class="ldot" style="background:#00c9a7;"></div>特別献金 ~32億</div>
-        <div class="legend-item"><div class="ldot" style="background:#ff5555;"></div>その他 ~4億</div>
-      </div>
+      <div class="legend"><div class="legend-item"><div class="ldot" style="background:#e8a020;"></div>月定献金 ~50億</div><div class="legend-item"><div class="ldot" style="background:#4d9fff;"></div>礼拝献金 ~16億</div><div class="legend-item"><div class="ldot" style="background:#00c9a7;"></div>特別献金 ~32億</div><div class="legend-item"><div class="ldot" style="background:#ff5555;"></div>その他 ~4億</div></div>
     </div>
     <div class="chart-box">
-      <div class="chart-lbl">UCCJ 支出内訳（2021年度）</div>
-      <div class="chart-ttl">用途別 構成比（総額 75.6億円）</div>
-      <div class="chart-wrap" style="height:195px;">
-        <canvas id="cExpense"></canvas>
-        <div class="donut-abs"><span class="donut-big">67</span><span class="donut-sm">% 牧師謝礼</span></div>
-      </div>
-      <div class="legend">
-        <div class="legend-item"><div class="ldot" style="background:#e8a020;"></div>牧師謝礼 67%</div>
-        <div class="legend-item"><div class="ldot" style="background:#00c9a7;"></div>伝道費 6%</div>
-        <div class="legend-item"><div class="ldot" style="background:#4d9fff;"></div>その他 27%</div>
-      </div>
+      <div class="chart-lbl">UCCJ 支出内訳（2021年度）</div><div class="chart-ttl">用途別 構成比（総額 75.6億円）</div>
+      <div class="chart-wrap" style="height:195px;"><canvas id="cExpense"></canvas><div class="donut-abs"><span class="donut-big">67</span><span class="donut-sm">% 牧師謝礼</span></div></div>
+      <div class="legend"><div class="legend-item"><div class="ldot" style="background:#e8a020;"></div>牧師謝礼 67%</div><div class="legend-item"><div class="ldot" style="background:#00c9a7;"></div>伝道費 6%</div><div class="legend-item"><div class="ldot" style="background:#4d9fff;"></div>その他 27%</div></div>
     </div>
   </div>
   <div class="gap-grid stagger reveal" style="margin-top:1.5rem;">
     <div class="chart-box">
-      <div class="chart-lbl">全国推定 · 収入内訳（中央推定C=604億円）</div>
-      <div class="chart-ttl">献金タイプ別 推定額（億円）</div>
+      <div class="chart-lbl">全国推定 · 収入内訳（中央推定C=604億円）</div><div class="chart-ttl">献金タイプ別 推定額（億円）</div>
       <div class="chart-wrap" style="height:180px;"><canvas id="cIncomeNat"></canvas></div>
     </div>
     <div class="chart-box">
-      <div class="chart-lbl">全国推定 · 支出内訳（中央推定C=604億円）</div>
-      <div class="chart-ttl">用途別 推定額（億円）</div>
+      <div class="chart-lbl">全国推定 · 支出内訳（中央推定C=604億円）</div><div class="chart-ttl">用途別 推定額（億円）</div>
       <div class="chart-wrap" style="height:180px;"><canvas id="cExpenseNat"></canvas></div>
     </div>
   </div>
-  <div class="insight reveal"><p><strong>財政の示唆：</strong>支出の<strong>67%が牧師謝礼（人件費）</strong>を占める。担任不足や統合・巡回の圧力が増すほど支出構造の最適化が急務。</p></div>
+  <div class="insight reveal"><p><strong>財政の示唆：</strong>支出の<strong>67%が牧師謝礼（人件費）</strong>を占める。担任不足が増すほど支出構造の最適化が急務。</p></div>
 </section>
 
 <div class="orn">// 04</div>
 
+<!-- 04 教職者配置 -->
 <section id="pastor" class="sec">
-  <div class="sec-head reveal">
-    <span class="sec-num">04</span>
-    <h2 class="sec-title">教職者配置</h2>
-    <span class="sec-en">PASTORAL RESOURCES</span>
-  </div>
+  <div class="sec-head reveal"><span class="sec-num">04</span><h2 class="sec-title">教職者配置</h2><span class="sec-en">PASTORAL RESOURCES</span></div>
   <div class="gap-grid stagger reveal">
     <div class="chart-box">
-      <div class="chart-lbl">配置比率</div>
-      <div class="chart-ttl">牧師配置別 教会数（推定）</div>
-      <div class="chart-wrap" style="height:210px;">
-        <canvas id="cPastor"></canvas>
-        <div class="donut-abs"><span class="donut-big">88</span><span class="donut-sm">% 常駐配置</span></div>
-      </div>
-      <div class="legend">
-        <div class="legend-item"><div class="ldot" style="background:#e8a020;"></div>常駐 6,740（88%）</div>
-        <div class="legend-item"><div class="ldot" style="background:#4d9fff;"></div>兼牧 460（6%）</div>
-        <div class="legend-item"><div class="ldot" style="background:#ff5555;"></div>無牧 460（6%）</div>
-      </div>
+      <div class="chart-lbl">配置比率</div><div class="chart-ttl">牧師配置別 教会数（推定）</div>
+      <div class="chart-wrap" style="height:210px;"><canvas id="cPastor"></canvas><div class="donut-abs"><span class="donut-big">88</span><span class="donut-sm">% 常駐配置</span></div></div>
+      <div class="legend"><div class="legend-item"><div class="ldot" style="background:#e8a020;"></div>常駐 6,740（88%）</div><div class="legend-item"><div class="ldot" style="background:#4d9fff;"></div>兼牧 460（6%）</div><div class="legend-item"><div class="ldot" style="background:#ff5555;"></div>無牧 460（6%）</div></div>
     </div>
     <div class="chart-box">
-      <div class="chart-lbl">絶対数と構造</div>
-      <div class="chart-ttl">配置別 教会数と比率</div>
+      <div class="chart-lbl">絶対数と構造</div><div class="chart-ttl">配置別 教会数と比率</div>
       <div class="chart-wrap" style="height:150px;"><canvas id="cPastorBar"></canvas></div>
       <div style="margin-top:.9rem;border-top:1px solid var(--border);padding-top:.9rem;">
         <div class="sbar"><div class="sbar-top"><div class="sbar-lbl">常駐（単独担任）</div><div class="sbar-val">6,740 / 88%</div></div><div class="sbar-track"><div class="sbar-fill" style="background:var(--amber);" data-w="88"></div></div></div>
@@ -542,34 +428,114 @@ footer strong{color:var(--amber);}
       </div>
     </div>
   </div>
-  <div class="insight reveal"><p><strong>人材配置の示唆：</strong>無牧・兼牧の増加は<strong>構造変化の兆候</strong>。交通・宿泊・オンライン・記録継承（アーカイブ）の整備が実質的な牧会インフラとなる。</p></div>
+  <div class="insight reveal"><p><strong>人材配置の示唆：</strong>無牧・兼牧の増加は<strong>構造変化の兆候</strong>。交通・オンライン・記録継承の整備が実質的な牧会インフラとなる。</p></div>
 </section>
 
 <div class="orn">// 05</div>
 
+<!-- 05 提言 -->
 <section id="rec" class="sec">
-  <div class="sec-head reveal">
-    <span class="sec-num">05</span>
-    <h2 class="sec-title">提言</h2>
-    <span class="sec-en">RECOMMENDATIONS</span>
-  </div>
+  <div class="sec-head reveal"><span class="sec-num">05</span><h2 class="sec-title">提言</h2><span class="sec-en">RECOMMENDATIONS</span></div>
   <div class="rec-grid stagger reveal">
-    <div class="rec-card"><div class="rec-n">1</div><div class="rec-icon">🌐</div><div class="rec-t">分散・巡回の活用</div><div class="rec-body">常設拠点型に加え、地方での分散集会・巡回式ミニストリー・デジタル礼拝を複合導入し接触機会を増やす。</div></div>
-    <div class="rec-card"><div class="rec-n">2</div><div class="rec-icon">🏠</div><div class="rec-t">小規模教会の支援</div><div class="rec-body">教会統合・兼牧推奨・シェア会計等で支出構造を最適化。小さな共同体でも継続可能な収支モデルを模索する。</div></div>
-    <div class="rec-card"><div class="rec-n">3</div><div class="rec-icon">🚉</div><div class="rec-t">アクセス別戦略</div><div class="rec-body">駅近は地域開放型の「入口」づくりを強化。駅遠は信徒間の結びつき・ケアプログラムに注力する。</div></div>
-    <div class="rec-card"><div class="rec-n">4</div><div class="rec-icon">👥</div><div class="rec-t">人材配置の再構築</div><div class="rec-body">無牧・兼牧増加を前向きに捉え、巡回牧師制度と教会記録の電子化（アーカイブ）を制度化する。</div></div>
+    <div class="rec-card"><div class="rec-n">1</div><div class="rec-icon">🌐</div><div class="rec-t">分散・巡回の活用</div><div class="rec-body">常設拠点型に加え、地方での分散集会・巡回式ミニストリー・デジタル礼拝を複合導入。</div></div>
+    <div class="rec-card"><div class="rec-n">2</div><div class="rec-icon">🏠</div><div class="rec-t">小規模教会の支援</div><div class="rec-body">教会統合・兼牧推奨・シェア会計等で支出構造を最適化。小さな共同体の継続可能性を設計する。</div></div>
+    <div class="rec-card"><div class="rec-n">3</div><div class="rec-icon">🚉</div><div class="rec-t">アクセス別戦略</div><div class="rec-body">駅近は「入口」づくりを強化。駅遠は信徒間の結びつき・ケアプログラムに注力する。</div></div>
+    <div class="rec-card"><div class="rec-n">4</div><div class="rec-icon">👥</div><div class="rec-t">人材配置の再構築</div><div class="rec-body">巡回牧師制度と教会記録の電子化（アーカイブ）を制度化する。</div></div>
     <div class="rec-card"><div class="rec-n">5</div><div class="rec-icon">📊</div><div class="rec-t">データドリブン戦略</div><div class="rec-body">GIS集計による実測で推定を検証し、地域別優先度の定量化を目指す。</div></div>
   </div>
 </section>
 
 <div class="orn">// 06</div>
 
-<section id="data" class="sec">
-  <div class="sec-head reveal">
-    <span class="sec-num">06</span>
-    <h2 class="sec-title">統計データ一覧</h2>
-    <span class="sec-en">DATA SUMMARY</span>
+<!-- 06 ユニバーサルデザイン -->
+<section id="ud" class="sec">
+  <div class="sec-head reveal"><span class="sec-num">06</span><h2 class="sec-title">ユニバーサルデザイン（UD）</h2><span class="sec-en">UNIVERSAL DESIGN</span></div>
+  <div class="insight reveal"><p><strong>概要：</strong>東京教区40教会の実測サンプルをベースに、全国7,660教会へのUDモデルを推計。都市部は東京サンプル値、地方は項目別倍率補正を適用（モンテカルロ400回）。</p></div>
+  <div class="chart-box reveal" style="margin-bottom:1.5rem;">
+    <div class="chart-lbl">実測サンプル — 東京教区（n=40）</div><div class="chart-ttl" style="margin-bottom:1rem;">UDバリアフリー項目 保有率</div>
+    <div>
+      <div class="sbar"><div class="sbar-top"><div class="sbar-lbl">礼拝スペース到達OK（1階完結/昇降機等）</div><div class="sbar-val">85.0%</div></div><div class="sbar-track"><div class="sbar-fill" style="background:var(--teal);" data-w="85"></div></div></div>
+      <div class="sbar"><div class="sbar-top"><div class="sbar-lbl">BFトイレあり</div><div class="sbar-val">82.5%</div></div><div class="sbar-track"><div class="sbar-fill" style="background:var(--teal);" data-w="82.5"></div></div></div>
+      <div class="sbar"><div class="sbar-top"><div class="sbar-lbl">段差なし/スロープあり</div><div class="sbar-val">52.5%</div></div><div class="sbar-track"><div class="sbar-fill" style="background:var(--amber);" data-w="52.5"></div></div></div>
+      <div class="sbar"><div class="sbar-top"><div class="sbar-lbl">点字資料あり</div><div class="sbar-val">45.9%</div></div><div class="sbar-track"><div class="sbar-fill" style="background:var(--amber);" data-w="45.9"></div></div></div>
+      <div class="sbar"><div class="sbar-top"><div class="sbar-lbl">昇降機・エレベーターあり</div><div class="sbar-val">25.0%</div></div><div class="sbar-track"><div class="sbar-fill" style="background:var(--amber);" data-w="25"></div></div></div>
+      <div class="sbar"><div class="sbar-top"><div class="sbar-lbl">手話通訳あり</div><div class="sbar-val">5.4%</div></div><div class="sbar-track"><div class="sbar-fill" style="background:var(--red);" data-w="5.4"></div></div></div>
+      <div class="sbar"><div class="sbar-top"><div class="sbar-lbl">補聴支援（補聴設備/ラジオ等）あり</div><div class="sbar-val">5.0%</div></div><div class="sbar-track"><div class="sbar-fill" style="background:var(--red);" data-w="5"></div></div></div>
+    </div>
   </div>
+  <div class="gap-grid stagger reveal">
+    <div class="chart-box">
+      <div class="chart-lbl">全国推定 — 項目別（母数 7,660）</div><div class="chart-ttl">推定教会数（モンテカルロ推定）</div>
+      <div class="chart-wrap" style="height:220px;"><canvas id="cUD"></canvas></div>
+    </div>
+    <div class="chart-box">
+      <div class="chart-lbl">全国推定 — UDレベル分類</div><div class="chart-ttl">Lv0〜Lv3 教会数（推定）</div>
+      <div class="chart-wrap" style="height:160px;"><canvas id="cUDLevel"></canvas><div class="donut-abs"><span class="donut-big">51%</span><span class="donut-sm">Lv2以上</span></div></div>
+      <div class="legend">
+        <div class="legend-item"><div class="ldot" style="background:#00c9a7;"></div>Lv3 全面UD寄り 106（1.4%）</div>
+        <div class="legend-item"><div class="ldot" style="background:#e8a020;"></div>Lv2 主要動線UD 3,930（51.3%）</div>
+        <div class="legend-item"><div class="ldot" style="background:#4d9fff;"></div>Lv1 部分対応 3,476（45.4%）</div>
+        <div class="legend-item"><div class="ldot" style="background:#ff5555;"></div>Lv0 未整備 147（1.9%）</div>
+      </div>
+    </div>
+  </div>
+  <div class="insight reveal"><p><strong>UDの示唆：</strong>Lv2（主要動線UD）が過半という推定は、<strong>「礼拝には到達できるが、聴覚・視覚支援は限定的」</strong>という構造を含意。手話・補聴支援は全国平均5%前後にとどまる。</p></div>
+  <div class="chart-box reveal" style="margin-top:1.5rem;">
+    <div class="chart-lbl">全国推定 — 項目別詳細（モンテカルロ 400回）</div>
+    <div style="overflow-x:auto;">
+    <table class="dtable">
+      <thead><tr><th>指標</th><th style="text-align:right;">推定教会数（平均）</th><th style="text-align:right;">割合（%）</th><th>レンジ（5–95%）</th></tr></thead>
+      <tbody>
+        <tr><td>礼拝到達OK</td><td class="num">6,119</td><td class="num">79.9%</td><td style="font-size:.68rem;color:var(--text3);">6,067–6,173</td></tr>
+        <tr><td>BFトイレ</td><td class="num">5,846</td><td class="num">76.3%</td><td style="font-size:.68rem;color:var(--text3);">5,790–5,904</td></tr>
+        <tr><td>段差なし/スロープ</td><td class="num">3,719</td><td class="num">48.6%</td><td style="font-size:.68rem;color:var(--text3);">3,641–3,794</td></tr>
+        <tr><td>点字あり</td><td class="num">3,098</td><td class="num">40.4%</td><td style="font-size:.68rem;color:var(--text3);">3,026–3,167</td></tr>
+        <tr><td>昇降機あり</td><td class="num">1,684</td><td class="num">22.0%</td><td style="font-size:.68rem;color:var(--text3);">1,627–1,742</td></tr>
+        <tr><td>手話あり</td><td class="num">365</td><td class="num">4.8%</td><td style="font-size:.68rem;color:var(--text3);">336–395</td></tr>
+        <tr><td>補聴支援あり</td><td class="num">337</td><td class="num">4.4%</td><td style="font-size:.68rem;color:var(--text3);">307–365</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+</section>
+
+<div class="orn">// 07</div>
+
+<!-- 07 ヒートマップ -->
+<section id="heatmap" class="sec">
+  <div class="sec-head reveal"><span class="sec-num">07</span><h2 class="sec-title">優先支援ゾーン ヒートマップ</h2><span class="sec-en">PRIORITY SUPPORT HEATMAP</span></div>
+  <div class="insight reveal"><p><strong>定義：</strong>UD弱（Lv0/Lv1）×駅遠×地方 の重なり、または無牧の教会を「優先支援」と分類。<strong>件数</strong>は支援ボリューム、<strong>率</strong>は課題の濃度、<strong>平均リスク</strong>は重なりの強さを表す。</p></div>
+  <div class="chart-box reveal" style="margin-bottom:1.5rem;">
+    <div class="chart-lbl">優先支援ゾーン — エリア別ヒートマップ（推定）</div>
+    <div class="chart-ttl" style="margin-bottom:1.2rem;">優先支援率（%）· 色が濃いほど課題集中度が高い</div>
+    <div class="heatmap-grid" id="heatmap-grid"></div>
+    <div class="heatmap-legend"><div class="heatmap-legend-bar"></div><div class="heatmap-legend-labels"><span>低（0%）</span><span>中（40%）</span><span>高（84%）</span></div></div>
+  </div>
+  <div class="chart-box reveal" style="margin-bottom:1.5rem;">
+    <div class="chart-lbl">数表 — エリア別 優先支援データ（平均）</div>
+    <div style="overflow-x:auto;">
+    <table class="dtable">
+      <thead><tr><th>エリア</th><th style="text-align:right;">教会数</th><th style="text-align:right;">優先支援数</th><th style="text-align:right;">優先支援率</th><th style="text-align:right;">平均リスク（0–5）</th></tr></thead>
+      <tbody>
+        <tr><td><span class="badge br">過疎×駅遠</span></td><td class="num">401</td><td class="num">336</td><td class="num" style="color:var(--red);">83.7%</td><td class="num">4.08</td></tr>
+        <tr><td><span class="badge br">過疎×駅近</span></td><td class="num">135</td><td class="num">21</td><td class="num" style="color:var(--amber);">15.8%</td><td class="num">3.08</td></tr>
+        <tr><td><span class="badge bg">地方（非過疎）×駅遠</span></td><td class="num">1,054</td><td class="num">758</td><td class="num" style="color:var(--amber);">71.9%</td><td class="num">2.86</td></tr>
+        <tr><td><span class="badge bg">地方（非過疎）×駅近</span></td><td class="num">708</td><td class="num">60</td><td class="num">8.5%</td><td class="num">1.86</td></tr>
+        <tr><td><span class="badge bn">都市部×駅遠</span></td><td class="num">1,611</td><td class="num">68</td><td class="num">4.2%</td><td class="num">1.48</td></tr>
+        <tr><td><span class="badge bn">都市部×駅近</span></td><td class="num">3,751</td><td class="num">157</td><td class="num">4.2%</td><td class="num">0.47</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p style="margin-top:.85rem;font-size:.68rem;color:var(--text3);line-height:1.8;">実務メモ：<strong style="color:var(--amber);">「過疎×駅遠」は濃度最大（83.7%）</strong>、<strong style="color:var(--amber);">「地方（非過疎）×駅遠」は件数最大（758件）</strong>。</p>
+  </div>
+  <div class="insight reveal"><p><strong>戦略的示唆：</strong>「過疎×駅遠」は課題濃度が最大（83.7%）で最優先。「地方（非過疎）×駅遠」は件数最大（758件）で<strong>スケールの大きな介入ポイント</strong>。</p></div>
+</section>
+
+<div class="orn">// 08</div>
+
+<!-- 08 統計データ一覧 -->
+<section id="data" class="sec">
+  <div class="sec-head reveal"><span class="sec-num">08</span><h2 class="sec-title">統計データ一覧</h2><span class="sec-en">DATA SUMMARY</span></div>
   <div class="chart-box reveal">
     <div class="chart-lbl">付録 — 全数値一覧（2026年初推定）</div>
     <div class="chart-ttl" style="margin-bottom:1rem;">基本統計サマリー</div>
@@ -597,27 +563,41 @@ footer strong{color:var(--amber);}
         <tr><td>全国収入推定 シナリオC（中央）</td><td><span class="badge bg">財政</span></td><td class="num">604.0億円</td><td class="num">A・B中間</td></tr>
         <tr><td>牧師謝礼支出（UCCJ実績）</td><td><span class="badge bg">財政</span></td><td class="num">50.7億円</td><td class="num">経常支出の67%</td></tr>
         <tr><td>牧師謝礼支出（全国中央推定）</td><td><span class="badge bg">財政</span></td><td class="num">404.8億円</td><td class="num">シナリオC適用</td></tr>
+        <tr><td colspan="4" style="background:var(--bg2);color:var(--text3);font-size:.55rem;letter-spacing:.12em;padding:.45rem .85rem;">// UD — ユニバーサルデザイン（東京教区n=40実測 → 全国推定）</td></tr>
+        <tr><td>礼拝スペース到達OK（全国推定）</td><td><span class="badge bn">UD</span></td><td class="num">6,119</td><td class="num">79.9%（6,067–6,173）</td></tr>
+        <tr><td>BFトイレあり（全国推定）</td><td><span class="badge bn">UD</span></td><td class="num">5,846</td><td class="num">76.3%（5,790–5,904）</td></tr>
+        <tr><td>段差なし/スロープあり（全国推定）</td><td><span class="badge bn">UD</span></td><td class="num">3,719</td><td class="num">48.6%（3,641–3,794）</td></tr>
+        <tr><td>点字資料あり（全国推定）</td><td><span class="badge bn">UD</span></td><td class="num">3,098</td><td class="num">40.4%（3,026–3,167）</td></tr>
+        <tr><td>昇降機・エレベーターあり（全国推定）</td><td><span class="badge bn">UD</span></td><td class="num">1,684</td><td class="num">22.0%（1,627–1,742）</td></tr>
+        <tr><td>手話通訳あり（全国推定）</td><td><span class="badge bn">UD</span></td><td class="num">365</td><td class="num">4.8%（336–395）</td></tr>
+        <tr><td>補聴支援あり（全国推定）</td><td><span class="badge bn">UD</span></td><td class="num">337</td><td class="num">4.4%（307–365）</td></tr>
+        <tr><td>UDレベル Lv3（全面UD寄り）</td><td><span class="badge bn">UD</span></td><td class="num">106</td><td class="num">1.4%（88–124）</td></tr>
+        <tr><td>UDレベル Lv2（主要動線UD）</td><td><span class="badge bn">UD</span></td><td class="num">3,930</td><td class="num">51.3%（3,865–3,999）</td></tr>
+        <tr><td>UDレベル Lv1（部分対応）</td><td><span class="badge bn">UD</span></td><td class="num">3,476</td><td class="num">45.4%（3,405–3,540）</td></tr>
+        <tr><td>UDレベル Lv0（未整備）</td><td><span class="badge bn">UD</span></td><td class="num">147</td><td class="num">1.9%（127–166）</td></tr>
+        <tr><td colspan="4" style="background:var(--bg2);color:var(--text3);font-size:.55rem;letter-spacing:.12em;padding:.45rem .85rem;">// ヒートマップ — 優先支援ゾーン（モンテカルロ推定）</td></tr>
+        <tr><td>過疎×駅遠 — 優先支援数</td><td><span class="badge br">HM</span></td><td class="num">336</td><td class="num">83.7% / リスク 4.08</td></tr>
+        <tr><td>過疎×駅近 — 優先支援数</td><td><span class="badge br">HM</span></td><td class="num">21</td><td class="num">15.8% / リスク 3.08</td></tr>
+        <tr><td>地方（非過疎）×駅遠 — 優先支援数</td><td><span class="badge bg">HM</span></td><td class="num">758</td><td class="num">71.9% / リスク 2.86</td></tr>
+        <tr><td>地方（非過疎）×駅近 — 優先支援数</td><td><span class="badge bg">HM</span></td><td class="num">60</td><td class="num">8.5% / リスク 1.86</td></tr>
+        <tr><td>都市部×駅遠 — 優先支援数</td><td><span class="badge bn">HM</span></td><td class="num">68</td><td class="num">4.2% / リスク 1.48</td></tr>
+        <tr><td>都市部×駅近 — 優先支援数</td><td><span class="badge bn">HM</span></td><td class="num">157</td><td class="num">4.2% / リスク 0.47</td></tr>
       </tbody>
     </table>
     </div>
   </div>
 </section>
 
-<div class="orn">// 07</div>
+<div class="orn">// 09</div>
 
+<!-- 09 外部からの声 -->
 <section id="voices" class="sec">
-  <div class="sec-head reveal">
-    <span class="sec-num">07</span>
-    <h2 class="sec-title">外部からの声</h2>
-    <span class="sec-en">BROADLISTENING</span>
-  </div>
-
+  <div class="sec-head reveal"><span class="sec-num">09</span><h2 class="sec-title">外部からの声</h2><span class="sec-en">BROADLISTENING</span></div>
   <div class="bl-steps reveal">
     <div class="bl-step"><div class="bl-step-num">1</div><div><div class="bl-step-title">声を投稿する</div><div class="bl-step-desc">信徒・牧師・関係者が立場や経験を記入して送信します。</div></div></div>
     <div class="bl-step"><div class="bl-step-num">2</div><div><div class="bl-step-title">声を集める</div><div class="bl-step-desc">投稿はリアルタイムに一覧表示され、立場別・アクセス別に自動集計されます。</div></div></div>
     <div class="bl-step"><div class="bl-step-num">3</div><div><div class="bl-step-title">AIが分析する</div><div class="bl-step-desc">Claudeが共通テーマ・課題・政策示唆を抽出し、戦略立案に活かします。</div></div></div>
   </div>
-
   <div class="bl-layout reveal">
     <div class="bl-form">
       <div class="bl-form-head"><span class="bl-form-head-title">あなたの声を届ける</span></div>
@@ -634,15 +614,7 @@ footer strong{color:var(--amber);}
         </div>
         <div class="bl-field">
           <label class="bl-label">教会へのアクセス <span class="bl-req">必須</span></label>
-          <div class="bl-select-wrap">
-            <select id="bl-access" class="bl-select">
-              <option value="">── 選択 ──</option>
-              <option>駅近で便利（徒歩圏）</option>
-              <option>車で行ける距離</option>
-              <option>遠くて行きにくい</option>
-              <option>近くに教会がない</option>
-            </select>
-          </div>
+          <div class="bl-select-wrap"><select id="bl-access" class="bl-select"><option value="">── 選択 ──</option><option>駅近で便利（徒歩圏）</option><option>車で行ける距離</option><option>遠くて行きにくい</option><option>近くに教会がない</option></select></div>
         </div>
         <div class="bl-divider"></div>
         <div class="bl-field">
@@ -674,54 +646,29 @@ footer strong{color:var(--amber);}
       </div>
     </div>
   </div>
-
   <div class="bl-voices-wrap reveal">
     <div class="bl-voices-head">
-      <div class="bl-voices-title">
-        <span class="bl-voices-section-label">// VOICES</span>
-        <span class="bl-voices-num" id="bl-voice-num">0</span>
-        <span class="bl-voices-num-label">件の投稿</span>
-      </div>
+      <div class="bl-voices-title"><span class="bl-voices-section-label">// VOICES</span><span class="bl-voices-num" id="bl-voice-num">0</span><span class="bl-voices-num-label">件の投稿</span></div>
       <button class="bl-clear-btn" onclick="blClearAll()">CLEAR ALL</button>
     </div>
-    <div class="bl-cards" id="bl-cards">
-      <div class="bl-empty-full"><span class="bl-empty-icon">📭</span>まだ声が届いていません。<br>最初の一声を投稿してください。</div>
-    </div>
+    <div class="bl-cards" id="bl-cards"><div class="bl-empty-full"><span class="bl-empty-icon">📭</span>まだ声が届いていません。<br>最初の一声を投稿してください。</div></div>
   </div>
-
   <div class="bl-synth reveal">
-    <div class="bl-synth-head">
-      <span class="bl-synth-head-title">AIによる声の統合分析</span>
-      <span class="bl-synth-badge">Powered by Claude</span>
-    </div>
+    <div class="bl-synth-head"><span class="bl-synth-head-title">AIによる声の統合分析</span><span class="bl-synth-badge">Powered by Claude</span></div>
     <div class="bl-synth-body">
       <div class="synth-step">
-        <div class="synth-step-header">
-          <span class="synth-step-num">STEP 1</span>
-          <span class="synth-step-title">声を集める</span>
-        </div>
+        <div class="synth-step-header"><span class="synth-step-num">STEP 1</span><span class="synth-step-title">声を集める</span></div>
         <p class="synth-step-desc">上の「外部からの声」フォームから声を投稿してください。投稿が多いほど分析の精度が上がります。</p>
       </div>
       <div class="synth-step">
-        <div class="synth-step-header">
-          <span class="synth-step-num">STEP 2</span>
-          <span class="synth-step-title">分析を実行する</span>
-        </div>
+        <div class="synth-step-header"><span class="synth-step-num">STEP 2</span><span class="synth-step-title">分析を実行する</span></div>
         <p class="synth-step-desc">ボタンを押すと、Claudeが投稿された声を読み取り、<strong style="color:var(--amber2);">共通テーマ・課題・政策への示唆</strong>を自動で抽出します。</p>
         <button class="bl-synth-btn" id="bl-synth-btn" onclick="blSynthesize()">▶ 分析を開始する</button>
         <div class="bl-loading" id="bl-loading"><div class="bl-spinner"></div><span>Claudeが分析中です。しばらくお待ちください…</span></div>
       </div>
       <div class="bl-synth-result" id="bl-synth-result">
-        <div style="margin-bottom:1.25rem;">
-          <div class="synth-result-label">📌 抽出されたテーマ</div>
-          <p class="synth-result-hint">投稿から共通して見られたトピックです。</p>
-          <div class="bl-theme-grid" id="bl-themes"></div>
-        </div>
-        <div>
-          <div class="synth-result-label">📝 総合要約と政策への示唆</div>
-          <p class="synth-result-hint">全体の傾向と、今後の戦略立案に活かせる示唆をまとめました。</p>
-          <div class="bl-full-text" id="bl-full-text"></div>
-        </div>
+        <div style="margin-bottom:1.25rem;"><div class="synth-result-label">📌 抽出されたテーマ</div><p class="synth-result-hint">投稿から共通して見られたトピックです。</p><div class="bl-theme-grid" id="bl-themes"></div></div>
+        <div><div class="synth-result-label">📝 総合要約と政策への示唆</div><p class="synth-result-hint">全体の傾向と、今後の戦略立案に活かせる示唆をまとめました。</p><div class="bl-full-text" id="bl-full-text"></div></div>
       </div>
     </div>
   </div>
@@ -740,48 +687,28 @@ footer strong{color:var(--amber);}
 </footer>
 
 <script>
-/* ══ CHARTS ══ */
 const C={amber:'#e8a020',amber2:'#f5c46e',teal:'#00c9a7',red:'#ff5555',blue:'#4d9fff'};
 Chart.defaults.font.family="'JetBrains Mono',monospace";
 Chart.defaults.color='#7a8899';
-
 const chartDefs={},chartInst={},chartTriggered=new Set();
 
 function mkDonut(id,labels,data,colors,cutout='66%'){
   chartDefs[id]={kind:'donut',labels,realData:data,colors,cutout};
-  chartInst[id]=new Chart(id,{type:'doughnut',
-    data:{labels,datasets:[{data:data.map(()=>0),backgroundColor:colors,borderWidth:0,hoverOffset:6}]},
-    options:{cutout,responsive:true,maintainAspectRatio:false,animation:false,
-      plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>` ${ctx.label}: ${Number(ctx.raw).toLocaleString()}`}}}}});
+  chartInst[id]=new Chart(id,{type:'doughnut',data:{labels,datasets:[{data:data.map(()=>0),backgroundColor:colors,borderWidth:0,hoverOffset:6}]},options:{cutout,responsive:true,maintainAspectRatio:false,animation:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>` ${ctx.label}: ${Number(ctx.raw).toLocaleString()}`}}}}});
 }
-
 function mkBar(id,labels,data,colors,indexAxis='x',billionSuffix=false){
   chartDefs[id]={kind:'bar',labels,realData:data,colors,indexAxis,billionSuffix};
   const tick=billionSuffix?v=>v+'億':v=>v.toLocaleString();
-  const sc=indexAxis==='x'
-    ?{y:{grid:{color:'rgba(255,255,255,.05)'},ticks:{callback:tick}},x:{grid:{display:false}}}
-    :{x:{grid:{color:'rgba(255,255,255,.05)'},ticks:{callback:tick}},y:{grid:{display:false}}};
-  chartInst[id]=new Chart(id,{type:'bar',
-    data:{labels,datasets:[{data:data.map(()=>0),backgroundColor:colors,borderWidth:0}]},
-    options:{indexAxis,responsive:true,maintainAspectRatio:false,animation:false,
-      plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>` ${billionSuffix?ctx.raw+'億':Number(ctx.raw).toLocaleString()}`}}},
-      scales:sc}});
+  const sc=indexAxis==='x'?{y:{grid:{color:'rgba(255,255,255,.05)'},ticks:{callback:tick}},x:{grid:{display:false}}}:{x:{grid:{color:'rgba(255,255,255,.05)'},ticks:{callback:tick}},y:{grid:{display:false}}};
+  chartInst[id]=new Chart(id,{type:'bar',data:{labels,datasets:[{data:data.map(()=>0),backgroundColor:colors,borderWidth:0}]},options:{indexAxis,responsive:true,maintainAspectRatio:false,animation:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>` ${billionSuffix?ctx.raw+'億':Number(ctx.raw).toLocaleString()}`}}},scales:sc}});
 }
-
 function triggerChart(id){
   if(chartTriggered.has(id))return;
   chartTriggered.add(id);
   const def=chartDefs[id],chart=chartInst[id];
   if(!def||!chart)return;
-  if(def.kind==='donut'){
-    chart.options.animation={animateRotate:true,animateScale:true,duration:1600,easing:'easeOutQuart'};
-    chart.data.datasets[0].data=def.realData;chart.update();
-  } else {
-    def.realData.forEach((val,i)=>setTimeout(()=>{
-      chart.options.animation={duration:900,easing:'easeOutQuart'};
-      chart.data.datasets[0].data[i]=val;chart.update();
-    },i*120));
-  }
+  if(def.kind==='donut'){chart.options.animation={animateRotate:true,animateScale:true,duration:1600,easing:'easeOutQuart'};chart.data.datasets[0].data=def.realData;chart.update();}
+  else{def.realData.forEach((val,i)=>setTimeout(()=>{chart.options.animation={duration:900,easing:'easeOutQuart'};chart.data.datasets[0].data[i]=val;chart.update();},i*120));}
 }
 
 mkDonut('cUrban',['都市部（DID）','地方部（非DID）'],[5362,2298],[C.amber,C.blue]);
@@ -796,75 +723,61 @@ mkBar('cIncomeNat',['月定献金','礼拝献金','特別献金','その他'],[3
 mkBar('cExpenseNat',['牧師謝礼','伝道費','その他支出'],[404.8,26.9,172.3],[C.amber,C.teal,C.blue],'x',true);
 mkDonut('cPastor',['常駐','兼牧','無牧'],[6740,460,460],[C.amber,C.blue,C.red]);
 mkBar('cPastorBar',['常駐','兼牧','無牧'],[6740,460,460],[C.amber,C.blue,C.red]);
+mkBar('cUD',['礼拝到達','BFトイレ','段差なし','点字あり','昇降機あり','手話あり','補聴支援'],[6119,5846,3719,3098,1684,365,337],[C.teal,C.teal,C.amber,C.amber,C.amber,C.red,C.red]);
+mkDonut('cUDLevel',['Lv3 全面UD','Lv2 主要動線','Lv1 部分対応','Lv0 未整備'],[106,3930,3476,147],[C.teal,C.amber,C.blue,C.red]);
 
 const chartObs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){triggerChart(e.target.id);chartObs.unobserve(e.target);}}),{threshold:.3});
 Object.keys(chartDefs).forEach(id=>{const el=document.getElementById(id);if(el)chartObs.observe(el);});
 
-/* ══ COUNTER ══ */
-function animCounter(el,target,dur=1800){
+// ヒートマップ
+(function(){
+  const data=[
+    {label:'都市部 × 駅近',rate:4.2,count:157,risk:0.47,total:3751},
+    {label:'都市部 × 駅遠',rate:4.2,count:68,risk:1.48,total:1611},
+    {label:'地方（非過疎）× 駅近',rate:8.5,count:60,risk:1.86,total:708},
+    {label:'地方（非過疎）× 駅遠',rate:71.9,count:758,risk:2.86,total:1054},
+    {label:'過疎地域 × 駅近',rate:15.8,count:21,risk:3.08,total:135},
+    {label:'過疎地域 × 駅遠',rate:83.7,count:336,risk:4.08,total:401},
+  ];
+  function rateToColor(r){const t=r/100;if(t<0.15)return`rgba(26,80,50,${0.6+t*2})`;if(t<0.5)return`rgba(180,100,10,${0.5+t})`;return`rgba(${Math.round(180+t*75)},${Math.round(40*(1-t))},${Math.round(20*(1-t))},0.85)`;}
+  const grid=document.getElementById('heatmap-grid');
+  if(grid)grid.innerHTML=data.map(d=>`<div class="hm-cell" style="background:${rateToColor(d.rate)}"><div class="hm-label">${d.label}</div><div class="hm-rate">${d.rate}%</div><div class="hm-sub">${d.count.toLocaleString()}件 / ${d.total.toLocaleString()}教会</div><div class="hm-risk">リスク ${d.risk}</div></div>`).join('');
+})();
+
+/* COUNTER */
+function animCounter(el,dur=1800){
+  if(el.dataset.done)return;
+  el.dataset.done='1';
+  const target=parseFloat(el.getAttribute('data-target'));
   const isFloat=!Number.isInteger(target);
   let start=null;
-  const step=ts=>{
-    if(!start)start=ts;
-    const p=Math.min((ts-start)/dur,1);
-    const ease=1-Math.pow(1-p,4);
-    const val=target*ease;
-    el.textContent=(isFloat?val.toFixed(1):Math.round(val).toLocaleString());
-    if(p<1)requestAnimationFrame(step);
-    else el.textContent=(isFloat?target.toFixed(1):target.toLocaleString());
-  };
+  const step=ts=>{if(!start)start=ts;const p=Math.min((ts-start)/dur,1);const ease=1-Math.pow(1-p,4);const val=target*ease;el.textContent=isFloat?val.toFixed(1):Math.round(val).toLocaleString();if(p<1)requestAnimationFrame(step);else el.textContent=isFloat?target.toFixed(1):target.toLocaleString();};
   requestAnimationFrame(step);
 }
+const counterInterval=setInterval(()=>{
+  const all=document.querySelectorAll('.count-num[data-target]');
+  let remaining=0;
+  all.forEach(el=>{if(!el.dataset.done){remaining++;const r=el.getBoundingClientRect();if(r.top<window.innerHeight&&r.bottom>0)animCounter(el);}});
+  if(remaining===0)clearInterval(counterInterval);
+},200);
 
-/* ══ SCROLL ══ */
+/* SCROLL REVEAL */
 const revealObs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');revealObs.unobserve(e.target);}}),{threshold:.07});
 document.querySelectorAll('.reveal,.stagger').forEach(el=>revealObs.observe(el));
 
-// KPI行は即時アニメーション
-setTimeout(()=>{
-  document.querySelectorAll('.kpi-row .count-num[data-target]').forEach(el=>animCounter(el,parseFloat(el.getAttribute('data-target'))));
-},300);
-
-// その他はスクロール検知
-const cTriggered=new WeakSet();
-const cObs=new IntersectionObserver(entries=>entries.forEach(e=>{
-  if(e.isIntersecting&&!cTriggered.has(e.target)){
-    cTriggered.add(e.target);
-    e.target.querySelectorAll('.count-num[data-target]').forEach(el=>animCounter(el,parseFloat(el.getAttribute('data-target'))));
-    cObs.unobserve(e.target);
-  }
-}),{threshold:.2});
-document.querySelectorAll('.chart-box,.uccj-cell').forEach(el=>cObs.observe(el));
-
 const bTriggered=new WeakSet();
-const bObs=new IntersectionObserver(entries=>entries.forEach(e=>{
-  if(e.isIntersecting&&!bTriggered.has(e.target)){
-    bTriggered.add(e.target);
-    e.target.querySelectorAll('.sbar-fill[data-w]').forEach((b,i)=>setTimeout(()=>{b.style.width=b.getAttribute('data-w')+'%';},i*120));
-    bObs.unobserve(e.target);
-  }
-}),{threshold:.2});
+const bObs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting&&!bTriggered.has(e.target)){bTriggered.add(e.target);e.target.querySelectorAll('.sbar-fill[data-w]').forEach((b,i)=>setTimeout(()=>{b.style.width=b.getAttribute('data-w')+'%';},i*120));bObs.unobserve(e.target);}}),{threshold:.2});
 document.querySelectorAll('.chart-box,.bl-stat-body').forEach(el=>bObs.observe(el));
 
-/* ══ SUPABASE CONFIG ══ */
+/* SUPABASE */
 const SUPABASE_URL='https://xfljrjpvbexfsaxjrqwj.supabase.co';
 const SUPABASE_KEY='sb_publishable_5KKymLL5D7GngiykVPUmFQ_zQ0Fd50Z';
 const SB_HEADERS={'Content-Type':'application/json','apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY};
+async function sbSelect(){const res=await fetch(`${SUPABASE_URL}/rest/v1/voices?select=*&order=created_at.desc`,{headers:SB_HEADERS});return res.json();}
+async function sbInsert(row){const res=await fetch(`${SUPABASE_URL}/rest/v1/voices`,{method:'POST',headers:{...SB_HEADERS,'Prefer':'return=representation'},body:JSON.stringify(row)});if(!res.ok){const e=await res.json();throw new Error(JSON.stringify(e));}return res.json();}
+async function sbDeleteAll(){await fetch(`${SUPABASE_URL}/rest/v1/voices?id=gte.0`,{method:'DELETE',headers:SB_HEADERS});}
 
-async function sbSelect(){
-  const res=await fetch(`${SUPABASE_URL}/rest/v1/voices?select=*&order=created_at.desc`,{headers:SB_HEADERS});
-  return res.json();
-}
-async function sbInsert(row){
-  const res=await fetch(`${SUPABASE_URL}/rest/v1/voices`,{method:'POST',headers:{...SB_HEADERS,'Prefer':'return=representation'},body:JSON.stringify(row)});
-  if(!res.ok){const e=await res.json();throw new Error(JSON.stringify(e));}
-  return res.json();
-}
-async function sbDeleteAll(){
-  await fetch(`${SUPABASE_URL}/rest/v1/voices?id=gte.0`,{method:'DELETE',headers:SB_HEADERS});
-}
-
-/* ══ BROADLISTENING ══ */
+/* BROADLISTENING */
 function blShowMsg(txt,type){const el=document.getElementById('bl-msg');el.textContent=txt;el.className='bl-msg '+type;el.style.display='block';setTimeout(()=>el.style.display='none',4000);}
 function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 
@@ -877,39 +790,17 @@ async function blSubmit(){
   if(!role){blShowMsg('立場を選択してください','err');return;}
   if(!access){blShowMsg('アクセス状況を選択してください','err');return;}
   if(!challenge){blShowMsg('最大の課題を入力してください','err');return;}
-  try{
-    await sbInsert({role,access,challenge,idea,comment});
-    document.querySelectorAll('input[name="role"]').forEach(r=>r.checked=false);
-    document.getElementById('bl-access').value='';
-    ['bl-challenge','bl-idea','bl-comment'].forEach(id=>document.getElementById(id).value='');
-    blShowMsg('// SUBMITTED — ありがとうございます','ok');
-    blRender();
-  }catch(e){blShowMsg('エラー: '+e.message,'err');}
+  try{await sbInsert({role,access,challenge,idea,comment});document.querySelectorAll('input[name="role"]').forEach(r=>r.checked=false);document.getElementById('bl-access').value='';['bl-challenge','bl-idea','bl-comment'].forEach(id=>document.getElementById(id).value='');blShowMsg('// SUBMITTED — ありがとうございます','ok');blRender();}catch(e){blShowMsg('エラー: '+e.message,'err');}
 }
 
 async function blRender(){
   const voices=await sbSelect();
   if(!Array.isArray(voices))return;
   document.getElementById('bl-total-count').textContent=voices.length;
-  const numEl=document.getElementById('bl-voice-num');
-  if(numEl)numEl.textContent=voices.length;
+  const numEl=document.getElementById('bl-voice-num');if(numEl)numEl.textContent=voices.length;
   const container=document.getElementById('bl-cards');
-  if(!voices.length){
-    container.innerHTML=`<div class="bl-empty-full"><span class="bl-empty-icon">📭</span>まだ声が届いていません。<br>最初の一声を投稿してください。</div>`;
-    return;
-  }
-  container.innerHTML=voices.map((v,i)=>`
-    <div class="bl-card" style="animation-delay:${i*.04}s">
-      <div class="bl-card-meta">
-        <span class="bl-tag bl-tag-role">${esc(v.role)}</span>
-        <span class="bl-tag bl-tag-access">${esc(v.access)}</span>
-        <span class="bl-tag-time">${new Date(v.created_at).toLocaleString('ja-JP',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'})}</span>
-      </div>
-      <div class="bl-card-q">// CHALLENGE</div>
-      <div class="bl-card-text">${esc(v.challenge)}</div>
-      ${v.idea?`<div class="bl-card-idea">${esc(v.idea)}</div>`:''}
-      ${v.comment?`<div class="bl-card-comment">${esc(v.comment)}</div>`:''}
-    </div>`).join('');
+  if(!voices.length){container.innerHTML=`<div class="bl-empty-full"><span class="bl-empty-icon">📭</span>まだ声が届いていません。<br>最初の一声を投稿してください。</div>`;return;}
+  container.innerHTML=voices.map((v,i)=>`<div class="bl-card" style="animation-delay:${i*.04}s"><div class="bl-card-meta"><span class="bl-tag bl-tag-role">${esc(v.role)}</span><span class="bl-tag bl-tag-access">${esc(v.access)}</span><span class="bl-tag-time">${new Date(v.created_at).toLocaleString('ja-JP',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'})}</span></div><div class="bl-card-q">// CHALLENGE</div><div class="bl-card-text">${esc(v.challenge)}</div>${v.idea?`<div class="bl-card-idea">${esc(v.idea)}</div>`:''}${v.comment?`<div class="bl-card-comment">${esc(v.comment)}</div>`:''}</div>`).join('');
   blRenderStats('bl-role-stats',voices.map(v=>v.role),['信徒（教会員）','牧師・伝道師','教会探し中','未信者・関心層','研究者・支援者'],'amber');
   blRenderStats('bl-access-stats',voices.map(v=>v.access),['駅近で便利（徒歩圏）','車で行ける距離','遠くて行きにくい','近くに教会がない'],'teal');
 }
@@ -919,11 +810,7 @@ function blRenderStats(cid,data,keys,colorClass){
   if(!data.length){el.innerHTML='<div class="bl-empty-sm">まだ投稿がありません</div>';return;}
   const counts={};keys.forEach(k=>counts[k]=0);data.forEach(v=>{if(counts[v]!==undefined)counts[v]++;});
   const max=Math.max(...Object.values(counts),1);
-  el.innerHTML=keys.map(k=>`
-    <div class="bl-stat-row">
-      <div class="bl-stat-lbl"><span class="bl-stat-name">${k}</span><span class="bl-stat-val">${counts[k]}</span></div>
-      <div class="bl-stat-bar"><div class="bl-stat-fill ${colorClass==='teal'?'teal':''}" data-w="${Math.round(counts[k]/max*100)}" style="width:0"></div></div>
-    </div>`).join('');
+  el.innerHTML=keys.map(k=>`<div class="bl-stat-row"><div class="bl-stat-lbl"><span class="bl-stat-name">${k}</span><span class="bl-stat-val">${counts[k]}</span></div><div class="bl-stat-bar"><div class="bl-stat-fill ${colorClass==='teal'?'teal':''}" data-w="${Math.round(counts[k]/max*100)}" style="width:0"></div></div></div>`).join('');
   setTimeout(()=>el.querySelectorAll('.bl-stat-fill[data-w]').forEach((b,i)=>setTimeout(()=>{b.style.width=b.getAttribute('data-w')+'%';},i*80)),60);
 }
 
@@ -932,15 +819,11 @@ async function blClearAll(){
   if(pwd===null)return;
   if(pwd!=='awai2026'){alert('パスワードが違います');return;}
   if(!confirm('すべての投稿を削除しますか？'))return;
-  await sbDeleteAll();
-  document.getElementById('bl-synth-result').classList.remove('show');
-  blRender();
+  await sbDeleteAll();document.getElementById('bl-synth-result').classList.remove('show');blRender();
 }
 
 async function blSynthesize(){
-  const btn=document.getElementById('bl-synth-btn');
-  const loading=document.getElementById('bl-loading');
-  const result=document.getElementById('bl-synth-result');
+  const btn=document.getElementById('bl-synth-btn'),loading=document.getElementById('bl-loading'),result=document.getElementById('bl-synth-result');
   let voices=[];
   try{voices=await sbSelect();}catch(e){alert('データ取得エラー: '+e.message);return;}
   if(!Array.isArray(voices)||voices.length===0){alert('投稿がありません');return;}
@@ -948,11 +831,7 @@ async function blSynthesize(){
   const voiceText=voices.map((v,i)=>`[声 ${i+1}] 立場:${v.role} / アクセス:${v.access}\n課題：${v.challenge}\n${v.idea?'提案：'+v.idea:''}\n${v.comment?'コメント：'+v.comment:''}`).join('\n---\n');
   const prompt=`以下は日本のプロテスタント教会統計報告書への「外部からの声」です。BroadListening手法で分析してください。\n\n${voiceText}\n\n## 出力形式（JSONのみ）\n{"themes":[{"label":"テーマ名（10字以内）","body":"説明（50字以内）"}],"summary":"総合要約（200〜300字）","suggestions":["示唆1","示唆2","示唆3"]}`;
   try{
-    const res=await fetch('/api/synthesize',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:prompt}]})
-    });
+    const res=await fetch('/api/synthesize',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:prompt}]})});
     if(!res.ok){const e=await res.json();throw new Error(e.error?.message||res.statusText);}
     const data=await res.json();
     const raw=data.content.map(b=>b.text||'').join('');
