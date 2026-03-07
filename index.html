@@ -706,7 +706,17 @@ footer strong{color:var(--amber);}
         <p class="synth-step-desc">上の「外部からの声」フォームから声を投稿してください。投稿が多いほど分析の精度が上がります。</p>
       </div>
       <div class="synth-step">
-        <div class="synth-step-header"><span class="synth-step-num">STEP 2</span><span class="synth-step-title">分析を実行する</span></div>
+        <div class="synth-step-header"><span class="synth-step-num">STEP 2</span><span class="synth-step-title">APIキーを設定する</span></div>
+        <p class="synth-step-desc">Anthropic APIキーを入力してください。キーはこのページ内のみで使用され、外部に送信されません。</p>
+        <div class="bl-field" style="margin-bottom:0;">
+          <div style="position:relative;">
+            <input type="password" id="bl-apikey" class="bl-select" style="padding-right:2.5rem;" placeholder="sk-ant-...">
+            <span style="position:absolute;right:.8rem;top:50%;transform:translateY(-50%);font-size:.6rem;color:var(--text3);cursor:pointer;" onclick="const i=document.getElementById('bl-apikey');i.type=i.type==='password'?'text':'password'">👁</span>
+          </div>
+        </div>
+      </div>
+      <div class="synth-step">
+        <div class="synth-step-header"><span class="synth-step-num">STEP 3</span><span class="synth-step-title">分析を実行する</span></div>
         <p class="synth-step-desc">ボタンを押すと、Claudeが投稿された声を読み取り、<strong style="color:var(--amber2);">共通テーマ・課題・政策への示唆</strong>を自動で抽出します。</p>
         <button class="bl-synth-btn" id="bl-synth-btn" onclick="blSynthesize()">▶ 分析を開始する</button>
         <div class="bl-loading" id="bl-loading"><div class="bl-spinner"></div><span>Claudeが分析中です。しばらくお待ちください…</span></div>
@@ -868,6 +878,8 @@ async function blClearAll(){
 }
 
 async function blSynthesize(){
+  const apiKey=document.getElementById('bl-apikey').value.trim();
+  if(!apiKey){alert('APIキーを入力してください（STEP 2）');return;}
   const btn=document.getElementById('bl-synth-btn'),loading=document.getElementById('bl-loading'),result=document.getElementById('bl-synth-result');
   let voices=[];
   try{voices=await sbSelect();}catch(e){alert('データ取得エラー: '+e.message);return;}
@@ -876,7 +888,7 @@ async function blSynthesize(){
   const voiceText=voices.map((v,i)=>`[声 ${i+1}] 立場:${v.role} / アクセス:${v.access}\n課題：${v.challenge}\n${v.idea?'提案：'+v.idea:''}\n${v.comment?'コメント：'+v.comment:''}`).join('\n---\n');
   const prompt=`以下は日本のプロテスタント教会統計報告書への「外部からの声」です。BroadListening手法で分析してください。\n\n${voiceText}\n\n## 出力形式（JSONのみ）\n{"themes":[{"label":"テーマ名（10字以内）","body":"説明（50字以内）"}],"summary":"総合要約（200〜300字）","suggestions":["示唆1","示唆2","示唆3"]}`;
   try{
-    const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:prompt}]})});
+    const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:prompt}]})});
     if(!res.ok){const e=await res.json();throw new Error(e.error?.message||res.statusText);}
     const data=await res.json();
     const raw=data.content.map(b=>b.text||'').join('');
@@ -892,3 +904,4 @@ blRender();
 </script>
 </body>
 </html>
+
