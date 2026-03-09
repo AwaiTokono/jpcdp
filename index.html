@@ -30,6 +30,13 @@ nav{position:sticky;top:0;z-index:500;background:rgba(7,9,15,.92);backdrop-filte
 .nav-status::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--teal);animation:pulse 2s ease-in-out infinite;}
 @keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(0,201,167,.4);}50%{opacity:.7;box-shadow:0 0 0 4px rgba(0,201,167,0);}}
 .nav-ver{font-size:.58rem;color:var(--text3);letter-spacing:.1em;margin-left:auto;padding:.85rem 0;}
+.nav-voices-link{margin-left:auto;font-size:.72rem;letter-spacing:.12em;color:var(--bg);background:var(--amber);border:none;padding:.45rem 1.2rem;text-decoration:none;white-space:nowrap;font-weight:700;position:relative;overflow:hidden;animation:navPulse 2.2s ease-in-out infinite;}
+.nav-voices-link::before{content:'';position:absolute;inset:0;background:rgba(255,255,255,.15);transform:translateX(-100%);transition:transform .3s cubic-bezier(.16,1,.3,1);}
+.nav-voices-link:hover{background:var(--amber2);transform:translateY(-2px);box-shadow:0 4px 20px rgba(232,160,32,.5);animation:none;}
+.nav-voices-link:hover::before{transform:translateX(0);}
+.nav-voices-link:active{transform:translateY(0);box-shadow:none;}
+@keyframes navPulse{0%,100%{box-shadow:0 0 0 0 rgba(232,160,32,.7);opacity:1;}50%{box-shadow:0 0 0 10px rgba(232,160,32,0);opacity:.7;}}
+.nav-ver{margin-left:.75rem;}
 
 .hero{padding:5rem 0 3.5rem;border-bottom:1px solid var(--border);position:relative;overflow:hidden;}
 .hero-glow{position:absolute;top:-20%;left:50%;transform:translateX(-50%);width:600px;height:400px;background:radial-gradient(ellipse,rgba(232,160,32,.06) 0%,transparent 70%);pointer-events:none;}
@@ -152,14 +159,14 @@ nav{position:sticky;top:0;z-index:500;background:rgba(7,9,15,.92);backdrop-filte
 .bl-form-head-title{font-size:.72rem;letter-spacing:.1em;color:var(--white);}
 .bl-form-body{padding:1.3rem;}
 .bl-field{margin-bottom:1.15rem;}
-.bl-label{display:flex;align-items:center;gap:.4rem;font-size:.66rem;color:var(--text);margin-bottom:.38rem;}
-.bl-req{font-size:.5rem;color:var(--teal);background:rgba(0,201,167,.1);border:1px solid rgba(0,201,167,.2);padding:.08rem .3rem;letter-spacing:.06em;}
-.bl-opt{font-size:.5rem;color:var(--text3);background:rgba(255,255,255,.04);border:1px solid var(--border);padding:.08rem .3rem;letter-spacing:.06em;}
+.bl-label{display:flex;align-items:center;gap:.4rem;font-size:.82rem;color:var(--text);margin-bottom:.38rem;}
+.bl-req{font-size:.58rem;color:var(--teal);background:rgba(0,201,167,.1);border:1px solid rgba(0,201,167,.2);padding:.08rem .3rem;letter-spacing:.06em;}
+.bl-opt{font-size:.58rem;color:var(--text3);background:rgba(255,255,255,.04);border:1px solid var(--border);padding:.08rem .3rem;letter-spacing:.06em;}
 .bl-radio-group{display:flex;flex-wrap:wrap;gap:.35rem;}
 .bl-radio{display:none;}
-.bl-radio-label{padding:.3rem .7rem;border:1px solid var(--border);font-size:.66rem;cursor:pointer;color:var(--text2);transition:all .15s;}
+.bl-radio-label{padding:.35rem .85rem;border:1px solid var(--border);font-size:.8rem;cursor:pointer;color:var(--text2);transition:all .15s;}
 .bl-radio:checked+.bl-radio-label{background:rgba(232,160,32,.1);color:var(--amber);border-color:rgba(232,160,32,.35);}
-.bl-select,.bl-textarea{width:100%;font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--text);background:var(--bg);border:1px solid var(--border);padding:.58rem .8rem;outline:none;transition:border-color .15s;appearance:none;line-height:1.5;}
+.bl-select,.bl-textarea{width:100%;font-family:'JetBrains Mono',monospace;font-size:.86rem;color:var(--text);background:var(--bg);border:1px solid var(--border);padding:.65rem .9rem;outline:none;transition:border-color .15s;appearance:none;line-height:1.5;}
 .bl-select:focus,.bl-textarea:focus{border-color:rgba(232,160,32,.4);}
 .bl-textarea{resize:vertical;min-height:68px;line-height:1.7;}
 .bl-select-wrap{position:relative;}
@@ -302,6 +309,7 @@ footer strong{color:var(--amber);}
 <nav>
   <div class="nav-logo">JPCDP <span>// JAPAN PROTESTANT CHURCH DIGITAL PLATFORM</span></div>
   <div class="nav-status">OPERATIONAL</div>
+  <a href="#voices" class="nav-voices-link">// あなたの声を投稿する</a>
   <div class="nav-ver">v2026.03.06</div>
 </nav>
 
@@ -635,47 +643,53 @@ footer strong{color:var(--amber);}
 
 <div class="orn">// 09</div>
 
-<!-- 09 外部からの声 -->
+<!-- 09 あなたの声 -->
 <section id="voices" class="sec">
-  <div class="sec-head reveal"><span class="sec-num">09</span><h2 class="sec-title">外部からの声</h2><span class="sec-en">BROADLISTENING</span></div>
+  <div class="sec-head reveal"><span class="sec-num">09</span><h2 class="sec-title">あなたの声</h2><span class="sec-en">BROADLISTENING</span></div>
+  <div class="insight reveal"><p>この報告書は推計データに基づいています。<strong>あなたの実体験・現場の声</strong>を加えることで、より現実に近い分析が生まれます。ぜひ投稿してください。</p></div>
+  <p class="reveal" style="font-size:.66rem;color:var(--text3);margin-bottom:1.5rem;line-height:1.9;padding:.75rem 1rem;background:var(--bg1);border:1px solid var(--border);border-left:3px solid var(--teal);">🔒 <strong style="color:var(--text2);">匿名投稿</strong> — 氏名・連絡先などの個人情報は一切収集しません。投稿内容はAI分析と統計集計にのみ使用されます。</p>
   <div class="bl-steps reveal">
-    <div class="bl-step"><div class="bl-step-num">1</div><div><div class="bl-step-title">声を投稿する</div><div class="bl-step-desc">信徒・牧師・関係者が立場や経験を記入して送信します。</div></div></div>
-    <div class="bl-step"><div class="bl-step-num">2</div><div><div class="bl-step-title">声を集める</div><div class="bl-step-desc">投稿はリアルタイムに一覧表示され、立場別・アクセス別に自動集計されます。</div></div></div>
-    <div class="bl-step"><div class="bl-step-num">3</div><div><div class="bl-step-title">AIが分析する</div><div class="bl-step-desc">Claudeが共通テーマ・課題・政策示唆を抽出し、戦略立案に活かします。</div></div></div>
+    <div class="bl-step"><div class="bl-step-num">1</div><div><div class="bl-step-title">📝 声を送る</div><div class="bl-step-desc">下のフォームに立場・課題・アイデアを入力して送信。匿名で投稿できます。</div></div></div>
+    <div class="bl-step"><div class="bl-step-num">2</div><div><div class="bl-step-title">📊 集計される</div><div class="bl-step-desc">投稿はリアルタイムで一覧表示され、立場別・アクセス別に自動集計されます。</div></div></div>
+    <div class="bl-step"><div class="bl-step-num">3</div><div><div class="bl-step-title">🤖 AIが要約する</div><div class="bl-step-desc">Claude AIが全投稿を読み取り、共通テーマと政策への示唆をまとめます。</div></div></div>
   </div>
   <div class="bl-layout reveal">
     <div class="bl-form">
-      <div class="bl-form-head"><span class="bl-form-head-title">あなたの声を届ける</span></div>
+      <div class="bl-form-head"><span class="bl-form-head-title">📣 あなたの声を届ける</span></div>
       <div class="bl-form-body">
         <div class="bl-field">
-          <label class="bl-label">立場は？ <span class="bl-req">必須</span></label>
+          <label class="bl-label">あなたの立場 <span class="bl-req">必須</span></label>
+          <p style="font-size:.62rem;color:var(--text3);margin-bottom:.5rem;line-height:1.6;">最も近いものを選んでください</p>
           <div class="bl-radio-group">
             <input class="bl-radio" type="radio" name="role" id="r1" value="信徒（教会員）"><label class="bl-radio-label" for="r1">信徒（教会員）</label>
             <input class="bl-radio" type="radio" name="role" id="r2" value="牧師・伝道師"><label class="bl-radio-label" for="r2">牧師・伝道師</label>
-            <input class="bl-radio" type="radio" name="role" id="r3" value="教会探し中"><label class="bl-radio-label" for="r3">教会探し中</label>
-            <input class="bl-radio" type="radio" name="role" id="r4" value="未信者・関心層"><label class="bl-radio-label" for="r4">未信者・関心層</label>
+            <input class="bl-radio" type="radio" name="role" id="r3" value="教会探し中"><label class="bl-radio-label" for="r3">教会を探している</label>
+            <input class="bl-radio" type="radio" name="role" id="r4" value="未信者・関心層"><label class="bl-radio-label" for="r4">キリスト教に関心がある</label>
             <input class="bl-radio" type="radio" name="role" id="r5" value="研究者・支援者"><label class="bl-radio-label" for="r5">研究者・支援者</label>
           </div>
         </div>
         <div class="bl-field">
-          <label class="bl-label">教会へのアクセス <span class="bl-req">必須</span></label>
-          <div class="bl-select-wrap"><select id="bl-access" class="bl-select"><option value="">── 選択 ──</option><option>駅近で便利（徒歩圏）</option><option>車で行ける距離</option><option>遠くて行きにくい</option><option>近くに教会がない</option></select></div>
+          <label class="bl-label">最寄りの教会まで <span class="bl-req">必須</span></label>
+          <p style="font-size:.62rem;color:var(--text3);margin-bottom:.5rem;line-height:1.6;">あなたの住むエリアの状況を教えてください</p>
+          <div class="bl-select-wrap"><select id="bl-access" class="bl-select"><option value="">── 選択してください ──</option><option>駅近で便利（徒歩圏内）</option><option>車があれば行ける</option><option>遠くて行きにくい</option><option>近くに教会がない</option></select></div>
         </div>
         <div class="bl-divider"></div>
         <div class="bl-field">
-          <label class="bl-label">最大の課題は？ <span class="bl-req">必須</span></label>
-          <textarea id="bl-challenge" class="bl-textarea" rows="3" placeholder="例：後継者不足、高齢化、財政難、地域との関係など…"></textarea>
+          <label class="bl-label">今、最も大きな課題は何ですか？ <span class="bl-req">必須</span></label>
+          <p style="font-size:.62rem;color:var(--text3);margin-bottom:.5rem;line-height:1.6;">教会・地域・信仰生活など、どんな内容でも構いません</p>
+          <textarea id="bl-challenge" class="bl-textarea" rows="3" placeholder="例：後継者不足、高齢化、財政難、地域との関係、牧師不在…など"></textarea>
         </div>
         <div class="bl-field">
-          <label class="bl-label">無教会地域への有効な取り組みは？ <span class="bl-opt">任意</span></label>
-          <textarea id="bl-idea" class="bl-textarea" rows="2" placeholder="例：オンライン礼拝、巡回牧師制度、分散型集会など…"></textarea>
+          <label class="bl-label">解決策・アイデアがあれば <span class="bl-opt">任意</span></label>
+          <p style="font-size:.62rem;color:var(--text3);margin-bottom:.5rem;line-height:1.6;">無教会地域や課題への取り組みアイデアをご自由に</p>
+          <textarea id="bl-idea" class="bl-textarea" rows="2" placeholder="例：オンライン礼拝、巡回牧師制度、地域との連携…など"></textarea>
         </div>
         <div class="bl-field">
-          <label class="bl-label">報告書へのコメント <span class="bl-opt">任意</span></label>
-          <textarea id="bl-comment" class="bl-textarea" rows="2" placeholder="自由記述…"></textarea>
+          <label class="bl-label">この報告書へのコメント <span class="bl-opt">任意</span></label>
+          <textarea id="bl-comment" class="bl-textarea" rows="2" placeholder="データへの感想・補足・修正提案など、自由にどうぞ"></textarea>
         </div>
         <div class="bl-submit-row">
-          <button class="bl-submit" onclick="blSubmit()">// SUBMIT</button>
+          <button class="bl-submit" onclick="blSubmit()">// 投稿する</button>
           <div class="bl-msg" id="bl-msg"></div>
         </div>
       </div>
@@ -686,7 +700,7 @@ footer strong{color:var(--amber);}
         <div class="bl-stat-body" id="bl-role-stats"><div class="bl-empty-sm">まだ投稿がありません</div></div>
       </div>
       <div class="bl-stat-card">
-        <div class="bl-stat-head"><span class="bl-stat-head-label">アクセス状況</span></div>
+        <div class="bl-stat-head"><span class="bl-stat-head-label">教会へのアクセス状況</span></div>
         <div class="bl-stat-body" id="bl-access-stats"><div class="bl-empty-sm">まだ投稿がありません</div></div>
       </div>
     </div>
@@ -703,7 +717,7 @@ footer strong{color:var(--amber);}
     <div class="bl-synth-body">
       <div class="synth-step">
         <div class="synth-step-header"><span class="synth-step-num">STEP 1</span><span class="synth-step-title">声を集める</span></div>
-        <p class="synth-step-desc">上の「外部からの声」フォームから声を投稿してください。投稿が多いほど分析の精度が上がります。</p>
+        <p class="synth-step-desc">上の「あなたの声」フォームから声を投稿してください。投稿が多いほど分析の精度が上がります。</p>
       </div>
       <div class="synth-step">
         <div class="synth-step-header"><span class="synth-step-num">STEP 2</span><span class="synth-step-title">APIキーを設定する</span></div>
@@ -886,7 +900,7 @@ async function blSynthesize(){
   if(!Array.isArray(voices)||voices.length===0){alert('投稿がありません');return;}
   btn.disabled=true;loading.classList.add('show');result.classList.remove('show');
   const voiceText=voices.map((v,i)=>`[声 ${i+1}] 立場:${v.role} / アクセス:${v.access}\n課題：${v.challenge}\n${v.idea?'提案：'+v.idea:''}\n${v.comment?'コメント：'+v.comment:''}`).join('\n---\n');
-  const prompt=`以下は日本のプロテスタント教会統計報告書への「外部からの声」です。BroadListening手法で分析してください。\n\n${voiceText}\n\n## 出力形式（JSONのみ）\n{"themes":[{"label":"テーマ名（10字以内）","body":"説明（50字以内）"}],"summary":"総合要約（200〜300字）","suggestions":["示唆1","示唆2","示唆3"]}`;
+  const prompt=`以下は日本のプロテスタント教会統計報告書への「あなたの声」です。BroadListening手法で分析してください。\n\n${voiceText}\n\n## 出力形式（JSONのみ）\n{"themes":[{"label":"テーマ名（10字以内）","body":"説明（50字以内）"}],"summary":"総合要約（200〜300字）","suggestions":["示唆1","示唆2","示唆3"]}`;
   try{
     const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:prompt}]})});
     if(!res.ok){const e=await res.json();throw new Error(e.error?.message||res.statusText);}
@@ -904,4 +918,3 @@ blRender();
 </script>
 </body>
 </html>
-
