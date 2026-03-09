@@ -255,7 +255,13 @@ nav{position:sticky;top:0;z-index:500;background:rgba(7,9,15,.92);backdrop-filte
 .stagger.vis>*:nth-child(4){opacity:1;transform:none;transition-delay:.28s;}
 .stagger.vis>*:nth-child(5){opacity:1;transform:none;transition-delay:.36s;}
 
-footer{background:var(--bg1);border-top:1px solid var(--border);padding:2rem;text-align:center;}
+.sec-nav{position:sticky;top:44px;z-index:490;background:rgba(13,17,23,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
+.sec-nav-inner{display:flex;flex-wrap:wrap;align-items:center;max-width:1280px;margin:0 auto;padding:.6rem 2rem;gap:.4rem;}
+.sec-nav-link{font-size:.72rem;letter-spacing:.06em;color:var(--text3);padding:.38rem .9rem;white-space:nowrap;text-decoration:none;border:1px solid var(--border);border-radius:999px;background:transparent;transition:all .18s;}
+.sec-nav-link:hover{color:var(--teal);border-color:rgba(0,201,167,.4);background:rgba(0,201,167,.06);}
+.sec-nav-link.active{color:var(--bg);background:var(--amber);border-color:var(--amber);font-weight:600;}
+@media(max-width:768px){.sec-nav-inner{padding:.5rem 1rem;gap:.3rem;}.sec-nav-link{font-size:.66rem;padding:.32rem .75rem;}}
+
 footer p{font-size:.6rem;color:var(--text3);letter-spacing:.07em;line-height:2.2;}
 footer strong{color:var(--amber);}
 
@@ -311,6 +317,19 @@ footer strong{color:var(--amber);}
   <div class="nav-status">OPERATIONAL</div>
   <a href="#voices" class="nav-voices-link">// あなたの声を投稿する</a>
   <div class="nav-ver">v2026.03.06</div>
+</nav>
+<nav class="sec-nav">
+  <div class="sec-nav-inner">
+    <a href="#geo" class="sec-nav-link">01 地理的分布</a>
+    <a href="#vacant" class="sec-nav-link">02 無教会地域</a>
+    <a href="#finance" class="sec-nav-link">03 財政構造</a>
+    <a href="#pastor" class="sec-nav-link">04 教職者配置</a>
+    <a href="#ud" class="sec-nav-link">05 UD</a>
+    <a href="#heatmap" class="sec-nav-link">06 ヒートマップ</a>
+    <a href="#rec" class="sec-nav-link">07 提言</a>
+    <a href="#data" class="sec-nav-link">08 統計データ</a>
+    <a href="#voices" class="sec-nav-link sec-nav-voices">09 あなたの声</a>
+  </div>
 </nav>
 
 <!-- HERO -->
@@ -915,6 +934,20 @@ async function blSynthesize(){
 }
 
 blRender();
+
+/* SEC-NAV ACTIVE HIGHLIGHT */
+const secNavLinks=document.querySelectorAll('.sec-nav-link');
+const secIds=['geo','vacant','finance','pastor','ud','heatmap','rec','data','voices'];
+const secNavObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      secNavLinks.forEach(l=>l.classList.remove('active'));
+      const active=document.querySelector(`.sec-nav-link[href="#${e.target.id}"]`);
+      if(active){active.classList.add('active');active.scrollIntoView({block:'nearest',inline:'center'});}
+    }
+  });
+},{threshold:.25});
+secIds.forEach(id=>{const el=document.getElementById(id);if(el)secNavObs.observe(el);});
 </script>
 </body>
 </html>
