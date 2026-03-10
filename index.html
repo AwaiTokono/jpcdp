@@ -18,8 +18,8 @@
   --amber:#e8a020;--amber2:#f5c46e;--teal:#00c9a7;--red:#ff5555;--blue:#4d9fff;--white:#f0f4ff;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
-html{scroll-behavior:smooth;}
-body{background:var(--bg);color:var(--text);font-family:'JetBrains Mono',monospace;line-height:1.6;overflow-x:hidden;min-height:100vh;}
+html{scroll-behavior:smooth;overflow-x:hidden;}
+body{background:var(--bg);color:var(--text);font-family:'JetBrains Mono',monospace;line-height:1.6;min-height:100vh;}
 body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.03) 2px,rgba(0,0,0,.03) 4px);pointer-events:none;z-index:9999;}
 body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(255,255,255,.015) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.015) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;}
 
@@ -30,13 +30,6 @@ nav{position:sticky;top:0;z-index:500;background:rgba(7,9,15,.92);backdrop-filte
 .nav-status::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--teal);animation:pulse 2s ease-in-out infinite;}
 @keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(0,201,167,.4);}50%{opacity:.7;box-shadow:0 0 0 4px rgba(0,201,167,0);}}
 .nav-ver{font-size:.58rem;color:var(--text3);letter-spacing:.1em;margin-left:auto;padding:.85rem 0;}
-.nav-voices-link{margin-left:auto;font-size:.72rem;letter-spacing:.12em;color:var(--bg);background:var(--amber);border:none;padding:.45rem 1.2rem;text-decoration:none;white-space:nowrap;font-weight:700;position:relative;overflow:hidden;animation:navPulse 2.2s ease-in-out infinite;}
-.nav-voices-link::before{content:'';position:absolute;inset:0;background:rgba(255,255,255,.15);transform:translateX(-100%);transition:transform .3s cubic-bezier(.16,1,.3,1);}
-.nav-voices-link:hover{background:var(--amber2);transform:translateY(-2px);box-shadow:0 4px 20px rgba(232,160,32,.5);animation:none;}
-.nav-voices-link:hover::before{transform:translateX(0);}
-.nav-voices-link:active{transform:translateY(0);box-shadow:none;}
-@keyframes navPulse{0%,100%{box-shadow:0 0 0 0 rgba(232,160,32,.7);opacity:1;}50%{box-shadow:0 0 0 10px rgba(232,160,32,0);opacity:.7;}}
-.nav-ver{margin-left:.75rem;}
 
 .hero{padding:5rem 0 3.5rem;border-bottom:1px solid var(--border);position:relative;overflow:hidden;}
 .hero-glow{position:absolute;top:-20%;left:50%;transform:translateX(-50%);width:600px;height:400px;background:radial-gradient(ellipse,rgba(232,160,32,.06) 0%,transparent 70%);pointer-events:none;}
@@ -63,6 +56,7 @@ nav{position:sticky;top:0;z-index:500;background:rgba(7,9,15,.92);backdrop-filte
 
 .content{max-width:1280px;margin:0 auto;padding:3rem 2rem 6rem;}
 .sec{margin-bottom:4rem;}
+.sec{scroll-margin-top:92px;}
 .sec-head{display:flex;align-items:center;gap:1rem;margin-bottom:1.75rem;padding-bottom:.6rem;border-bottom:1px solid var(--border);}
 .sec-num{font-size:.58rem;letter-spacing:.15em;color:var(--teal);background:rgba(0,201,167,.08);border:1px solid rgba(0,201,167,.2);padding:.18rem .55rem;}
 .sec-title{font-family:'Space Grotesk',sans-serif;font-size:1.4rem;font-weight:600;color:var(--white);letter-spacing:-.01em;}
@@ -74,6 +68,7 @@ nav{position:sticky;top:0;z-index:500;background:rgba(7,9,15,.92);backdrop-filte
 .chart-lbl{font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:var(--amber);margin-bottom:.3rem;}
 .chart-ttl{font-size:.78rem;color:var(--text2);margin-bottom:1rem;}
 .chart-wrap{position:relative;}
+.chart-wrap canvas{display:block;}
 .donut-abs{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;pointer-events:none;}
 .donut-big{display:block;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.6rem;color:var(--white);line-height:1;}
 .donut-sm{display:block;font-size:.5rem;letter-spacing:.1em;color:var(--text3);margin-top:.2rem;}
@@ -164,9 +159,9 @@ nav{position:sticky;top:0;z-index:500;background:rgba(7,9,15,.92);backdrop-filte
 .bl-opt{font-size:.58rem;color:var(--text3);background:rgba(255,255,255,.04);border:1px solid var(--border);padding:.08rem .3rem;letter-spacing:.06em;}
 .bl-radio-group{display:flex;flex-wrap:wrap;gap:.35rem;}
 .bl-radio{display:none;}
-.bl-radio-label{padding:.35rem .85rem;border:1px solid var(--border);font-size:.8rem;cursor:pointer;color:var(--text2);transition:all .15s;}
+.bl-radio-label{padding:.35rem .85rem;border:1px solid var(--border);font-size:.80rem;cursor:pointer;color:var(--text2);transition:all .15s;}
 .bl-radio:checked+.bl-radio-label{background:rgba(232,160,32,.1);color:var(--amber);border-color:rgba(232,160,32,.35);}
-.bl-select,.bl-textarea{width:100%;font-family:'JetBrains Mono',monospace;font-size:.86rem;color:var(--text);background:var(--bg);border:1px solid var(--border);padding:.65rem .9rem;outline:none;transition:border-color .15s;appearance:none;line-height:1.5;}
+.bl-select,.bl-textarea{width:100%;font-family:'JetBrains Mono',monospace;font-size:.86rem;color:var(--text);background:var(--bg);border:1px solid var(--border);padding:.58rem .8rem;outline:none;transition:border-color .15s;appearance:none;line-height:1.5;}
 .bl-select:focus,.bl-textarea:focus{border-color:rgba(232,160,32,.4);}
 .bl-textarea{resize:vertical;min-height:68px;line-height:1.7;}
 .bl-select-wrap{position:relative;}
@@ -255,58 +250,59 @@ nav{position:sticky;top:0;z-index:500;background:rgba(7,9,15,.92);backdrop-filte
 .stagger.vis>*:nth-child(4){opacity:1;transform:none;transition-delay:.28s;}
 .stagger.vis>*:nth-child(5){opacity:1;transform:none;transition-delay:.36s;}
 
+footer{background:var(--bg1);border-top:1px solid var(--border);padding:2rem;text-align:center;}
+footer p{font-size:.6rem;color:var(--text3);letter-spacing:.07em;line-height:2.2;}
+footer strong{color:var(--amber);}
+
+@media(max-width:1024px){.bl-layout{grid-template-columns:1fr;}.rec-grid{grid-template-columns:1fr 1fr;}.bl-steps{grid-template-columns:1fr;}.heatmap-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:768px){
+  body::after,body::before{display:none;}
+  .content{padding:2rem 1rem 4rem;}
+  .hero-inner{padding:0 1rem;}
+  .kpi-inner{padding:0 1rem;grid-template-columns:repeat(2,1fr);}
+  .gap-grid{grid-template-columns:1fr;}
+  .heatmap-grid{grid-template-columns:1fr;}
+  .rec-grid{grid-template-columns:1fr;}
+  .sc-row{grid-template-columns:1fr 1fr;}
+  .uccj-row{grid-template-columns:1fr 1fr;}
+  .flow{grid-template-columns:1fr;gap:.5rem;}
+  .farrow{transform:rotate(90deg);}
+  .bl-steps{grid-template-columns:1fr;}
+  .bl-layout{grid-template-columns:1fr;}
+  .bl-cards{grid-template-columns:1fr;}
+  .chart-box{padding:1rem;}
+  .sec-title{font-size:1.1rem;}
+  .dtable{font-size:.72rem;}
+  .dtable th,.dtable td{padding:.4rem .6rem;}
+  nav{padding:0 1rem;gap:1rem;}
+  .nav-logo span{display:none;}
+  .nav-ver{display:none;}
+  .sec-nav-inner{padding:.5rem 1rem;gap:.3rem;}
+  .sec-nav-link{font-size:.62rem;padding:.3rem .7rem;}
+  .nav-voices-link{font-size:.55rem;padding:.28rem .65rem;}
+  .sec{scroll-margin-top:110px;}
+}
+@media(max-width:480px){
+  .kpi-inner{grid-template-columns:1fr 1fr;}
+  .sc-row{grid-template-columns:1fr;}
+  .uccj-row{grid-template-columns:1fr;}
+  .hero{padding:3rem 0 2rem;}
+  .sec-title{font-size:1rem;}
+  .bl-submit{width:100%;}
+  .chart-wrap{height:200px !important;}
+  .sec-nav-link{font-size:.58rem;padding:.28rem .55rem;}
+}
+
 .sec-nav{position:sticky;top:44px;z-index:490;background:rgba(13,17,23,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
 .sec-nav-inner{display:flex;flex-wrap:wrap;align-items:center;max-width:1280px;margin:0 auto;padding:.6rem 2rem;gap:.4rem;}
 .sec-nav-link{font-size:.72rem;letter-spacing:.06em;color:var(--text3);padding:.38rem .9rem;white-space:nowrap;text-decoration:none;border:1px solid var(--border);border-radius:999px;background:transparent;transition:all .18s;}
 .sec-nav-link:hover{color:var(--teal);border-color:rgba(0,201,167,.4);background:rgba(0,201,167,.06);}
 .sec-nav-link.active{color:var(--bg);background:var(--amber);border-color:var(--amber);font-weight:600;}
-@media(max-width:768px){.sec-nav-inner{padding:.5rem 1rem;gap:.3rem;}.sec-nav-link{font-size:.66rem;padding:.32rem .75rem;}}
+.nav-voices-link{font-size:.6rem;letter-spacing:.1em;color:var(--bg);background:var(--amber);padding:.35rem .9rem;text-decoration:none;font-weight:700;animation:navPulse 2.2s ease-in-out infinite;}
+.nav-voices-link:hover{animation:none;transform:translateY(-1px);box-shadow:0 4px 12px rgba(232,160,32,.4);}
+@keyframes navPulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(232,160,32,.4);}50%{opacity:.85;box-shadow:0 0 0 6px rgba(232,160,32,0);}}
+@media(max-width:768px){.sec-nav-inner{padding:.5rem 1rem;gap:.3rem;}.sec-nav-link{font-size:.66rem;padding:.32rem .75rem;}.nav-voices-link{font-size:.55rem;padding:.28rem .65rem;}}
 
-footer p{font-size:.6rem;color:var(--text3);letter-spacing:.07em;line-height:2.2;}
-footer strong{color:var(--amber);}
-
-@media(max-width:1024px){
-  .bl-layout{grid-template-columns:1fr;}
-  .rec-grid{grid-template-columns:1fr 1fr;}
-  .bl-steps{grid-template-columns:1fr;}
-  .heatmap-grid{grid-template-columns:1fr 1fr;}
-}
-@media(max-width:768px){
-  .gap-grid{grid-template-columns:1fr;}
-  .kpi-inner{grid-template-columns:repeat(3,1fr);}
-  .heatmap-grid{grid-template-columns:1fr;}
-  .rec-grid{grid-template-columns:1fr;}
-  .flow{grid-template-columns:1fr;gap:.6rem;}
-  .farrow{transform:rotate(90deg);}
-  .sc-row{grid-template-columns:1fr;}
-  .uccj-row{grid-template-columns:1fr 1fr;}
-  nav{padding:0 1rem;gap:1rem;}
-  .nav-logo span{display:none;}
-  .hero-title{font-size:clamp(1.8rem,8vw,2.8rem);}
-  .content{padding:2rem 1rem 4rem;}
-  .bl-submit-row{flex-direction:column;align-items:stretch;}
-  .bl-msg{text-align:center;}
-}
-@media(max-width:480px){
-  .kpi-inner{grid-template-columns:repeat(2,1fr);}
-  .kpi-cell:nth-child(5){border-right:none;}
-  .kpi-cell{padding:1rem .75rem;}
-  .kpi-value{font-size:1.5rem;}
-  .hero{padding:3rem 0 2.5rem;}
-  .hero-inner{padding:0 1rem;}
-  .hero-meta{gap:.4rem 1rem;font-size:.58rem;}
-  .sec-title{font-size:1.15rem;}
-  .bl-radio-group{gap:.25rem;}
-  .bl-radio-label{padding:.25rem .55rem;font-size:.62rem;}
-  .bl-steps{grid-template-columns:1fr;}
-  .uccj-row{grid-template-columns:1fr;}
-  .heatmap-grid{grid-template-columns:1fr;}
-  .dtable{font-size:.66rem;}
-  .dtable th,.dtable td{padding:.45rem .6rem;}
-  nav{padding:0 .75rem;}
-  .nav-ver{display:none;}
-  .bl-synth-btn{width:100%;justify-content:center;}
-}
 </style>
 </head>
 <body>
@@ -326,9 +322,10 @@ footer strong{color:var(--amber);}
     <a href="#pastor" class="sec-nav-link">04 教職者配置</a>
     <a href="#ud" class="sec-nav-link">05 UD</a>
     <a href="#heatmap" class="sec-nav-link">06 ヒートマップ</a>
-    <a href="#rec" class="sec-nav-link">07 提言</a>
-    <a href="#data" class="sec-nav-link">08 統計データ</a>
-    <a href="#voices" class="sec-nav-link sec-nav-voices">09 あなたの声</a>
+    <a href="#mission" class="sec-nav-link">07 宣教構造分析</a>
+    <a href="#rec" class="sec-nav-link">08 提言</a>
+    <a href="#data" class="sec-nav-link">09 統計データ</a>
+    <a href="#voices" class="sec-nav-link">10 あなたの声</a>
   </div>
 </nav>
 
@@ -377,7 +374,7 @@ footer strong{color:var(--amber);}
     <div class="chart-box">
       <div class="chart-lbl">アクセス 1km基準</div><div class="chart-ttl">駅近・駅遠 教会数</div>
       <div class="chart-wrap" style="height:160px;"><canvas id="cNearFar"></canvas><div class="donut-abs"><span class="donut-big">7,660</span><span class="donut-sm">教会 合計</span></div></div>
-      <div class="legend"><div class="legend-item"><div class="ldot" style="background:#e8a020;"></div>駅近（1km以内） 4,596（60%）</div><div class="legend-item"><div class="ldot" style="background:#4d9fff;"></div>駅遠（1km超） 3,064（40%）</div></div>
+      <div class="legend"><div class="legend-item"><div class="ldot" style="background:#e8a020;"></div>駅近（1km以内） 4,596</div><div class="legend-item"><div class="ldot" style="background:#4d9fff;"></div>駅遠（1km超） 3,064</div></div>
     </div>
     <div class="chart-box">
       <div class="chart-lbl">過疎地域</div><div class="chart-ttl">過疎・非過疎地域の教会数</div>
@@ -443,9 +440,9 @@ footer strong{color:var(--amber);}
     <div class="chart-lbl">全国スケール推定 — シナリオ比較</div>
     <div class="chart-ttl" style="margin-bottom:.85rem;">経常収入シナリオ比較（2026年 · 億円）</div>
     <div class="sc-row">
-      <div class="sc-cell"><div class="sc-lbl">低位推定 · 教会あたり</div><div class="sc-val">472<span style="font-size:.85rem;color:var(--text3);">億</span></div><div class="sc-sub">47,222,594,108円</div></div>
-      <div class="sc-cell mid"><div class="sc-lbl">中央推定 · 低位・高位の中間</div><div class="sc-val">604<span style="font-size:.85rem;">億</span></div><div class="sc-sub">60,399,411,362円</div></div>
-      <div class="sc-cell"><div class="sc-lbl">高位推定 · 会員あたり</div><div class="sc-val">772<span style="font-size:.85rem;color:var(--text3);">億</span></div><div class="sc-sub">77,253,038,758円</div></div>
+      <div class="sc-cell"><div class="sc-lbl">低位推定</div><div class="sc-val">472<span style="font-size:.85rem;color:var(--text3);">億</span></div><div class="sc-sub">教会あたり収入で推計</div></div>
+      <div class="sc-cell mid"><div class="sc-lbl">中央推定</div><div class="sc-val">604<span style="font-size:.85rem;">億</span></div><div class="sc-sub">低位・高位の中間値</div></div>
+      <div class="sc-cell"><div class="sc-lbl">高位推定</div><div class="sc-val">772<span style="font-size:.85rem;color:var(--text3);">億</span></div><div class="sc-sub">会員あたり収入で推計</div></div>
     </div>
     <div class="chart-wrap" style="height:175px;margin-top:1rem;"><canvas id="cScenario"></canvas></div>
   </div>
@@ -453,7 +450,7 @@ footer strong{color:var(--amber);}
     <div class="chart-box">
       <div class="chart-lbl">UCCJ 収入内訳（2021年度）</div><div class="chart-ttl">献金タイプ別 構成比</div>
       <div class="chart-wrap" style="height:195px;"><canvas id="cIncome"></canvas><div class="donut-abs"><span class="donut-big">102.3</span><span class="donut-sm">億円 経常収入</span></div></div>
-      <div class="legend"><div class="legend-item"><div class="ldot" style="background:#e8a020;"></div>月定献金 50億（49%）</div><div class="legend-item"><div class="ldot" style="background:#4d9fff;"></div>礼拝献金 16億（16%）</div><div class="legend-item"><div class="ldot" style="background:#00c9a7;"></div>特別献金 32億（31%）</div><div class="legend-item"><div class="ldot" style="background:#ff5555;"></div>その他 4億（4%）</div></div>
+      <div class="legend"><div class="legend-item"><div class="ldot" style="background:#e8a020;"></div>月定献金 ~50億</div><div class="legend-item"><div class="ldot" style="background:#4d9fff;"></div>礼拝献金 ~16億</div><div class="legend-item"><div class="ldot" style="background:#00c9a7;"></div>特別献金 ~32億</div><div class="legend-item"><div class="ldot" style="background:#ff5555;"></div>その他 ~4億</div></div>
     </div>
     <div class="chart-box">
       <div class="chart-lbl">UCCJ 支出内訳（2021年度）</div><div class="chart-ttl">用途別 構成比（総額 75.6億円）</div>
@@ -586,9 +583,70 @@ footer strong{color:var(--amber);}
 
 <div class="orn">// 07</div>
 
-<!-- 07 提言 -->
+<!-- 07 宣教構造分析 -->
+<section id="mission" class="sec">
+  <div class="sec-head reveal"><span class="sec-num">07</span><h2 class="sec-title">宣教構造分析 1990–2026</h2><span class="sec-en">MISSION STRUCTURE ANALYSIS</span></div>
+  <div class="insight reveal"><p><strong>概要：</strong>洗礼者数・教会数・牧師数・人口の長期推移（1990–2026）と、日本宣教における構造的ボトルネックを可視化。宣教の停滞は信仰意識の問題ではなく、<strong>人口・教会・社会構造の複合的要因</strong>であることが示される。</p></div>
+  <div class="chart-box reveal" style="margin-bottom:1.5rem;">
+    <div class="chart-lbl">長期推移 — 1990〜2026年</div>
+    <div class="chart-ttl" style="margin-bottom:1rem;">洗礼者数・教会数・牧師数の変化</div>
+    <div class="chart-wrap" style="height:260px;"><canvas id="cMission"></canvas></div>
+    <div class="legend" style="margin-top:1rem;">
+      <div class="legend-item"><div class="ldot" style="background:#e8a020;border-radius:0;height:3px;width:18px;"></div>洗礼者数（人）</div>
+      <div class="legend-item"><div class="ldot" style="background:#4d9fff;border-radius:0;height:3px;width:18px;"></div>教会数（教会）</div>
+      <div class="legend-item"><div class="ldot" style="background:#00c9a7;border-radius:0;height:3px;width:18px;"></div>牧師数（人）</div>
+      <div class="legend-item"><div class="ldot" style="background:#ff5555;border-radius:0;height:3px;width:18px;"></div>若年人口（万人・右軸）</div>
+    </div>
+  </div>
+  <div class="gap-grid stagger reveal" style="margin-bottom:1.5rem;">
+    <div class="chart-box">
+      <div class="chart-lbl">1990→2026 変化率</div>
+      <div class="chart-ttl" style="margin-bottom:.85rem;">主要指標の増減</div>
+      <div class="sbar"><div class="sbar-top"><div class="sbar-lbl">洗礼者数</div><div class="sbar-val" style="color:var(--red);">▼ 約53%減</div></div><div class="sbar-track"><div class="sbar-fill" style="background:var(--red);" data-w="53"></div></div></div>
+      <div class="sbar"><div class="sbar-top"><div class="sbar-lbl">若年人口</div><div class="sbar-val" style="color:var(--red);">▼ 約40%減</div></div><div class="sbar-track"><div class="sbar-fill" style="background:var(--red);" data-w="40"></div></div></div>
+      <div class="sbar"><div class="sbar-top"><div class="sbar-lbl">牧師数</div><div class="sbar-val" style="color:var(--amber);">▼ 約18%減</div></div><div class="sbar-track"><div class="sbar-fill" style="background:var(--amber);" data-w="18"></div></div></div>
+      <div class="sbar"><div class="sbar-top"><div class="sbar-lbl">教会数</div><div class="sbar-val" style="color:var(--amber);">▼ 約8%減</div></div><div class="sbar-track"><div class="sbar-fill" style="background:var(--amber);" data-w="8"></div></div></div>
+    </div>
+    <div class="chart-box">
+      <div class="chart-lbl">主要数値 — 2026年推定</div>
+      <div class="chart-ttl" style="margin-bottom:.85rem;">現況スナップショット</div>
+      <div class="sc-row" style="grid-template-columns:1fr 1fr;margin-bottom:0;">
+        <div class="sc-cell"><div class="sc-lbl">洗礼者数</div><div class="sc-val" style="font-size:1.4rem;">4,700<span style="font-size:.75rem;color:var(--text3);">人</span></div><div class="sc-sub">1990年比 ▼53%</div></div>
+        <div class="sc-cell mid"><div class="sc-lbl">教会数</div><div class="sc-val" style="font-size:1.4rem;">7,350<span style="font-size:.75rem;">教会</span></div><div class="sc-sub">1990年比 ▼8%</div></div>
+        <div class="sc-cell"><div class="sc-lbl">牧師数</div><div class="sc-val" style="font-size:1.4rem;">4,950<span style="font-size:.75rem;color:var(--text3);">人</span></div><div class="sc-sub">1990年比 ▼18%</div></div>
+        <div class="sc-cell"><div class="sc-lbl">若年人口</div><div class="sc-val" style="font-size:1.4rem;">1,350<span style="font-size:.75rem;color:var(--text3);">万人</span></div><div class="sc-sub">1990年比 ▼40%</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="chart-box reveal" style="margin-bottom:1.5rem;">
+    <div class="chart-lbl">宣教ボトルネック図（推論モデル）</div>
+    <div class="chart-ttl" style="margin-bottom:1rem;">構造的障害の強度（0〜100）— 数値が高いほど制約が強い</div>
+    <div class="chart-wrap" style="height:240px;"><canvas id="cBottleneck"></canvas></div>
+  </div>
+  <div class="insight reveal"><p><strong>総合的考察：</strong>日本宣教の停滞は<strong>若年人口の減少（92）</strong>を筆頭に、無牧化・地域偏在（88）、担い手不足（84）、教会DXの遅れ（79）など複合的要因が重なる。地域宣教の再設計・デジタル活用・新しい共同体モデルの複合的導入が不可欠。</p></div>
+  <div class="chart-box reveal">
+    <div class="chart-lbl">数表 — 長期推移データ（推定値）</div>
+    <div style="overflow-x:auto;">
+    <table class="dtable">
+      <thead><tr><th>年</th><th style="text-align:right;">洗礼者数（人）</th><th style="text-align:right;">教会数</th><th style="text-align:right;">牧師数（人）</th><th style="text-align:right;">若年人口（万人）</th></tr></thead>
+      <tbody>
+        <tr><td>1990</td><td class="num">10,000</td><td class="num">8,000</td><td class="num">6,000</td><td class="num">2,200</td></tr>
+        <tr><td>2000</td><td class="num">9,800</td><td class="num">7,900</td><td class="num">5,750</td><td class="num">1,950</td></tr>
+        <tr><td>2010</td><td class="num">8,500</td><td class="num">7,650</td><td class="num">5,400</td><td class="num">1,700</td></tr>
+        <tr><td>2020</td><td class="num">6,500</td><td class="num">7,500</td><td class="num">5,050</td><td class="num">1,500</td></tr>
+        <tr><td>2026</td><td class="num" style="color:var(--red);">4,700</td><td class="num" style="color:var(--amber);">7,350</td><td class="num" style="color:var(--amber);">4,950</td><td class="num" style="color:var(--red);">1,350</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p style="margin-top:.75rem;font-size:.66rem;color:var(--text3);line-height:1.8;">※ 出典：「日本のプロテスタント教会の構造変化と宣教ボトルネック」（1990–2026）</p>
+  </div>
+</section>
+
+<div class="orn">// 08</div>
+
+<!-- 08 提言 -->
 <section id="rec" class="sec">
-  <div class="sec-head reveal"><span class="sec-num">07</span><h2 class="sec-title">提言</h2><span class="sec-en">RECOMMENDATIONS</span></div>
+  <div class="sec-head reveal"><span class="sec-num">08</span><h2 class="sec-title">提言</h2><span class="sec-en">RECOMMENDATIONS</span></div>
   <div class="rec-grid stagger reveal">
     <div class="rec-card"><div class="rec-n">1</div><div class="rec-icon">🌐</div><div class="rec-t">分散・巡回の活用</div><div class="rec-body">常設拠点型に加え、地方での分散集会・巡回式ミニストリー・デジタル礼拝を複合導入。</div></div>
     <div class="rec-card"><div class="rec-n">2</div><div class="rec-icon">🏠</div><div class="rec-t">小規模教会の支援</div><div class="rec-body">教会統合・兼牧推奨・シェア会計等で支出構造を最適化。小さな共同体の継続可能性を設計する。</div></div>
@@ -598,11 +656,11 @@ footer strong{color:var(--amber);}
   </div>
 </section>
 
-<div class="orn">// 08</div>
+<div class="orn">// 09</div>
 
-<!-- 08 統計データ一覧 -->
+<!-- 09 統計データ一覧 -->
 <section id="data" class="sec">
-  <div class="sec-head reveal"><span class="sec-num">08</span><h2 class="sec-title">統計データ一覧</h2><span class="sec-en">DATA SUMMARY</span></div>
+  <div class="sec-head reveal"><span class="sec-num">09</span><h2 class="sec-title">統計データ一覧</h2><span class="sec-en">DATA SUMMARY</span></div>
   <div class="chart-box reveal">
     <div class="chart-lbl">付録 — 全数値一覧（2026年初推定）</div>
     <div class="chart-ttl" style="margin-bottom:1rem;">基本統計サマリー</div>
@@ -610,29 +668,24 @@ footer strong{color:var(--amber);}
     <table class="dtable">
       <thead><tr><th>指標</th><th>カテゴリ</th><th style="text-align:right;">値</th><th style="text-align:right;">比率・備考</th></tr></thead>
       <tbody>
-        <tr><td colspan="4" style="background:var(--bg2);color:var(--text3);font-size:.55rem;letter-spacing:.12em;padding:.45rem .85rem;">// 基本 — 総括統計（2026年初推定）</td></tr>
         <tr><td>総教会数</td><td><span class="badge bn">基本</span></td><td class="num">7,660</td><td class="num">2026年初推定</td></tr>
         <tr><td>教会員数</td><td><span class="badge bn">基本</span></td><td class="num">555,210人</td><td class="num">—</td></tr>
         <tr><td>1教会あたり平均会員数</td><td><span class="badge bn">基本</span></td><td class="num">72.5人</td><td class="num">—</td></tr>
-        <tr><td colspan="4" style="background:var(--bg2);color:var(--text3);font-size:.55rem;letter-spacing:.12em;padding:.45rem .85rem;">// 立地 — 地理的分布・アクセス分析</td></tr>
         <tr><td>都市部（DID相当）教会数</td><td><span class="badge bg">立地</span></td><td class="num">5,362</td><td class="num">70%</td></tr>
         <tr><td>地方部（非DID相当）教会数</td><td><span class="badge bg">立地</span></td><td class="num">2,298</td><td class="num">30%</td></tr>
         <tr><td>駅近（1km以内）教会数</td><td><span class="badge bg">立地</span></td><td class="num">4,596</td><td class="num">60%</td></tr>
         <tr><td>駅遠（1km超）教会数</td><td><span class="badge bg">立地</span></td><td class="num">3,064</td><td class="num">40%</td></tr>
         <tr><td>過疎地域教会数（推定）</td><td><span class="badge bg">立地</span></td><td class="num">536</td><td class="num">推定</td></tr>
-        <tr><td colspan="4" style="background:var(--bg2);color:var(--text3);font-size:.55rem;letter-spacing:.12em;padding:.45rem .85rem;">// 空白 — 無教会地域・伝道優先エリア</td></tr>
         <tr><td>教会未設置地域（合計）</td><td><span class="badge br">空白</span></td><td class="num">1,793</td><td class="num">旧市町村ベース</td></tr>
         <tr><td>うち人口3,000〜5万人（中規模人口圏）</td><td><span class="badge br">空白</span></td><td class="num">1,473</td><td class="num">82.2%</td></tr>
         <tr><td>うち人口7,000人以上（優先）</td><td><span class="badge br">空白</span></td><td class="num">809</td><td class="num">45.1%</td></tr>
-        <tr><td colspan="4" style="background:var(--bg2);color:var(--text3);font-size:.55rem;letter-spacing:.12em;padding:.45rem .85rem;">// 人材 — 教職者配置状況</td></tr>
         <tr><td>常駐牧師配置教会</td><td><span class="badge bn">人材</span></td><td class="num">6,740</td><td class="num">88%</td></tr>
         <tr><td>兼牧配置教会</td><td><span class="badge bn">人材</span></td><td class="num">460</td><td class="num">6%</td></tr>
         <tr><td>無牧教会</td><td><span class="badge bn">人材</span></td><td class="num">460</td><td class="num">6%</td></tr>
-        <tr><td colspan="4" style="background:var(--bg2);color:var(--text3);font-size:.55rem;letter-spacing:.12em;padding:.45rem .85rem;">// 財政 — 収入・支出構造（UCCJ実績 → 全国推定）</td></tr>
         <tr><td>UCCJ 経常収入（2021年度実績）</td><td><span class="badge bg">財政</span></td><td class="num">102.3億円</td><td class="num">実績値</td></tr>
         <tr><td>全国収入推定 低位推定</td><td><span class="badge bg">財政</span></td><td class="num">472.2億円</td><td class="num">教会あたり×全国数</td></tr>
         <tr><td>全国収入推定 高位推定</td><td><span class="badge bg">財政</span></td><td class="num">772.5億円</td><td class="num">会員あたり×全国数</td></tr>
-        <tr><td>全国収入推定 中央推定</td><td><span class="badge bg">財政</span></td><td class="num">604.0億円</td><td class="num">低位・高位の中間</td></tr>
+        <tr><td>全国収入推定 中央推定（中央）</td><td><span class="badge bg">財政</span></td><td class="num">604.0億円</td><td class="num">A・B中間</td></tr>
         <tr><td>牧師謝礼支出（UCCJ実績）</td><td><span class="badge bg">財政</span></td><td class="num">50.7億円</td><td class="num">経常支出の67%</td></tr>
         <tr><td>牧師謝礼支出（全国中央推定）</td><td><span class="badge bg">財政</span></td><td class="num">404.8億円</td><td class="num">中央推定適用</td></tr>
         <tr><td colspan="4" style="background:var(--bg2);color:var(--text3);font-size:.55rem;letter-spacing:.12em;padding:.45rem .85rem;">// UD — ユニバーサルデザイン（東京教区n=40実測 → 全国推定）</td></tr>
@@ -654,17 +707,33 @@ footer strong{color:var(--amber);}
         <tr><td>地方（非過疎）×駅近 — 優先支援数</td><td><span class="badge bg">HM</span></td><td class="num">60</td><td class="num">8.5% / リスク 1.86</td></tr>
         <tr><td>都市部×駅遠 — 優先支援数</td><td><span class="badge bn">HM</span></td><td class="num">68</td><td class="num">4.2% / リスク 1.48</td></tr>
         <tr><td>都市部×駅近 — 優先支援数</td><td><span class="badge bn">HM</span></td><td class="num">157</td><td class="num">4.2% / リスク 0.47</td></tr>
+        <tr><td colspan="4" style="background:var(--bg2);color:var(--text3);font-size:.55rem;letter-spacing:.12em;padding:.45rem .85rem;">// 宣教構造 — 長期推移（1990–2026年推定）</td></tr>
+        <tr><td>洗礼者数（1990年）</td><td><span class="badge bn">宣教</span></td><td class="num">10,000人</td><td class="num">基準年</td></tr>
+        <tr><td>洗礼者数（2026年推定）</td><td><span class="badge br">宣教</span></td><td class="num">4,700人</td><td class="num">1990年比 ▼53%</td></tr>
+        <tr><td>教会数（1990年）</td><td><span class="badge bn">宣教</span></td><td class="num">8,000</td><td class="num">基準年</td></tr>
+        <tr><td>教会数（2026年推定）</td><td><span class="badge bn">宣教</span></td><td class="num">7,350</td><td class="num">1990年比 ▼8%</td></tr>
+        <tr><td>牧師数（1990年）</td><td><span class="badge bn">宣教</span></td><td class="num">6,000人</td><td class="num">基準年</td></tr>
+        <tr><td>牧師数（2026年推定）</td><td><span class="badge bn">宣教</span></td><td class="num">4,950人</td><td class="num">1990年比 ▼18%</td></tr>
+        <tr><td>若年人口（1990年）</td><td><span class="badge bn">宣教</span></td><td class="num">2,200万人</td><td class="num">15〜39歳</td></tr>
+        <tr><td>若年人口（2026年推定）</td><td><span class="badge br">宣教</span></td><td class="num">1,350万人</td><td class="num">1990年比 ▼40%</td></tr>
+        <tr><td colspan="4" style="background:var(--bg2);color:var(--text3);font-size:.55rem;letter-spacing:.12em;padding:.45rem .85rem;">// ボトルネック — 構造的障害の強度（0〜100）</td></tr>
+        <tr><td>若年人口の減少</td><td><span class="badge br">BN</span></td><td class="num">92 / 100</td><td class="num">最大要因</td></tr>
+        <tr><td>無牧化・地域偏在</td><td><span class="badge br">BN</span></td><td class="num">88 / 100</td><td class="num">—</td></tr>
+        <tr><td>牧師・担い手の減少</td><td><span class="badge br">BN</span></td><td class="num">84 / 100</td><td class="num">—</td></tr>
+        <tr><td>教会DXの不足</td><td><span class="badge bg">BN</span></td><td class="num">79 / 100</td><td class="num">—</td></tr>
+        <tr><td>建物中心モデル</td><td><span class="badge bg">BN</span></td><td class="num">74 / 100</td><td class="num">—</td></tr>
+        <tr><td>アクセシビリティ不足</td><td><span class="badge bg">BN</span></td><td class="num">71 / 100</td><td class="num">—</td></tr>
       </tbody>
     </table>
     </div>
   </div>
 </section>
 
-<div class="orn">// 09</div>
+<div class="orn">// 10</div>
 
 <!-- 09 あなたの声 -->
 <section id="voices" class="sec">
-  <div class="sec-head reveal"><span class="sec-num">09</span><h2 class="sec-title">あなたの声</h2><span class="sec-en">BROADLISTENING</span></div>
+  <div class="sec-head reveal"><span class="sec-num">10</span><h2 class="sec-title">あなたの声</h2><span class="sec-en">BROADLISTENING</span></div>
   <div class="insight reveal"><p>この報告書は推計データに基づいています。<strong>あなたの実体験・現場の声</strong>を加えることで、より現実に近い分析が生まれます。ぜひ投稿してください。</p></div>
   <p class="reveal" style="font-size:.66rem;color:var(--text3);margin-bottom:1.5rem;line-height:1.9;padding:.75rem 1rem;background:var(--bg1);border:1px solid var(--border);border-left:3px solid var(--teal);">🔒 <strong style="color:var(--text2);">匿名投稿</strong> — 氏名・連絡先などの個人情報は一切収集しません。投稿内容はAI分析と統計集計にのみ使用されます。</p>
   <div class="bl-steps reveal">
@@ -696,12 +765,12 @@ footer strong{color:var(--amber);}
         <div class="bl-field">
           <label class="bl-label">今、最も大きな課題は何ですか？ <span class="bl-req">必須</span></label>
           <p style="font-size:.62rem;color:var(--text3);margin-bottom:.5rem;line-height:1.6;">教会・地域・信仰生活など、どんな内容でも構いません</p>
-          <textarea id="bl-challenge" class="bl-textarea" rows="3" placeholder="例：後継者不足、高齢化、財政難、地域との関係、牧師不在…など"></textarea>
+          <textarea id="bl-challenge" class="bl-textarea" rows="3" placeholder="例：後継者不足、高齢化、財政難、地域との関係など…"></textarea>
         </div>
         <div class="bl-field">
           <label class="bl-label">解決策・アイデアがあれば <span class="bl-opt">任意</span></label>
           <p style="font-size:.62rem;color:var(--text3);margin-bottom:.5rem;line-height:1.6;">無教会地域や課題への取り組みアイデアをご自由に</p>
-          <textarea id="bl-idea" class="bl-textarea" rows="2" placeholder="例：オンライン礼拝、巡回牧師制度、地域との連携…など"></textarea>
+          <textarea id="bl-idea" class="bl-textarea" rows="2" placeholder="例：オンライン礼拝、巡回牧師制度、分散型集会など…"></textarea>
         </div>
         <div class="bl-field">
           <label class="bl-label">この報告書へのコメント <span class="bl-opt">任意</span></label>
@@ -719,7 +788,7 @@ footer strong{color:var(--amber);}
         <div class="bl-stat-body" id="bl-role-stats"><div class="bl-empty-sm">まだ投稿がありません</div></div>
       </div>
       <div class="bl-stat-card">
-        <div class="bl-stat-head"><span class="bl-stat-head-label">教会へのアクセス状況</span></div>
+        <div class="bl-stat-head"><span class="bl-stat-head-label">アクセス状況</span></div>
         <div class="bl-stat-body" id="bl-access-stats"><div class="bl-empty-sm">まだ投稿がありません</div></div>
       </div>
     </div>
@@ -804,7 +873,7 @@ mkBar('cStation',['0–500m','500m–1km','1–3km','3km超'],[1920,2676,2296,76
 mkDonut('cNearFar',['駅近','駅遠'],[4596,3064],[C.amber,C.blue],'60%');
 mkBar('cSparse',['過疎地域','非過疎地域'],[536,7124],[C.red,C.amber],'y');
 mkBar('cVacant',['未設置地域（合計）','人口3千〜5万（中規模人口圏）','優先地域（7千人以上）'],[1793,1473,809],[C.red,C.amber,C.teal]);
-mkBar('cScenario',['低位推定 472億','中央推定 604億','高位推定 772億'],[472.2,604.0,772.5],['rgba(255,255,255,.2)',C.amber,'rgba(255,255,255,.2)'],'x',true);
+mkBar('cScenario',['低位推定 472億','中央推定 604億（中央）','高位推定 772億'],[472.2,604.0,772.5],['rgba(255,255,255,.2)',C.amber,'rgba(255,255,255,.2)'],'x',true);
 mkDonut('cIncome',['月定献金','礼拝献金','特別献金','その他'],[50,16,32,4],[C.amber,C.blue,C.teal,C.red],'56%');
 mkDonut('cExpense',['牧師謝礼','伝道費','その他'],[50.7,4.5,20.4],[C.amber,C.teal,C.blue]);
 mkBar('cIncomeNat',['月定献金','礼拝献金','特別献金','その他'],[300.3,95.6,191.7,16.4],[C.amber,C.blue,C.teal,C.red],'x',true);
@@ -878,7 +947,7 @@ async function blSubmit(){
   if(!role){blShowMsg('立場を選択してください','err');return;}
   if(!access){blShowMsg('アクセス状況を選択してください','err');return;}
   if(!challenge){blShowMsg('最大の課題を入力してください','err');return;}
-  try{await sbInsert({role,access,challenge,idea,comment});document.querySelectorAll('input[name="role"]').forEach(r=>r.checked=false);document.getElementById('bl-access').value='';['bl-challenge','bl-idea','bl-comment'].forEach(id=>document.getElementById(id).value='');blShowMsg('// SUBMITTED — ありがとうございます','ok');blRender();}catch(e){blShowMsg('エラー: '+e.message,'err');}
+  try{await sbInsert({role,access,challenge,idea,comment});document.querySelectorAll('input[name="role"]').forEach(r=>r.checked=false);document.getElementById('bl-access').value='';['bl-challenge','bl-idea','bl-comment'].forEach(id=>document.getElementById(id).value='');blShowMsg('// 投稿するTED — ありがとうございます','ok');blRender();}catch(e){blShowMsg('エラー: '+e.message,'err');}
 }
 
 async function blRender(){
@@ -911,8 +980,6 @@ async function blClearAll(){
 }
 
 async function blSynthesize(){
-  const apiKey=document.getElementById('bl-apikey').value.trim();
-  if(!apiKey){alert('APIキーを入力してください（STEP 2）');return;}
   const btn=document.getElementById('bl-synth-btn'),loading=document.getElementById('bl-loading'),result=document.getElementById('bl-synth-result');
   let voices=[];
   try{voices=await sbSelect();}catch(e){alert('データ取得エラー: '+e.message);return;}
@@ -921,7 +988,9 @@ async function blSynthesize(){
   const voiceText=voices.map((v,i)=>`[声 ${i+1}] 立場:${v.role} / アクセス:${v.access}\n課題：${v.challenge}\n${v.idea?'提案：'+v.idea:''}\n${v.comment?'コメント：'+v.comment:''}`).join('\n---\n');
   const prompt=`以下は日本のプロテスタント教会統計報告書への「あなたの声」です。BroadListening手法で分析してください。\n\n${voiceText}\n\n## 出力形式（JSONのみ）\n{"themes":[{"label":"テーマ名（10字以内）","body":"説明（50字以内）"}],"summary":"総合要約（200〜300字）","suggestions":["示唆1","示唆2","示唆3"]}`;
   try{
-    const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:prompt}]})});
+    const apiKey=document.getElementById('bl-apikey').value.trim();
+  if(!apiKey){alert('APIキーを入力してください（STEP 2）');btn.disabled=false;loading.classList.remove('show');return;}
+  const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:prompt}]})});
     if(!res.ok){const e=await res.json();throw new Error(e.error?.message||res.statusText);}
     const data=await res.json();
     const raw=data.content.map(b=>b.text||'').join('');
@@ -935,9 +1004,28 @@ async function blSynthesize(){
 
 blRender();
 
-/* SEC-NAV ACTIVE HIGHLIGHT */
+/* 宣教構造分析チャート */
+if(document.getElementById('cMission')){
+  new Chart('cMission',{type:'line',data:{
+    labels:['1990','2000','2010','2020','2026'],
+    datasets:[
+      {label:'洗礼者数（人）',data:[10000,9800,8500,6500,4700],borderColor:'#e8a020',tension:.4,pointRadius:4,pointBackgroundColor:'#e8a020',fill:false,yAxisID:'y'},
+      {label:'教会数（教会）',data:[8000,7900,7650,7500,7350],borderColor:'#4d9fff',tension:.4,pointRadius:4,pointBackgroundColor:'#4d9fff',fill:false,yAxisID:'y'},
+      {label:'牧師数（人）',data:[6000,5750,5400,5050,4950],borderColor:'#00c9a7',tension:.4,pointRadius:4,pointBackgroundColor:'#00c9a7',fill:false,yAxisID:'y'},
+      {label:'若年人口（万人）',data:[2200,1950,1700,1500,1350],borderColor:'#ff5555',tension:.4,pointRadius:4,pointBackgroundColor:'#ff5555',fill:false,borderDash:[5,3],yAxisID:'y2'},
+    ]
+  },options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{mode:'index',intersect:false,callbacks:{label:ctx=>{const u=ctx.datasetIndex===3?'万人':ctx.datasetIndex===1?'教会':'人';return ` ${ctx.dataset.label}: ${ctx.raw.toLocaleString()}${u}`;}}}},scales:{y:{position:'left',grid:{color:'rgba(255,255,255,.05)'},ticks:{callback:v=>v.toLocaleString()},title:{display:true,text:'人・教会数',color:'#7a8899',font:{size:10}}},y2:{position:'right',grid:{display:false},ticks:{callback:v=>v.toLocaleString()+'万人'},title:{display:true,text:'若年人口（万人）',color:'#ff5555',font:{size:10}}}}}});
+}
+if(document.getElementById('cBottleneck')){
+  new Chart('cBottleneck',{type:'bar',data:{
+    labels:['アクセシビリティ不足','建物中心モデル','教会DXの不足','牧師・担い手の減少','無牧化・地域偏在','若年人口の減少'],
+    datasets:[{data:[71,74,79,84,88,92],backgroundColor:['rgba(77,159,255,.7)','rgba(77,159,255,.75)','rgba(232,160,32,.7)','rgba(232,160,32,.8)','rgba(255,85,85,.75)','rgba(255,85,85,.9)'],borderWidth:0}]
+  },options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>` ボトルネック強度: ${ctx.raw}/100`}}},scales:{x:{min:0,max:100,grid:{color:'rgba(255,255,255,.05)'}},y:{grid:{display:false}}}}});
+}
+
+/* セクションナビ アクティブ */
 const secNavLinks=document.querySelectorAll('.sec-nav-link');
-const secIds=['geo','vacant','finance','pastor','ud','heatmap','rec','data','voices'];
+const secIds=['geo','vacant','finance','pastor','ud','heatmap','mission','rec','data','voices'];
 const secNavObs=new IntersectionObserver(entries=>{
   entries.forEach(e=>{
     if(e.isIntersecting){
@@ -946,7 +1034,7 @@ const secNavObs=new IntersectionObserver(entries=>{
       if(active){active.classList.add('active');active.scrollIntoView({block:'nearest',inline:'center'});}
     }
   });
-},{threshold:.25});
+},{threshold:.2});
 secIds.forEach(id=>{const el=document.getElementById(id);if(el)secNavObs.observe(el);});
 </script>
 </body>
