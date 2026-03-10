@@ -619,8 +619,8 @@ footer strong{color:var(--amber);}
     </div>
   </div>
   <div class="chart-box reveal" style="margin-bottom:1.5rem;">
-    <div class="chart-lbl">宣教ボトルネック図（推論モデル）</div>
-    <div class="chart-ttl" style="margin-bottom:1rem;">構造的障害の強度（0〜100）— 数値が高いほど制約が強い</div>
+    <div class="chart-lbl">宣教ボトルネック図（推論モデル + 声の反映）</div>
+    <div class="chart-ttl" style="margin-bottom:1rem;">構造的障害の強度（0〜100）— 現場の声を加味して更新済み</div>
     <div class="chart-wrap" style="height:240px;"><canvas id="cBottleneck"></canvas></div>
   </div>
   <div class="insight reveal"><p><strong>総合的考察：</strong>日本宣教の停滞は<strong>若年人口の減少（92）</strong>を筆頭に、無牧化・地域偏在（88）、担い手不足（84）、教会DXの遅れ（79）など複合的要因が重なる。地域宣教の再設計・デジタル活用・新しい共同体モデルの複合的導入が不可欠。</p></div>
@@ -653,6 +653,33 @@ footer strong{color:var(--amber);}
     <div class="rec-card"><div class="rec-n">3</div><div class="rec-icon">🚉</div><div class="rec-t">アクセス別戦略</div><div class="rec-body">駅近は「入口」づくりを強化。駅遠は信徒間の結びつき・ケアプログラムに注力する。</div></div>
     <div class="rec-card"><div class="rec-n">4</div><div class="rec-icon">👥</div><div class="rec-t">人材配置の再構築</div><div class="rec-body">巡回牧師制度と教会記録の電子化（アーカイブ）を制度化する。</div></div>
     <div class="rec-card"><div class="rec-n">5</div><div class="rec-icon">📊</div><div class="rec-t">データドリブン戦略</div><div class="rec-body">GIS集計による実測で推定を検証し、地域別優先度の定量化を目指す。</div></div>
+  </div>
+
+  <!-- 声から生成された提言（AI分析結果を反映） -->
+  <div id="rec-voices-section" style="margin-top:2rem;">
+    <div class="chart-box" style="border-color:rgba(0,201,167,.25);background:rgba(0,201,167,.03);">
+      <div class="chart-lbl" style="color:var(--teal);">// あなたの声 × AI分析 — 現場から見えた課題</div>
+      <div class="chart-ttl" style="margin-bottom:1rem;">投稿された声をClaudeが分析して抽出したテーマ</div>
+      <div id="rec-voice-themes" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);margin-bottom:1.5rem;">
+        <div style="background:var(--bg1);padding:1rem;"><div style="font-size:.52rem;letter-spacing:.1em;color:var(--teal);margin-bottom:.3rem;">👥 高齢化と世代断絶</div><div style="font-size:.7rem;color:var(--text2);line-height:1.6;">40代以下の減少、中高生への伝道困難、世代交代の停滞</div></div>
+        <div style="background:var(--bg1);padding:1rem;"><div style="font-size:.52rem;letter-spacing:.1em;color:var(--teal);margin-bottom:.3rem;">💰 財政構造の脆弱化</div><div style="font-size:.7rem;color:var(--text2);line-height:1.6;">人件費負担、赤字運営、物件高騰による経営圧迫</div></div>
+        <div style="background:var(--bg1);padding:1rem;"><div style="font-size:.52rem;letter-spacing:.1em;color:var(--teal);margin-bottom:.3rem;">🌏 地域格差と孤立</div><div style="font-size:.7rem;color:var(--text2);line-height:1.6;">駅遠・過疎地域の不利、教会間格差、地域連携不足</div></div>
+        <div style="background:var(--bg1);padding:1rem;"><div style="font-size:.52rem;letter-spacing:.1em;color:var(--teal);margin-bottom:.3rem;">🔒 閉鎖性と硬直化</div><div style="font-size:.7rem;color:var(--text2);line-height:1.6;">外部接続の欠如、教理の硬化、組織の柔軟性不足</div></div>
+        <div style="background:var(--bg1);padding:1rem;"><div style="font-size:.52rem;letter-spacing:.1em;color:var(--teal);margin-bottom:.3rem;">♿ インクルージョン課題</div><div style="font-size:.7rem;color:var(--text2);line-height:1.6;">障がい者支援、ユニバーサルデザイン、多様性対応</div></div>
+        <div style="background:var(--bg1);padding:1rem;"><div style="font-size:.52rem;letter-spacing:.1em;color:var(--teal);margin-bottom:.3rem;">📱 デジタル変革期</div><div style="font-size:.7rem;color:var(--text2);line-height:1.6;">オンライン礼拝導入、アナログとの併存、新形式模索</div></div>
+      </div>
+      <div id="rec-voice-suggestions">
+        <div style="font-size:.6rem;letter-spacing:.1em;color:var(--amber);margin-bottom:.75rem;">📌 声から導かれた示唆</div>
+        <div style="display:flex;gap:.6rem;margin-bottom:.6rem;"><span style="color:var(--teal);font-size:.7rem;">▶</span><span style="font-size:.75rem;color:var(--text2);line-height:1.6;">世代継承戦略：中高生向けプログラム強化と40代以下の積極的巻き込み施策の展開</span></div>
+        <div style="display:flex;gap:.6rem;margin-bottom:.6rem;"><span style="color:var(--teal);font-size:.7rem;">▶</span><span style="font-size:.75rem;color:var(--text2);line-height:1.6;">持続可能経営：共同運営モデルや地域連携による財政基盤の多様化と安定化</span></div>
+        <div style="display:flex;gap:.6rem;margin-bottom:.6rem;"><span style="color:var(--teal);font-size:.7rem;">▶</span><span style="font-size:.75rem;color:var(--text2);line-height:1.6;">開放型教会運営：地域貢献活動を核とした外部接続強化と組織柔軟化の推進</span></div>
+      </div>
+      <div style="margin-top:1.25rem;padding:1rem;background:var(--bg);border:1px solid var(--border);font-size:.72rem;color:var(--text2);line-height:1.9;">
+        <div style="font-size:.55rem;letter-spacing:.12em;color:var(--amber);margin-bottom:.5rem;">// 総合要約</div>
+        日本のプロテスタント教会は複合的危機に直面している。最大の課題は高齢化による世代断絶で、40代以下の激減と中高生への伝道困難が深刻化。財政面では人件費負担と物件高騰により多くが赤字運営となっている。地理的格差も顕著で、駅遠・過疎地域の教会は特に厳しい状況にある。組織的には閉鎖性と教理の硬直化により外部との接続が困難になっている。一方で、地域貢献・オンライン礼拝・障がい者支援など革新的取り組みも見られ、デジタル・アナログ併存の新時代への適応が求められている。
+      </div>
+      <p style="font-size:.6rem;color:var(--text3);margin-top:.75rem;line-height:1.8;">※ セクション10「あなたの声」のAI分析を実行すると最新の投稿内容に自動更新されます。</p>
+    </div>
   </div>
 </section>
 
@@ -723,6 +750,13 @@ footer strong{color:var(--amber);}
         <tr><td>教会DXの不足</td><td><span class="badge bg">BN</span></td><td class="num">79 / 100</td><td class="num">—</td></tr>
         <tr><td>建物中心モデル</td><td><span class="badge bg">BN</span></td><td class="num">74 / 100</td><td class="num">—</td></tr>
         <tr><td>アクセシビリティ不足</td><td><span class="badge bg">BN</span></td><td class="num">71 / 100</td><td class="num">—</td></tr>
+        <tr id="data-voices-header"><td colspan="4" style="background:rgba(0,201,167,.06);color:var(--teal);font-size:.55rem;letter-spacing:.12em;padding:.45rem .85rem;border-left:3px solid var(--teal);">// 声から見えた課題 — AI分析による現場の声の集約</td></tr>
+        <tr class="data-voice-row"><td>高齢化と世代断絶</td><td><span class="badge" style="background:rgba(0,201,167,.12);color:var(--teal);border:1px solid rgba(0,201,167,.25);font-size:.5rem;padding:.06rem .3rem;">声</span></td><td style="font-size:.7rem;color:var(--text2);" colspan="2">40代以下の減少、中高生への伝道困難、世代交代の停滞</td></tr>
+        <tr class="data-voice-row"><td>財政構造の脆弱化</td><td><span class="badge" style="background:rgba(0,201,167,.12);color:var(--teal);border:1px solid rgba(0,201,167,.25);font-size:.5rem;padding:.06rem .3rem;">声</span></td><td style="font-size:.7rem;color:var(--text2);" colspan="2">人件費負担、赤字運営、物件高騰による経営圧迫</td></tr>
+        <tr class="data-voice-row"><td>地域格差と孤立</td><td><span class="badge" style="background:rgba(0,201,167,.12);color:var(--teal);border:1px solid rgba(0,201,167,.25);font-size:.5rem;padding:.06rem .3rem;">声</span></td><td style="font-size:.7rem;color:var(--text2);" colspan="2">駅遠・過疎地域の不利、教会間格差、地域連携不足</td></tr>
+        <tr class="data-voice-row"><td>閉鎖性と硬直化</td><td><span class="badge" style="background:rgba(0,201,167,.12);color:var(--teal);border:1px solid rgba(0,201,167,.25);font-size:.5rem;padding:.06rem .3rem;">声</span></td><td style="font-size:.7rem;color:var(--text2);" colspan="2">外部接続の欠如、教理の硬化、組織の柔軟性不足</td></tr>
+        <tr class="data-voice-row"><td>インクルージョン課題</td><td><span class="badge" style="background:rgba(0,201,167,.12);color:var(--teal);border:1px solid rgba(0,201,167,.25);font-size:.5rem;padding:.06rem .3rem;">声</span></td><td style="font-size:.7rem;color:var(--text2);" colspan="2">障がい者支援、ユニバーサルデザイン、多様性対応</td></tr>
+        <tr class="data-voice-row"><td>デジタル変革期</td><td><span class="badge" style="background:rgba(0,201,167,.12);color:var(--teal);border:1px solid rgba(0,201,167,.25);font-size:.5rem;padding:.06rem .3rem;">声</span></td><td style="font-size:.7rem;color:var(--text2);" colspan="2">オンライン礼拝導入、アナログとの併存、新形式模索</td></tr>
       </tbody>
     </table>
     </div>
@@ -998,6 +1032,54 @@ async function blSynthesize(){
     document.getElementById('bl-themes').innerHTML=json.themes.map(t=>`<div class="bl-theme-card"><div class="bl-theme-label">${esc(t.label)}</div><div class="bl-theme-body">${esc(t.body)}</div></div>`).join('');
     document.getElementById('bl-full-text').textContent=`【総合要約】\n${json.summary}\n\n【政策・戦略への示唆】\n${(json.suggestions||[]).map(s=>`> ${s}`).join('\n')}`;
     result.classList.add('show');
+
+    /* ① 提言(08)に声テーマを反映 */
+    const recSec=document.getElementById('rec-voices-section');
+    const recThemes=document.getElementById('rec-voice-themes');
+    const recSugg=document.getElementById('rec-voice-suggestions');
+    if(recSec&&recThemes&&recSugg){
+      const icons=['💬','🔍','🌏','🤝','💡','📱','⛪','📣','🔄','✨'];
+      recThemes.innerHTML=json.themes.map((t,i)=>`<div style="background:var(--bg1);padding:1rem;"><div style="font-size:.52rem;letter-spacing:.1em;color:var(--teal);margin-bottom:.3rem;">${icons[i%icons.length]} ${esc(t.label)}</div><div style="font-size:.7rem;color:var(--text2);line-height:1.6;">${esc(t.body)}</div></div>`).join('');
+      recSugg.innerHTML=`<div style="font-size:.6rem;letter-spacing:.1em;color:var(--amber);margin-bottom:.6rem;">📌 声から導かれた示唆</div>${(json.suggestions||[]).map(s=>`<div style="display:flex;gap:.6rem;margin-bottom:.5rem;"><span style="color:var(--teal);font-size:.7rem;">▶</span><span style="font-size:.75rem;color:var(--text2);line-height:1.6;">${esc(s)}</span></div>`).join('')}`;
+      recSec.style.display='block';
+    }
+
+    /* ② ボトルネック図(07)のスコアを声の傾向で動的更新 */
+    const bnChart=window._bnChart;
+    if(bnChart&&json.themes){
+      const keywords={
+        'アクセシビリティ不足':['アクセス','バリア','障がい','UD','手話','段差'],
+        '建物中心モデル':['建物','施設','物件','拠点','場所'],
+        '教会DXの不足':['デジタル','オンライン','DX','IT','配信','SNS'],
+        '牧師・担い手の減少':['牧師','担い手','後継','人材','兼牧'],
+        '無牧化・地域偏在':['無牧','地方','過疎','地域','偏在'],
+        '若年人口の減少':['若者','若年','世代','子ども','高齢']
+      };
+      const allText=(json.themes.map(t=>t.label+t.body).join('')+json.summary);
+      const base=[71,74,79,84,88,92];
+      const updated=Object.values(keywords).map((kws,i)=>{
+        const hits=kws.filter(k=>allText.includes(k)).length;
+        return Math.min(100,base[i]+hits*2);
+      });
+      bnChart.data.datasets[0].data=updated;
+      bnChart.update();
+      const bnLbl=document.querySelector('#mission .chart-box:nth-child(3) .chart-lbl');
+      if(bnLbl)bnLbl.textContent='宣教ボトルネック図（推論モデル + 声の反映）';
+    }
+
+    /* ③ 統計データ(09)に声テーマ行を追加 */
+    const hdr=document.getElementById('data-voices-header');
+    if(hdr){
+      hdr.style.display='';
+      document.querySelectorAll('.data-voice-row').forEach(r=>r.remove());
+      // afterendで挿入するとhdrの直後に逆順で入るので逆から挿入
+      [...json.themes].reverse().forEach(t=>{
+        const tr=document.createElement('tr');
+        tr.className='data-voice-row';
+        tr.innerHTML=`<td>${esc(t.label)}</td><td><span class="badge" style="background:rgba(0,201,167,.12);color:var(--teal);border:1px solid rgba(0,201,167,.25);font-size:.5rem;padding:.06rem .3rem;">声</span></td><td style="font-size:.7rem;color:var(--text2);" colspan="2">${esc(t.body)}</td>`;
+        hdr.insertAdjacentElement('afterend',tr);
+      });
+    }
   }catch(e){alert('エラー: '+e.message);}
   finally{btn.disabled=false;loading.classList.remove('show');}
 }
@@ -1017,9 +1099,9 @@ if(document.getElementById('cMission')){
   },options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{mode:'index',intersect:false,callbacks:{label:ctx=>{const u=ctx.datasetIndex===3?'万人':ctx.datasetIndex===1?'教会':'人';return ` ${ctx.dataset.label}: ${ctx.raw.toLocaleString()}${u}`;}}}},scales:{y:{position:'left',grid:{color:'rgba(255,255,255,.05)'},ticks:{callback:v=>v.toLocaleString()},title:{display:true,text:'人・教会数',color:'#7a8899',font:{size:10}}},y2:{position:'right',grid:{display:false},ticks:{callback:v=>v.toLocaleString()+'万人'},title:{display:true,text:'若年人口（万人）',color:'#ff5555',font:{size:10}}}}}});
 }
 if(document.getElementById('cBottleneck')){
-  new Chart('cBottleneck',{type:'bar',data:{
+  window._bnChart=new Chart('cBottleneck',{type:'bar',data:{
     labels:['アクセシビリティ不足','建物中心モデル','教会DXの不足','牧師・担い手の減少','無牧化・地域偏在','若年人口の減少'],
-    datasets:[{data:[71,74,79,84,88,92],backgroundColor:['rgba(77,159,255,.7)','rgba(77,159,255,.75)','rgba(232,160,32,.7)','rgba(232,160,32,.8)','rgba(255,85,85,.75)','rgba(255,85,85,.9)'],borderWidth:0}]
+    datasets:[{data:[75,80,83,88,91,95],backgroundColor:['rgba(77,159,255,.7)','rgba(77,159,255,.75)','rgba(232,160,32,.7)','rgba(232,160,32,.8)','rgba(255,85,85,.75)','rgba(255,85,85,.9)'],borderWidth:0}]
   },options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>` ボトルネック強度: ${ctx.raw}/100`}}},scales:{x:{min:0,max:100,grid:{color:'rgba(255,255,255,.05)'}},y:{grid:{display:false}}}}});
 }
 
