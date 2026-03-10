@@ -35,7 +35,7 @@ nav{position:sticky;top:0;z-index:500;background:rgba(7,9,15,.92);backdrop-filte
 .hero-glow{position:absolute;top:-20%;left:50%;transform:translateX(-50%);width:600px;height:400px;background:radial-gradient(ellipse,rgba(232,160,32,.06) 0%,transparent 70%);pointer-events:none;}
 .hero-inner{max-width:1280px;margin:0 auto;padding:0 2rem;}
 .hero-pre{font-size:.62rem;letter-spacing:.3em;color:var(--amber);margin-bottom:.75rem;display:flex;align-items:center;gap:.6rem;}
-.hero-pre::before{content:'$';color:var(--teal);}
+.hero-pre::before{content:'';}
 .hero-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(2.2rem,5vw,4.5rem);font-weight:700;line-height:1.05;letter-spacing:-.03em;color:var(--white);margin-bottom:.5rem;}
 .hero-title em{font-style:normal;color:var(--amber);}
 .hero-sub{font-size:.78rem;color:var(--text2);letter-spacing:.04em;margin-bottom:2.5rem;font-weight:300;}
@@ -393,6 +393,38 @@ footer strong{color:var(--amber);}
     </div>
   </div>
   <div class="insight reveal"><p><strong>地理的示唆：</strong>都市集中が進むほど地方の空白・担任不足・世代交代断絶が懸念される。立地に応じた牧会設計が必要。</p></div>
+
+  <!-- 教会密度 -->
+  <div class="chart-box reveal" style="margin-top:1.5rem;border-color:rgba(0,201,167,.2);">
+    <div class="chart-lbl" style="color:var(--teal);">CHURCH DENSITY — 教会密度</div>
+    <div class="chart-ttl" style="margin-bottom:.5rem;">1万人あたりの教会数（宣教機会の地理的分布指標）</div>
+    <p style="font-size:.68rem;color:var(--text3);line-height:1.75;margin-bottom:1.25rem;">教会密度とは、人口に対してどれだけ教会が存在するかを示す指標です。この値が高いほど「福音に触れる機会」が多く、低いほど宣教機会の格差が生じます。</p>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);margin-bottom:1.25rem;">
+      <div style="background:var(--bg1);padding:1rem;text-align:center;">
+        <div style="font-size:.52rem;letter-spacing:.1em;color:var(--text3);margin-bottom:.3rem;">全国平均</div>
+        <div style="font-family:'Space Grotesk',sans-serif;font-size:1.6rem;font-weight:700;color:var(--amber);line-height:1;">0.61</div>
+        <div style="font-size:.58rem;color:var(--text3);margin-top:.2rem;">教会 / 1万人</div>
+      </div>
+      <div style="background:var(--bg1);padding:1rem;text-align:center;">
+        <div style="font-size:.52rem;letter-spacing:.1em;color:var(--text3);margin-bottom:.3rem;">都市部（DID）</div>
+        <div style="font-family:'Space Grotesk',sans-serif;font-size:1.6rem;font-weight:700;color:var(--blue);line-height:1;">0.50</div>
+        <div style="font-size:.58rem;color:var(--text3);margin-top:.2rem;">教会 / 1万人</div>
+      </div>
+      <div style="background:var(--bg1);padding:1rem;text-align:center;">
+        <div style="font-size:.52rem;letter-spacing:.1em;color:var(--text3);margin-bottom:.3rem;">地方部（非DID）</div>
+        <div style="font-family:'Space Grotesk',sans-serif;font-size:1.6rem;font-weight:700;color:var(--teal);line-height:1;">1.25</div>
+        <div style="font-size:.58rem;color:var(--text3);margin-top:.2rem;">教会 / 1万人</div>
+      </div>
+      <div style="background:rgba(255,85,85,.08);padding:1rem;text-align:center;border:2px solid rgba(255,85,85,.5);position:relative;">
+        <div style="font-size:.52rem;letter-spacing:.1em;color:#ff5555;margin-bottom:.3rem;">⚠ 過疎地域</div>
+        <div style="font-family:'Space Grotesk',sans-serif;font-size:1.6rem;font-weight:700;color:#ff5555;line-height:1;">0.42</div>
+        <div style="font-size:.58rem;color:var(--text3);margin-top:.2rem;">教会 / 1万人</div>
+        <div style="font-size:.55rem;color:#ff5555;margin-top:.4rem;letter-spacing:.05em;">全国比 ▼31%</div>
+      </div>
+    </div>
+    <div class="chart-wrap" style="height:160px;"><canvas id="cDensity"></canvas></div>
+    <div class="insight" style="margin-top:1rem;margin-bottom:0;"><p><strong>密度の示唆：</strong>過疎地域（0.42）は全国平均（0.61）の<strong>31%下回る</strong>。人口減少が進む中で教会数が維持されている地方部（1.25）とは対照的に、過疎地では教会消滅リスクが最も高い。</p></div>
+  </div>
 </section>
 
 <div class="orn">// 02</div>
@@ -914,6 +946,7 @@ mkBar('cIncomeNat',['月定献金','礼拝献金','特別献金','その他'],[3
 mkBar('cExpenseNat',['牧師謝礼','伝道費','その他支出'],[404.8,26.9,172.3],[C.amber,C.teal,C.blue],'x',true);
 mkDonut('cPastor',['常駐','兼牧','無牧'],[6740,460,460],[C.amber,C.blue,C.red]);
 mkBar('cPastorBar',['常駐','兼牧','無牧'],[6740,460,460],[C.amber,C.blue,C.red]);
+mkBar('cDensity',['過疎地域','都市部（DID）','全国平均','地方部（非DID）'],[0.42,0.50,0.61,1.25],['rgba(255,85,85,.8)','rgba(77,159,255,.8)','rgba(232,160,32,.9)','rgba(0,201,167,.8)'],'y');
 mkBar('cUD',['礼拝到達','BFトイレ','段差なし','点字あり','昇降機あり','手話あり','補聴支援'],[6119,5846,3719,3098,1684,365,337],[C.teal,C.teal,C.amber,C.amber,C.amber,C.red,C.red]);
 mkDonut('cUDLevel',['Lv3 全面UD','Lv2 主要動線','Lv1 部分対応','Lv0 未整備'],[106,3930,3476,147],[C.teal,C.amber,C.blue,C.red]);
 
@@ -1120,4 +1153,4 @@ const secNavObs=new IntersectionObserver(entries=>{
 secIds.forEach(id=>{const el=document.getElementById(id);if(el)secNavObs.observe(el);});
 </script>
 </body>
-</html>
+</html
