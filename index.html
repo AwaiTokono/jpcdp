@@ -44,6 +44,18 @@ nav{position:sticky;top:0;z-index:500;background:rgba(7,9,15,.92);backdrop-filte
 .hero-meta span::before{content:'//';color:var(--amber);font-size:.55rem;}
 
 .kpi-row{background:var(--bg1);border-bottom:1px solid var(--border);}
+.voice-ticker{display:flex;align-items:center;background:rgba(0,201,167,.06);border-bottom:1px solid rgba(0,201,167,.2);overflow:hidden;height:34px;}
+.ticker-label{flex-shrink:0;width:120px;font-size:.5rem;letter-spacing:.15em;color:var(--teal);padding:0 1rem;border-right:1px solid rgba(0,201,167,.2);white-space:nowrap;height:100%;display:flex;align-items:center;justify-content:center;}
+.ticker-track{flex:1;overflow:hidden;position:relative;height:100%;}
+.ticker-inner{display:inline-flex;align-items:center;gap:2.5rem;white-space:nowrap;height:100%;will-change:transform;}
+.ticker-inner:hover{animation-play-state:paused;}
+.ticker-item{display:inline-flex;align-items:center;gap:.4rem;font-size:.82rem;}
+.ticker-item-role{color:var(--amber);font-size:.72rem;letter-spacing:.05em;}
+.ticker-item-text{color:var(--text2);}
+.ticker-item-div{color:rgba(0,201,167,.4);margin:0 .3rem;}
+.ticker-placeholder{font-size:.62rem;color:var(--text3);padding:0 1rem;}
+@media(max-width:768px){.ticker-label{padding:0 .6rem;}.ticker-item{font-size:.58rem;}}
+@keyframes tickerScroll{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
 .kpi-inner{max-width:1280px;margin:0 auto;padding:0 2rem;display:grid;grid-template-columns:repeat(5,1fr);}
 .kpi-cell{padding:1.4rem 1rem;border-right:1px solid var(--border);opacity:0;animation:kfade .5s ease forwards;}
 .kpi-cell:last-child{border-right:none;}
@@ -353,6 +365,26 @@ footer strong{color:var(--amber);}
     <div class="kpi-cell"><div class="kpi-label">牧師謝礼比率</div><div class="kpi-value"><span class="count-num" data-target="67">0</span><span class="kpi-unit">%</span></div><div class="kpi-desc">経常支出に占める割合</div></div>
   </div>
 </section>
+
+<!-- VOICE TICKER -->
+<div class="voice-ticker" id="voice-ticker">
+  <div class="ticker-label">// LIVE VOICES</div>
+  <div class="ticker-track">
+    <div class="ticker-inner" id="ticker-inner">
+      <span class="ticker-placeholder">投稿を読み込み中...</span>
+    </div>
+  </div>
+</div>
+
+<!-- AI ANALYSIS TICKER -->
+<div class="voice-ticker" id="ai-ticker" style="background:rgba(232,160,32,.05);border-bottom:1px solid rgba(232,160,32,.2);">
+  <div class="ticker-label" style="color:var(--amber);border-right-color:rgba(232,160,32,.2);">// AI INSIGHT</div>
+  <div class="ticker-track">
+    <div class="ticker-inner" id="ai-ticker-inner" style="animation-duration:50s;">
+      <span class="ticker-placeholder">AI分析を実行するとテーマが表示されます</span>
+    </div>
+  </div>
+</div>
 
 <main class="content">
 
@@ -1031,6 +1063,7 @@ async function blRender(){
   const accessAliases={'駅近で便利（徒歩圏内）':'駅近で便利（徒歩圏）','車があれば行ける':'車で行ける距離'};
   blRenderStats('bl-role-stats',voices.map(v=>v.role),['信徒（教会員）','教役者（牧師・リーダーなど）','キリスト教に関心がある','研究者・支援者'],'amber',roleAliases);
   blRenderStats('bl-access-stats',voices.map(v=>v.access),['駅近で便利（徒歩圏）','車で行ける距離','遠くて行きにくい','近くに教会がない'],'teal',accessAliases);
+  initTicker(voices);
 }
 
 function blRenderStats(cid,data,keys,colorClass,aliases){
@@ -1092,6 +1125,8 @@ async function blSynthesize(){
       recSec.style.display='block';
     }
 
+    initAiTicker(json);
+
     /* ② ボトルネック図(07)のスコアを声の傾向で動的更新 */
     const bnChart=window._bnChart;
     if(bnChart&&json.themes){
@@ -1131,6 +1166,48 @@ async function blSynthesize(){
   }catch(e){alert('エラー: '+e.message);}
   finally{btn.disabled=false;loading.classList.remove('show');}
 }
+
+/* Voice Ticker */
+function initAiTicker(json){
+  const inner=document.getElementById('ai-ticker-inner');
+  if(!inner||!json)return;
+  const sep='<span style="color:rgba(232,160,32,.3);margin:0 1.5rem;">◆</span>';
+  const themeItems=(json.themes||[]).map(t=>`<span class="ticker-item"><span class="ticker-item-role" style="color:var(--amber);">${esc(t.label)}</span><span class="ticker-item-div" style="color:var(--amber);opacity:.5;">▶</span><span class="ticker-item-text">${esc(t.body)}</span></span>`);
+  const suggItems=(json.suggestions||[]).map(s=>`<span class="ticker-item"><span class="ticker-item-role" style="color:var(--amber);">💡</span><span class="ticker-item-div" style="color:var(--amber);opacity:.5;">▶</span><span class="ticker-item-text">${esc(s)}</span></span>`);
+  const all=[...themeItems,...suggItems];
+  if(!all.length)return;
+  const items=all.join(sep);
+  inner.innerHTML=items+sep+items;
+  const duration=Math.max(40,all.length*5);
+  inner.style.animation=`tickerScroll ${duration}s linear infinite`;
+}
+
+function initTicker(voices){
+  const inner=document.getElementById('ticker-inner');
+  if(!inner||!voices||!voices.length)return;
+  const rMap={'牧師・伝道師':'教役者','教会探し中':'関心層','未信者・関心層':'関心層','教会を探している':'関心層','教役者（牧師・リーダーなど）':'教役者','キリスト教に関心がある':'関心層','研究者・支援者':'研究者'};
+  const sep='<span style="color:rgba(0,201,167,.3);margin:0 1.5rem;">│</span>';
+  const items=voices.map(v=>{
+    const role=rMap[v.role]||v.role;
+    const text=(v.challenge||'').replace(/\n/g,' ').slice(0,35)+((v.challenge||'').length>35?'…':'');
+    return`<span class="ticker-item"><span class="ticker-item-role">${esc(role)}</span><span class="ticker-item-div">▶</span><span class="ticker-item-text">${esc(text)}</span></span>`;
+  }).join(sep);
+  // 2セット並べて translateX(-50%) でシームレスループ
+  inner.innerHTML=items+sep+items;
+  const duration=Math.max(30,voices.length*4);
+  inner.style.animation=`tickerScroll ${duration}s linear infinite`;
+}
+
+/* AI Ticker — 静的テーマで初期化 */
+const _staticThemes=[
+  {label:'高齢化と世代断絶',body:'40代以下の減少、中高生への伝道困難、世代交代の停滞'},
+  {label:'財政構造の脆弱化',body:'人件費負担、赤字運営、物件高騰による経営圧迫'},
+  {label:'地域格差と孤立',body:'駅遠・過疎地域の不利、教会間格差、地域連携不足'},
+  {label:'閉鎖性と硬直化',body:'外部接続の欠如、教理の硬化、組織の柔軟性不足'},
+  {label:'インクルージョン課題',body:'障がい者支援、ユニバーサルデザイン、多様性対応'},
+  {label:'デジタル変革期',body:'オンライン礼拝導入、アナログとの併存、新形式模索'},
+];
+initAiTicker({themes:_staticThemes,suggestions:[]});
 
 blRender();
 
