@@ -269,9 +269,13 @@ footer strong{color:var(--amber);}
 @media(max-width:1024px){.bl-layout{grid-template-columns:1fr;}.rec-grid{grid-template-columns:1fr 1fr;}.bl-steps{grid-template-columns:1fr;}.heatmap-grid{grid-template-columns:1fr 1fr;}}
 @media(max-width:768px){
   body::after,body::before{display:none;}
-  .content{padding:2rem 1rem 4rem;}
+  .content{padding:1.5rem .75rem 4rem;}
+  .hero{padding:2.5rem 0 1.5rem;}
   .hero-inner{padding:0 1rem;}
-  .kpi-inner{padding:0 1rem;grid-template-columns:repeat(2,1fr);}
+  .hero-title{font-size:1.4rem;}
+  .hero-sub{font-size:.7rem;}
+  .hero-meta{font-size:.6rem;gap:.4rem;}
+  .kpi-inner{padding:0 .75rem;grid-template-columns:repeat(2,1fr);}
   .gap-grid{grid-template-columns:1fr;}
   .heatmap-grid{grid-template-columns:1fr;}
   .rec-grid{grid-template-columns:1fr;}
@@ -282,27 +286,37 @@ footer strong{color:var(--amber);}
   .bl-steps{grid-template-columns:1fr;}
   .bl-layout{grid-template-columns:1fr;}
   .bl-cards{grid-template-columns:1fr;}
-  .chart-box{padding:1rem;}
-  .sec-title{font-size:1.1rem;}
-  .dtable{font-size:.72rem;}
-  .dtable th,.dtable td{padding:.4rem .6rem;}
-  nav{padding:0 1rem;gap:1rem;}
-  .nav-logo span{display:none;}
+  .chart-box{padding:.85rem;}
+  .sec-title{font-size:1rem;}
+  .sec-head{margin-bottom:1.25rem;}
+  .dtable{font-size:.68rem;}
+  .dtable th,.dtable td{padding:.35rem .5rem;}
+  nav{padding:0 .75rem;gap:.75rem;}
+  .nav-logo{font-size:.6rem;}
   .nav-ver{display:none;}
-  .sec-nav-inner{padding:.5rem 1rem;gap:.3rem;}
-  .sec-nav-link{font-size:.62rem;padding:.3rem .7rem;}
-  .nav-voices-link{font-size:.55rem;padding:.28rem .65rem;}
-  .sec{scroll-margin-top:180px;}
+  .sec-nav-inner{padding:.4rem .75rem;gap:.25rem;overflow-x:auto;flex-wrap:nowrap;}
+  .sec-nav-link{font-size:.58rem;padding:.28rem .6rem;white-space:nowrap;}
+  .nav-voices-link{font-size:.52rem;padding:.25rem .55rem;white-space:nowrap;}
+  .voice-ticker{height:30px;}
+  .ticker-label{width:90px;font-size:.44rem;padding:0 .5rem;}
+  .ticker-item{font-size:.68rem;}
+  .ticker-item-role{font-size:.6rem;}
+  .sec{scroll-margin-top:170px;}
+  .insight{font-size:.72rem;}
+  .kpi-value{font-size:1.4rem;}
+  .kpi-cell{padding:.75rem .5rem;}
 }
 @media(max-width:480px){
   .kpi-inner{grid-template-columns:1fr 1fr;}
   .sc-row{grid-template-columns:1fr;}
   .uccj-row{grid-template-columns:1fr;}
-  .hero{padding:3rem 0 2rem;}
-  .sec-title{font-size:1rem;}
+  .hero-title{font-size:1.15rem;}
+  .sec-title{font-size:.95rem;}
   .bl-submit{width:100%;}
-  .chart-wrap{height:200px !important;}
-  .sec-nav-link{font-size:.58rem;padding:.28rem .55rem;}
+  .chart-wrap{height:180px !important;}
+  .sec-nav-link{font-size:.54rem;padding:.24rem .5rem;}
+  .density-cards{grid-template-columns:1fr 1fr !important;}
+  .sec{scroll-margin-top:160px;}
 }
 
 .sec-nav{position:sticky;top:44px;z-index:490;background:rgba(13,17,23,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
@@ -431,7 +445,7 @@ footer strong{color:var(--amber);}
     <div class="chart-lbl" style="color:var(--teal);">CHURCH DENSITY — 教会密度</div>
     <div class="chart-ttl" style="margin-bottom:.5rem;">1万人あたりの教会数（宣教機会の地理的分布指標）</div>
     <p style="font-size:.68rem;color:var(--text3);line-height:1.75;margin-bottom:1.25rem;">教会密度とは、人口に対してどれだけ教会が存在するかを示す指標です。この値が高いほど「福音に触れる機会」が多く、低いほど宣教機会の格差が生じます。</p>
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);margin-bottom:1.25rem;">
+    <div class="density-cards" style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);margin-bottom:1.25rem;">
       <div style="background:var(--bg1);padding:1rem;text-align:center;">
         <div style="font-size:.52rem;letter-spacing:.1em;color:var(--text3);margin-bottom:.3rem;">全国平均</div>
         <div style="font-family:'Space Grotesk',sans-serif;font-size:1.6rem;font-weight:700;color:var(--amber);line-height:1;">0.61</div>
@@ -1246,3 +1260,4 @@ secIds.forEach(id=>{const el=document.getElementById(id);if(el)secNavObs.observe
 </script>
 </body>
 </html>
+
