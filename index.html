@@ -816,16 +816,15 @@ footer strong{color:var(--amber);}
           <p style="font-size:.62rem;color:var(--text3);margin-bottom:.5rem;line-height:1.6;">最も近いものを選んでください</p>
           <div class="bl-radio-group">
             <input class="bl-radio" type="radio" name="role" id="r1" value="信徒（教会員）"><label class="bl-radio-label" for="r1">信徒（教会員）</label>
-            <input class="bl-radio" type="radio" name="role" id="r2" value="牧師・伝道師"><label class="bl-radio-label" for="r2">牧師・伝道師</label>
-            <input class="bl-radio" type="radio" name="role" id="r3" value="教会探し中"><label class="bl-radio-label" for="r3">教会を探している</label>
-            <input class="bl-radio" type="radio" name="role" id="r4" value="未信者・関心層"><label class="bl-radio-label" for="r4">キリスト教に関心がある</label>
-            <input class="bl-radio" type="radio" name="role" id="r5" value="研究者・支援者"><label class="bl-radio-label" for="r5">研究者・支援者</label>
+            <input class="bl-radio" type="radio" name="role" id="r2" value="教役者（牧師・リーダーなど）"><label class="bl-radio-label" for="r2">教役者（牧師・リーダーなど）</label>
+            <input class="bl-radio" type="radio" name="role" id="r3" value="キリスト教に関心がある"><label class="bl-radio-label" for="r3">キリスト教に関心がある</label>
+            <input class="bl-radio" type="radio" name="role" id="r4" value="研究者・支援者"><label class="bl-radio-label" for="r4">研究者・支援者</label>
           </div>
         </div>
         <div class="bl-field">
           <label class="bl-label">最寄りの教会まで <span class="bl-req">必須</span></label>
           <p style="font-size:.62rem;color:var(--text3);margin-bottom:.5rem;line-height:1.6;">あなたの住むエリアの状況を教えてください</p>
-          <div class="bl-select-wrap"><select id="bl-access" class="bl-select"><option value="">── 選択してください ──</option><option>駅近で便利（徒歩圏内）</option><option>車があれば行ける</option><option>遠くて行きにくい</option><option>近くに教会がない</option></select></div>
+          <div class="bl-select-wrap"><select id="bl-access" class="bl-select"><option value="">── 選択してください ──</option><option>駅近で便利（徒歩圏）</option><option>車で行ける距離</option><option>遠くて行きにくい</option><option>近くに教会がない</option></select></div>
         </div>
         <div class="bl-divider"></div>
         <div class="bl-field">
@@ -854,7 +853,7 @@ footer strong{color:var(--amber);}
         <div class="bl-stat-body" id="bl-role-stats"><div class="bl-empty-sm">まだ投稿がありません</div></div>
       </div>
       <div class="bl-stat-card">
-        <div class="bl-stat-head"><span class="bl-stat-head-label">アクセス状況</span></div>
+        <div class="bl-stat-head"><span class="bl-stat-head-label">アクセス状況</span><span class="bl-stat-count" id="bl-access-count" style="color:var(--teal);">0</span></div>
         <div class="bl-stat-body" id="bl-access-stats"><div class="bl-empty-sm">まだ投稿がありません</div></div>
       </div>
     </div>
@@ -1021,20 +1020,36 @@ async function blRender(){
   const voices=await sbSelect();
   if(!Array.isArray(voices))return;
   document.getElementById('bl-total-count').textContent=voices.length;
+  const accessEl=document.getElementById('bl-access-count');if(accessEl)accessEl.textContent=voices.filter(v=>v.access).length;
   const numEl=document.getElementById('bl-voice-num');if(numEl)numEl.textContent=voices.length;
   const container=document.getElementById('bl-cards');
   if(!voices.length){container.innerHTML=`<div class="bl-empty-full"><span class="bl-empty-icon">📭</span>まだ声が届いていません。<br>最初の一声を投稿してください。</div>`;return;}
-  container.innerHTML=voices.map((v,i)=>`<div class="bl-card" style="animation-delay:${i*.04}s"><div class="bl-card-meta"><span class="bl-tag bl-tag-role">${esc(v.role)}</span><span class="bl-tag bl-tag-access">${esc(v.access)}</span><span class="bl-tag-time">${new Date(v.created_at).toLocaleString('ja-JP',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'})}</span></div><div class="bl-card-q">// CHALLENGE</div><div class="bl-card-text">${esc(v.challenge)}</div>${v.idea?`<div class="bl-card-idea">${esc(v.idea)}</div>`:''}${v.comment?`<div class="bl-card-comment">${esc(v.comment)}</div>`:''}</div>`).join('');
-  blRenderStats('bl-role-stats',voices.map(v=>v.role),['信徒（教会員）','牧師・伝道師','教会探し中','未信者・関心層','研究者・支援者'],'amber');
-  blRenderStats('bl-access-stats',voices.map(v=>v.access),['駅近で便利（徒歩圏）','車で行ける距離','遠くて行きにくい','近くに教会がない'],'teal');
+  const rMap={'牧師・伝道師':'教役者（牧師・リーダーなど）','教会探し中':'キリスト教に関心がある','未信者・関心層':'キリスト教に関心がある','教会を探している':'キリスト教に関心がある'};
+  const aMap={'駅近で便利（徒歩圏内）':'駅近で便利（徒歩圏）','車があれば行ける':'車で行ける距離'};
+  container.innerHTML=voices.map((v,i)=>{const role=rMap[v.role]||v.role;const access=aMap[v.access]||v.access;return`<div class="bl-card" style="animation-delay:${i*.04}s"><div class="bl-card-meta"><span class="bl-tag bl-tag-role">${esc(role)}</span><span class="bl-tag bl-tag-access">${esc(access)}</span><span class="bl-tag-time">${new Date(v.created_at).toLocaleString('ja-JP',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'})}</span></div><div class="bl-card-q">// CHALLENGE</div><div class="bl-card-text">${esc(v.challenge)}</div>${v.idea?`<div class="bl-card-idea">${esc(v.idea)}</div>`:''}${v.comment?`<div class="bl-card-comment">${esc(v.comment)}</div>`:''}</div>`}).join('');
+  const roleAliases={'牧師・伝道師':'教役者（牧師・リーダーなど）','教会探し中':'キリスト教に関心がある','未信者・関心層':'キリスト教に関心がある','教会を探している':'キリスト教に関心がある'};
+  const accessAliases={'駅近で便利（徒歩圏内）':'駅近で便利（徒歩圏）','車があれば行ける':'車で行ける距離'};
+  blRenderStats('bl-role-stats',voices.map(v=>v.role),['信徒（教会員）','教役者（牧師・リーダーなど）','キリスト教に関心がある','研究者・支援者'],'amber',roleAliases);
+  blRenderStats('bl-access-stats',voices.map(v=>v.access),['駅近で便利（徒歩圏）','車で行ける距離','遠くて行きにくい','近くに教会がない'],'teal',accessAliases);
 }
 
-function blRenderStats(cid,data,keys,colorClass){
+function blRenderStats(cid,data,keys,colorClass,aliases){
   const el=document.getElementById(cid);
   if(!data.length){el.innerHTML='<div class="bl-empty-sm">まだ投稿がありません</div>';return;}
-  const counts={};keys.forEach(k=>counts[k]=0);data.forEach(v=>{if(counts[v]!==undefined)counts[v]++;});
+  const counts={};keys.forEach(k=>counts[k]=0);
+  data.forEach(v=>{
+    if(!v)return;
+    // エイリアス変換
+    const mapped=(aliases&&aliases[v])||v;
+    if(counts[mapped]!==undefined){counts[mapped]++;return;}
+    // 部分一致フォールバック
+    const matched=keys.find(k=>mapped.includes(k)||k.includes(mapped));
+    if(matched){counts[matched]++;}
+    else{counts[mapped]=(counts[mapped]||0)+1;}
+  });
   const max=Math.max(...Object.values(counts),1);
-  el.innerHTML=keys.map(k=>`<div class="bl-stat-row"><div class="bl-stat-lbl"><span class="bl-stat-name">${k}</span><span class="bl-stat-val">${counts[k]}</span></div><div class="bl-stat-bar"><div class="bl-stat-fill ${colorClass==='teal'?'teal':''}" data-w="${Math.round(counts[k]/max*100)}" style="width:0"></div></div></div>`).join('');
+  const allKeys=Object.keys(counts).filter(k=>counts[k]>0||keys.includes(k));
+  el.innerHTML=allKeys.map(k=>`<div class="bl-stat-row"><div class="bl-stat-lbl"><span class="bl-stat-name">${k}</span><span class="bl-stat-val">${counts[k]}</span></div><div class="bl-stat-bar"><div class="bl-stat-fill ${colorClass==='teal'?'teal':''}" data-w="${Math.round(counts[k]/max*100)}" style="width:0"></div></div></div>`).join('');
   setTimeout(()=>el.querySelectorAll('.bl-stat-fill[data-w]').forEach((b,i)=>setTimeout(()=>{b.style.width=b.getAttribute('data-w')+'%';},i*80)),60);
 }
 
@@ -1129,7 +1144,7 @@ if(document.getElementById('cMission')){
       {label:'牧師数（人）',data:[6000,5750,5400,5050,4950],borderColor:'#00c9a7',tension:.4,pointRadius:4,pointBackgroundColor:'#00c9a7',fill:false,yAxisID:'y'},
       {label:'若年人口（万人）',data:[2200,1950,1700,1500,1350],borderColor:'#ff5555',tension:.4,pointRadius:4,pointBackgroundColor:'#ff5555',fill:false,borderDash:[5,3],yAxisID:'y2'},
     ]
-  },options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{mode:'index',intersect:false,callbacks:{label:ctx=>{const u=ctx.datasetIndex===3?'万人':ctx.datasetIndex===1?'教会':'人';return ` ${ctx.dataset.label}: ${ctx.raw.toLocaleString()}${u}`;}}}},scales:{y:{position:'left',grid:{color:'rgba(255,255,255,.05)'},ticks:{callback:v=>v.toLocaleString()},title:{display:true,text:'人・教会数',color:'#7a8899',font:{size:10}}},y2:{position:'right',grid:{display:false},ticks:{callback:v=>v.toLocaleString()+'万人'},title:{display:true,text:'若年人口（万人）',color:'#ff5555',font:{size:10}}}}}});
+  },options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{mode:'index',intersect:false,callbacks:{label:ctx=>{const u=ctx.datasetIndex===3?'万人':ctx.datasetIndex===1?'教会':'人';return ` ${ctx.dataset.label}: ${ctx.raw.toLocaleString()}${u}`;}}}},scales:{y:{position:'left',grid:{color:'rgba(255,255,255,.05)'},ticks:{callback:v=>v.toLocaleString()},title:{display:true,text:'人・教会数',color:'#7a8899',font:{size:10}}},y2:{position:'right',grid:{display:false},ticks:{callback:v=>v.toLocaleString()},title:{display:true,text:'若年人口（万人）',color:'#ff5555',font:{size:10}}}}}});
 }
 if(document.getElementById('cBottleneck')){
   window._bnChart=new Chart('cBottleneck',{type:'bar',data:{
@@ -1153,4 +1168,4 @@ const secNavObs=new IntersectionObserver(entries=>{
 secIds.forEach(id=>{const el=document.getElementById(id);if(el)secNavObs.observe(el);});
 </script>
 </body>
-</html
+</html>
