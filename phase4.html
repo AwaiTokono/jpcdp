@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JPCDP // Phase 4 — BroadListening × MSI</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700&display=swap');
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #060a10; --bg2: #0a1520; --bg3: #0d1c2c;
+  --border: #0f1e2e; --border2: #1a2a3a;
+  --green: #00ff88; --blue: #44bbff; --yellow: #ffcc44; --red: #ff4466;
+  --purple: #cc88ff; --cyan: #00eedd;
+  --text: #7a8a9a; --text2: #ccdde8; --dim: #334455; --dim2: #1e3a4a;
+  --font: 'JetBrains Mono', 'Fira Code', monospace;
+}
+html, body { height: 100%; background: var(--bg); color: var(--text); font-family: var(--font); font-size: 12px; }
+body::before {
+  content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.06) 3px, rgba(0,0,0,0.06) 4px);
+}
+* { box-sizing: border-box; }
+button { font-family: var(--font); }
+button:focus { outline: none; }
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: #1a2a3a; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+@keyframes pulse { 0%,100%{opacity:0.3} 50%{opacity:1} }
+@keyframes slideIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+@keyframes ticker { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+/* ── LAYOUT ── */
+#app { display:flex; flex-direction:column; height:100vh; position:relative; z-index:1; }
+#topbar {
+  border-bottom:1px solid var(--border); padding:8px 16px;
+  display:flex; align-items:center; justify-content:space-between;
+  background:rgba(6,10,16,0.98); flex-shrink:0; z-index:10;
+  position: sticky; top:0;
+}
+#body { display:flex; flex:1; overflow:hidden; }
+#sidebar {
+  width:220px; flex-shrink:0; border-right:1px solid var(--border);
+  background:rgba(6,10,16,0.95); overflow-y:auto;
+}
+#main { flex:1; overflow-y:auto; }
+
+/* ── TOPBAR ── */
+.tb-left { display:flex; align-items:center; gap:14px; }
+.tb-title { font-size:13px; color:var(--green); letter-spacing:2px; }
+.tb-sub { font-size:8px; color:var(--dim2); letter-spacing:4px; }
+.tb-right { font-size:9px; text-align:right; line-height:1.8; }
+
+/* ── VOICE TICKER ── */
+#voice-ticker-wrap {
+  border-bottom:1px solid var(--border); background:rgba(0,20,40,0.5);
+  height:28px; overflow:hidden; display:flex; align-items:center;
+}
+.ticker-label { font-size:8px; color:var(--purple); letter-spacing:2px; padding:0 12px; flex-shrink:0; border-right:1px solid var(--border2); }
+.ticker-track { overflow:hidden; flex:1; }
+.ticker-inner { display:flex; gap:40px; white-space:nowrap; animation:ticker 30s linear infinite; font-size:9px; color:var(--dim); }
+.ticker-item { display:flex; align-items:center; gap:8px; }
+.ticker-region { color:var(--purple); }
+.ticker-urgency-high { color:var(--red); }
+.ticker-urgency-medium { color:var(--yellow); }
+.ticker-urgency-low { color:var(--dim); }
+
+/* ── SIDEBAR ── */
+.sb-section { padding:10px 8px; border-bottom:1px solid var(--border); }
+.sb-label { font-size:8px; color:var(--dim2); letter-spacing:3px; margin-bottom:6px; }
+.region-item {
+  padding:6px 8px; margin-bottom:2px; cursor:pointer;
+  border-left:2px solid transparent;
+  display:flex; justify-content:space-between; align-items:center;
+}
+.region-item.active { background:rgba(204,136,255,0.08); border-left-color:var(--purple); }
+.ri-name { font-size:10px; color:#445566; }
+.region-item.active .ri-name { color:var(--text2); }
+.ri-scores { text-align:right; }
+.ri-msi { font-size:12px; line-height:1; }
+.ri-delta { font-size:8px; letter-spacing:1px; }
+.ri-scount { font-size:7px; color:var(--dim2); margin-top:1px; }
+
+/* ── MAIN ── */
+#main { padding:16px; }
+.view { display:none; }
+.view.active { display:block; }
+
+/* ── CARDS ── */
+.card { border:1px solid var(--border); padding:14px; margin-bottom:14px; }
+.card-label { font-size:8px; color:var(--dim); letter-spacing:3px; margin-bottom:10px; }
+
+/* ── MSI COMPARISON ── */
+.msi-compare { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:16px; }
+.msi-box { border:1px solid; padding:16px; text-align:center; }
+.msi-box-label { font-size:8px; letter-spacing:3px; margin-bottom:6px; opacity:0.7; }
+.msi-box-score { font-size:44px; line-height:1; letter-spacing:-2px; font-weight:700; }
+.msi-box-grade { font-size:9px; letter-spacing:2px; margin-top:4px; }
+.msi-box-name { font-size:11px; color:var(--text2); margin-top:2px; }
+.delta-badge {
+  display:inline-flex; align-items:center; gap:4px;
+  padding:3px 8px; font-size:10px; border:1px solid; margin-top:6px;
+}
+
+/* ── SCORE BARS WITH BLEND ── */
+.blend-bar-item { margin-bottom:12px; }
+.blend-bar-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:4px; }
+.blend-bar-name { font-size:10px; color:#667788; }
+.blend-bar-scores { display:flex; align-items:center; gap:8px; font-size:10px; }
+.blend-track { height:6px; background:var(--bg2); border-radius:3px; position:relative; margin-bottom:2px; }
+.blend-base-fill { height:100%; border-radius:3px; opacity:0.4; }
+.blend-field-fill { height:100%; border-radius:3px; position:absolute; top:0; left:0; transition:width 0.6s ease; }
+.blend-bar-legend { display:flex; gap:12px; font-size:8px; color:var(--dim); margin-top:2px; }
+
+/* ── SIGNAL FEED ── */
+.signal-item {
+  border:1px solid var(--border); padding:10px 12px; margin-bottom:8px;
+  background:rgba(0,10,20,0.4); animation:slideIn 0.3s ease;
+}
+.signal-header { display:flex; align-items:center; gap:8px; margin-bottom:6px; }
+.signal-region { font-size:9px; color:var(--purple); }
+.signal-type { font-size:8px; color:var(--dim); }
+.signal-urgency { font-size:8px; padding:1px 6px; border:1px solid; letter-spacing:1px; }
+.signal-summary { font-size:11px; color:var(--text2); margin-bottom:6px; line-height:1.5; }
+.signal-tags { display:flex; flex-wrap:wrap; gap:4px; }
+.signal-tag {
+  font-size:8px; padding:2px 6px; border:1px solid; letter-spacing:1px;
+}
+.signal-time { font-size:8px; color:var(--dim2); margin-top:4px; }
+
+/* ── SUBMIT FORM ── */
+.form-field { margin-bottom:12px; }
+.form-label { font-size:8px; color:var(--dim); letter-spacing:2px; margin-bottom:6px; display:block; }
+select, textarea {
+  width:100%; background:var(--bg2); border:1px solid var(--border2);
+  color:#8899aa; font-family:var(--font); font-size:11px;
+  padding:8px; outline:none; resize:vertical;
+}
+select:focus, textarea:focus { border-color:var(--purple); }
+textarea { min-height:100px; line-height:1.7; }
+.submit-btn {
+  padding:10px 24px; font-size:10px; letter-spacing:2px;
+  background:rgba(204,136,255,0.1); border:1px solid var(--purple);
+  color:var(--purple); cursor:pointer; width:100%;
+}
+.submit-btn:hover { background:rgba(204,136,255,0.18); }
+.submit-btn:disabled { opacity:0.4; cursor:not-allowed; }
+.char-count { font-size:8px; color:var(--dim); text-align:right; margin-top:4px; }
+
+/* ── RADAR ── */
+.radar-wrap { display:flex; justify-content:center; }
+
+/* ── SIGNAL BARS ── */
+.signal-cat-bar { margin-bottom:8px; }
+.scb-header { display:flex; justify-content:space-between; margin-bottom:3px; font-size:9px; }
+.scb-track { background:var(--bg2); height:4px; border-radius:2px; }
+.scb-pos { height:100%; border-radius:2px; background:var(--green); }
+.scb-neg { height:100%; border-radius:2px; background:var(--red); }
+
+/* ── TABS ── */
+.tabs { display:flex; gap:2px; margin-bottom:16px; border-bottom:1px solid var(--border); }
+.tab-btn {
+  padding:6px 14px; font-size:10px; letter-spacing:1px; cursor:pointer;
+  background:transparent; border:none; border-bottom:2px solid transparent;
+  color:var(--dim);
+}
+.tab-btn.active { color:var(--purple); border-bottom-color:var(--purple); }
+
+/* ── STATUS ── */
+.status-dot { width:6px; height:6px; border-radius:50%; display:inline-block; margin-right:4px; }
+.status-live { background:var(--green); box-shadow:0 0 6px var(--green); animation:pulse 2s ease infinite; }
+</style>
+</head>
+<body>
+<div id="app">
+
+  <!-- TOPBAR -->
+  <div id="topbar">
+    <div class="tb-left">
+      <div>
+        <div style="font-size:8px;color:var(--dim2);letter-spacing:4px">JPCDP // AWAI LLC // PHASE 4</div>
+        <div class="tb-title">BroadListening <span style="color:var(--purple)">×</span> MSI</div>
+      </div>
+      <div style="width:1px;height:26px;background:var(--border)"></div>
+      <div style="font-size:8px;color:var(--dim);line-height:1.8">
+        <div>MISSION STRUCTURE × FIELD VOICES</div>
+        <div style="color:var(--dim2)">統計データ ＋ 現場の声 → ブレンドMSI</div>
+      </div>
+    </div>
+    <div class="tb-right">
+      <div style="color:var(--dim)" id="clock">----</div>
+      <div style="color:var(--dim2)">
+        <span class="status-dot status-live"></span>
+        <span id="signal-count" style="color:var(--purple)">0</span> シグナル受信中
+      </div>
+    </div>
+  </div>
+
+  <!-- VOICE TICKER -->
+  <div id="voice-ticker-wrap">
+    <div class="ticker-label">◈ FIELD VOICES</div>
+    <div class="ticker-track">
+      <div class="ticker-inner" id="ticker-content">
+        <span class="ticker-item"><span class="ticker-region">[東北]</span><span class="ticker-urgency-high">HIGH</span><span>担い手不足が深刻—高齢化で限界</span></span>
+        <span class="ticker-item"><span class="ticker-region">[関東]</span><span class="ticker-urgency-low">LOW</span><span>オンライン礼拝・SNS接点が急増</span></span>
+        <span class="ticker-item"><span class="ticker-region">[九州]</span><span class="ticker-urgency-low">LOW</span><span>地域開放性が向上—子ども食堂開始</span></span>
+        <span class="ticker-item"><span class="ticker-region">[四国]</span><span class="ticker-urgency-high">HIGH</span><span>高知—教会空白と交通困難が重複</span></span>
+        <span class="ticker-item"><span class="ticker-region">[東北]</span><span class="ticker-urgency-high">HIGH</span><span>担い手不足が深刻—高齢化で限界</span></span>
+        <span class="ticker-item"><span class="ticker-region">[関東]</span><span class="ticker-urgency-low">LOW</span><span>オンライン礼拝・SNS接点が急増</span></span>
+        <span class="ticker-item"><span class="ticker-region">[九州]</span><span class="ticker-urgency-low">LOW</span><span>地域開放性が向上—子ども食堂開始</span></span>
+        <span class="ticker-item"><span class="ticker-region">[四国]</span><span class="ticker-urgency-high">HIGH</span><span>高知—教会空白と交通困難が重複</span></span>
+      </div>
+    </div>
+  </div>
+
+  <div id="body">
+    <!-- SIDEBAR -->
+    <div id="sidebar">
+      <div class="sb-section">
+        <div class="sb-label">── VIEW</div>
+        <button onclick="setView('blend')" id="tab-blend"
+          style="display:block;width:100%;text-align:left;padding:5px 8px;margin-bottom:2px;font-size:10px;background:rgba(204,136,255,0.08);border:1px solid var(--purple);color:var(--purple);cursor:pointer;letter-spacing:1px">
+          ▶ MSIブレンド
+        </button>
+        <button onclick="setView('submit')" id="tab-submit"
+          style="display:block;width:100%;text-align:left;padding:5px 8px;margin-bottom:2px;font-size:10px;background:transparent;border:1px solid transparent;color:#445566;cursor:pointer;letter-spacing:1px">
+          · 声を投稿
+        </button>
+        <button onclick="setView('feed')" id="tab-feed"
+          style="display:block;width:100%;text-align:left;padding:5px 8px;margin-bottom:2px;font-size:10px;background:transparent;border:1px solid transparent;color:#445566;cursor:pointer;letter-spacing:1px">
+          · シグナルフィード
+        </button>
+      </div>
+      <div class="sb-section" style="flex:1">
+        <div class="sb-label">── REGIONS</div>
+        <div id="region-list"></div>
+      </div>
+      <!-- 凡例 -->
+      <div style="margin:8px;padding:10px;border:1px solid var(--border);font-size:8px;line-height:2;color:var(--dim)">
+        <div style="color:var(--dim2);letter-spacing:2px;margin-bottom:4px">MSI BLEND LEGEND</div>
+        <div style="display:flex;gap:6px;align-items:center;margin-bottom:2px">
+          <div style="width:20px;height:3px;background:rgba(124,176,100,0.4);border-radius:2px"></div>
+          <span>統計ベーススコア</span>
+        </div>
+        <div style="display:flex;gap:6px;align-items:center">
+          <div style="width:20px;height:3px;background:var(--purple);border-radius:2px"></div>
+          <span>フィールド調整後</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- MAIN -->
+    <div id="main">
+
+      <!-- MSIブレンドビュー -->
+      <div id="view-blend" class="view active">
+        <div class="card-label">── MSI BLEND // 統計 ＋ 現場の声</div>
+
+        <div class="msi-compare">
+          <!-- 統計ベース -->
+          <div class="msi-box" id="stat-box">
+            <div class="msi-box-label">STATISTICAL MSI</div>
+            <div class="msi-box-score" id="stat-score">--</div>
+            <div class="msi-box-grade" id="stat-code">--</div>
+            <div class="msi-box-name" id="stat-name">--</div>
+            <div style="font-size:8px;color:var(--dim);margin-top:6px">文化庁統計 + JMR2023</div>
+          </div>
+          <!-- ブレンドMSI -->
+          <div class="msi-box" id="blend-box" style="border-color:var(--purple);background:rgba(204,136,255,0.04)">
+            <div class="msi-box-label" style="color:var(--purple)">BLENDED MSI</div>
+            <div class="msi-box-score" id="blend-score" style="color:var(--purple)">--</div>
+            <div class="msi-box-grade" id="blend-code" style="color:var(--purple)">--</div>
+            <div class="msi-box-name" id="blend-name">--</div>
+            <div id="delta-display" style="margin-top:6px"></div>
+          </div>
+        </div>
+
+        <!-- 指標別ブレンドバー -->
+        <div class="card">
+          <div class="card-label">METRIC BLEND // 指標別スコア比較</div>
+          <div style="display:flex;gap:16px;font-size:8px;color:var(--dim);margin-bottom:12px">
+            <div style="display:flex;align-items:center;gap:4px">
+              <div style="width:16px;height:4px;background:rgba(100,180,100,0.4);border-radius:2px"></div>統計ベース
+            </div>
+            <div style="display:flex;align-items:center;gap:4px">
+              <div style="width:16px;height:4px;background:var(--purple);border-radius:2px"></div>ブレンド後
+            </div>
+            <div style="display:flex;align-items:center;gap:4px">
+              <div style="width:16px;height:4px;background:var(--green);border-radius:2px"></div>シグナル陽性
+            </div>
+            <div style="display:flex;align-items:center;gap:4px">
+              <div style="width:16px;height:4px;background:var(--red);border-radius:2px"></div>シグナル陰性
+            </div>
+          </div>
+          <div id="blend-bars"></div>
+        </div>
+
+        <!-- 地域の声サマリー -->
+        <div class="card">
+          <div class="card-label">RECENT FIELD VOICES // 直近30日の現場報告</div>
+          <div id="region-voices"></div>
+        </div>
+
+        <!-- シグナル統計 -->
+        <div class="card">
+          <div class="card-label">SIGNAL ANALYTICS // シグナル分析</div>
+          <div id="signal-analytics"></div>
+        </div>
+      </div>
+
+      <!-- 声を投稿ビュー -->
+      <div id="view-submit" class="view">
+        <div class="card-label">── BROADLISTENING // 現場の声を投稿</div>
+        <div style="border:1px solid rgba(204,136,255,0.2);padding:12px;background:rgba(204,136,255,0.03);margin-bottom:16px;font-size:10px;color:var(--dim);line-height:1.8">
+          牧師・長老・信徒・宣教師のどなたでも投稿できます。<br>
+          現場で感じる宣教の課題・希望・気づきを自由に記述してください。<br>
+          AIが自動でMSI指標へのシグナルを抽出し、スコアに反映します。
+        </div>
+
+        <div class="card">
+          <div class="form-field">
+            <label class="form-label">地域を選択 *</label>
+            <select id="submit-region">
+              <option value="">選択してください</option>
+              <option value="hokkaido">北海道</option>
+              <option value="tohoku">東北（青森・岩手・宮城・秋田・山形・福島）</option>
+              <option value="kanto">関東（茨城・栃木・群馬・埼玉・千葉・東京・神奈川・山梨）</option>
+              <option value="chubu">中部（新潟・富山・石川・福井・長野・岐阜・静岡・愛知・三重）</option>
+              <option value="kinki">近畿（滋賀・京都・大阪・兵庫・奈良・和歌山）</option>
+              <option value="chugoku">中国（鳥取・島根・岡山・広島・山口）</option>
+              <option value="shikoku">四国（徳島・香川・愛媛・高知）</option>
+              <option value="kyushu">九州・沖縄</option>
+            </select>
+          </div>
+
+          <div class="form-field">
+            <label class="form-label">投稿者の立場</label>
+            <select id="submit-type">
+              <option value="anonymous">匿名</option>
+              <option value="pastor">牧師・伝道師</option>
+              <option value="elder">長老・役員</option>
+              <option value="member">信徒</option>
+              <option value="missionary">宣教師</option>
+            </select>
+          </div>
+
+          <div class="form-field">
+            <label class="form-label">現場の声 * （宣教の課題・希望・気づきを自由に）</label>
+            <textarea id="submit-text" maxlength="500"
+              placeholder="例：この地域では若者が教会から離れており、担い手の確保が急務です。一方で、子ども食堂を通じた地域との接点は増えています..."
+              oninput="document.getElementById('char-count').textContent=(this.value.length)+'/500'"></textarea>
+            <div class="char-count" id="char-count">0/500</div>
+          </div>
+
+          <div class="form-field" style="display:flex;align-items:center;gap:8px;font-size:10px;color:var(--dim)">
+            <input type="checkbox" id="submit-anon" style="width:14px;height:14px">
+            <label for="submit-anon">テキストを匿名化して投稿（内容のみ保存、投稿者情報は除く）</label>
+          </div>
+
+          <button class="submit-btn" id="submit-btn" onclick="submitVoice()">
+            ◈ 現場の声を送信 → AI分析 → MSIに反映
+          </button>
+        </div>
+
+        <!-- 投稿結果 -->
+        <div id="submit-result" style="display:none"></div>
+      </div>
+
+      <!-- シグナルフィードビュー -->
+      <div id="view-feed" class="view">
+        <div class="card-label">── SIGNAL FEED // 全地域シグナル一覧</div>
+        <div id="signal-feed"></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+// ── データ定義 ─────────────────────────────────────────────
+const CATS = [
+  {id:"density",      label:"教会密度",        icon:"⛪"},
+  {id:"baptism",      label:"洗礼率",          icon:"✦"},
+  {id:"access",       label:"福音アクセス",    icon:"◎"},
+  {id:"bearer",       label:"担い手持続性",    icon:"◈"},
+  {id:"accessibility",label:"アクセシビリティ",icon:"◐"},
+  {id:"openness",     label:"地域開放性",      icon:"◑"},
+];
+
+const REGIONS = [
+  {id:"hokkaido",name:"北海道",    en:"HOKKAIDO",base:[3,1,1,2,2,2]},
+  {id:"tohoku",  name:"東北",      en:"TOHOKU",  base:[2,1,0,1,2,2]},
+  {id:"kanto",   name:"関東",      en:"KANTO",   base:[4,3,4,3,4,3]},
+  {id:"chubu",   name:"中部",      en:"CHUBU",   base:[2,1,1,2,3,2]},
+  {id:"kinki",   name:"近畿",      en:"KINKI",   base:[3,2,3,2,4,3]},
+  {id:"chugoku", name:"中国",      en:"CHUGOKU", base:[2,1,1,1,2,2]},
+  {id:"shikoku", name:"四国",      en:"SHIKOKU", base:[1,1,2,1,1,1]},
+  {id:"kyushu",  name:"九州・沖縄",en:"KYUSHU",  base:[2,2,2,2,3,3]},
+];
+
+// サンプルシグナルデータ（実際はAPIから取得）
+const SAMPLE_SIGNALS = [
+  {region_id:"tohoku",   category:"bearer",       direction:"negative",strength:3,evidence:"担い手が極めて不足",  suggested_delta:-0.3,created_at:"2026-03-14T10:00:00Z"},
+  {region_id:"kanto",    category:"access",       direction:"positive",strength:2,evidence:"オンライン礼拝コミュニティ急増",suggested_delta:0.2,created_at:"2026-03-13T15:00:00Z"},
+  {region_id:"kanto",    category:"baptism",      direction:"positive",strength:1,evidence:"若い世代が繋がる",    suggested_delta:0.1,created_at:"2026-03-13T15:00:00Z"},
+  {region_id:"kyushu",   category:"openness",     direction:"positive",strength:2,evidence:"子ども食堂も始まりました",suggested_delta:0.2,created_at:"2026-03-12T09:00:00Z"},
+  {region_id:"shikoku",  category:"density",      direction:"negative",strength:2,evidence:"教会がない地区が多く",suggested_delta:-0.2,created_at:"2026-03-11T14:00:00Z"},
+  {region_id:"shikoku",  category:"accessibility",direction:"negative",strength:2,evidence:"交通手段もありません",suggested_delta:-0.2,created_at:"2026-03-11T14:00:00Z"},
+  {region_id:"chugoku",  category:"bearer",       direction:"negative",strength:2,evidence:"高齢化が著しい",     suggested_delta:-0.2,created_at:"2026-03-10T11:00:00Z"},
+  {region_id:"hokkaido", category:"access",       direction:"negative",strength:1,evidence:"過疎地でアクセス困難",suggested_delta:-0.1,created_at:"2026-03-09T16:00:00Z"},
+  {region_id:"kinki",    category:"openness",     direction:"positive",strength:2,evidence:"地域連携が活発化",   suggested_delta:0.15,created_at:"2026-03-08T10:00:00Z"},
+  {region_id:"chubu",    category:"bearer",       direction:"negative",strength:1,evidence:"後継者不在が問題",   suggested_delta:-0.1,created_at:"2026-03-07T13:00:00Z"},
+];
+
+const SAMPLE_VOICES = [
+  {region_id:"tohoku",  summary:"担い手不足が深刻—高齢化で限界",urgency:"high", submitter_type:"pastor",   created_at:"2026-03-14T10:00:00Z"},
+  {region_id:"kanto",   summary:"オンライン礼拝・SNS接点が急増", urgency:"low",  submitter_type:"missionary",created_at:"2026-03-13T15:00:00Z"},
+  {region_id:"kyushu",  summary:"地域開放性が向上—子ども食堂開始",urgency:"low", submitter_type:"member",   created_at:"2026-03-12T09:00:00Z"},
+  {region_id:"shikoku", summary:"高知—教会空白と交通困難が重複", urgency:"high", submitter_type:"pastor",   created_at:"2026-03-11T14:00:00Z"},
+  {region_id:"chugoku", summary:"高齢化と兼牧—担い手の継承困難", urgency:"high", submitter_type:"elder",    created_at:"2026-03-10T11:00:00Z"},
+];
+
+const calcMSI = s => Math.round((s.reduce((a,b)=>a+b,0)/30)*100);
+const getGrade = msi => {
+  if(msi>=80) return {label:"宣教成熟",code:"MATURE",  color:"#00ff88"};
+  if(msi>=60) return {label:"宣教維持",code:"STABLE",  color:"#44bbff"};
+  if(msi>=40) return {label:"宣教脆弱",code:"FRAGILE", color:"#ffcc44"};
+  return             {label:"宣教空白",code:"CRITICAL",color:"#ff4466"};
+};
+
+// ── シグナルからブレンドスコア計算 ─────────────────────────
+function computeBlended(regionId, signals) {
+  const reg = REGIONS.find(r=>r.id===regionId);
+  if(!reg) return null;
+  const adj = [0,0,0,0,0,0];
+  const catIdx = {density:0,baptism:1,access:2,bearer:3,accessibility:4,openness:5};
+  signals.filter(s=>s.region_id===regionId).forEach(s=>{
+    const ci = catIdx[s.category];
+    if(ci===undefined) return;
+    const w = s.direction==="positive"?s.strength*0.15:s.direction==="negative"?-s.strength*0.15:0;
+    adj[ci] += w;
+  });
+  const blended = reg.base.map((b,i)=>Math.max(0,Math.min(5,parseFloat((b+adj[i]).toFixed(2)))));
+  return {base:reg.base, adj, blended, baseMSI:calcMSI(reg.base), blendMSI:calcMSI(blended)};
+}
+
+// ── 状態 ─────────────────────────────────────────────────
+let selectedId = "tohoku";
+let currentView = "blend";
+let allSignals = [...SAMPLE_SIGNALS];
+let allVoices  = [...SAMPLE_VOICES];
+
+// ── サイドバー ─────────────────────────────────────────────
+function renderSidebar() {
+  const total = allSignals.length;
+  document.getElementById("signal-count").textContent = total;
+  document.getElementById("region-list").innerHTML = REGIONS.map(r=>{
+    const bd = computeBlended(r.id, allSignals);
+    const delta = bd ? bd.blendMSI - bd.baseMSI : 0;
+    const g = getGrade(bd?bd.blendMSI:calcMSI(r.base));
+    const sel = r.id===selectedId;
+    const sigCount = allSignals.filter(s=>s.region_id===r.id).length;
+    return `<div class="region-item${sel?" active":""}" onclick="selectRegion('${r.id}')">
+      <div><div class="ri-name">${r.name}</div><div style="font-size:7px;color:var(--dim2)">${r.en}</div></div>
+      <div class="ri-scores">
+        <div class="ri-msi" style="color:${g.color}">${bd?bd.blendMSI:"--"}</div>
+        <div class="ri-delta" style="color:${delta>0?'#00ff88':delta<0?'#ff4466':'var(--dim)'}">
+          ${delta>0?"+":""}${delta||"±"}0
+        </div>
+        <div class="ri-scount">${sigCount}sig</div>
+      </div>
+    </div>`;
+  }).join("");
+}
+
+// ── ブレンドビュー ─────────────────────────────────────────
+function renderBlend() {
+  const reg = REGIONS.find(r=>r.id===selectedId);
+  const bd = computeBlended(selectedId, allSignals);
+  if(!bd) return;
+
+  const statGrade = getGrade(bd.baseMSI);
+  const blendGrade = getGrade(bd.blendMSI);
+  const delta = bd.blendMSI - bd.baseMSI;
+
+  // 統計BOX
+  document.getElementById("stat-box").style.borderColor = statGrade.color+"66";
+  document.getElementById("stat-box").style.background = statGrade.color+"08";
+  document.getElementById("stat-score").textContent = bd.baseMSI;
+  document.getElementById("stat-score").style.color = statGrade.color;
+  document.getElementById("stat-code").textContent = "["+statGrade.code+"]";
+  document.getElementById("stat-code").style.color = statGrade.color;
+  document.getElementById("stat-name").textContent = statGrade.label;
+
+  // ブレンドBOX
+  document.getElementById("blend-score").textContent = bd.blendMSI;
+  document.getElementById("blend-name").textContent = blendGrade.label + " ["+blendGrade.code+"]";
+  document.getElementById("blend-name").style.color = blendGrade.color;
+  document.getElementById("blend-score").style.color = delta>0?"#cc88ff":delta<0?"#ff6688":"#cc88ff";
+
+  const deltaEl = document.getElementById("delta-display");
+  if(delta !== 0) {
+    const dc = delta>0?"#00ff88":"#ff4466";
+    deltaEl.innerHTML = `<span class="delta-badge" style="border-color:${dc};color:${dc}">
+      ${delta>0?"▲":"▼"} BroadListening補正 ${delta>0?"+":""}${delta}
+    </span>`;
+  } else {
+    deltaEl.innerHTML = `<span style="font-size:8px;color:var(--dim)">シグナルなし — 統計値のまま</span>`;
+  }
+
+  // 指標別バー
+  document.getElementById("blend-bars").innerHTML = CATS.map((cat,i)=>{
+    const base = bd.base[i];
+    const blend = bd.blended[i];
+    const adj = bd.adj[i];
+    const adjColor = adj>0?"#00ff88":adj<0?"#ff4466":"#334455";
+    const blendColor = adj>0?"#cc88ff":adj<0?"#ff6688":"#667788";
+    const sigCount = allSignals.filter(s=>s.region_id===selectedId&&s.category===cat.id);
+    const posCount = sigCount.filter(s=>s.direction==="positive").length;
+    const negCount = sigCount.filter(s=>s.direction==="negative").length;
+    return `<div class="blend-bar-item">
+      <div class="blend-bar-header">
+        <span style="font-size:10px;color:#667788">${cat.icon} ${cat.label}</span>
+        <div class="blend-bar-scores">
+          <span style="color:var(--dim)">統計:${base}</span>
+          <span style="color:var(--dim)">→</span>
+          <span style="color:${blendColor};font-weight:bold">ブレンド:${blend.toFixed(1)}</span>
+          ${adj!==0?`<span style="color:${adjColor};font-size:9px">(${adj>0?"+":""}${adj.toFixed(2)})</span>`:""}
+          ${posCount>0?`<span style="color:#00ff88;font-size:8px">▲${posCount}</span>`:""}
+          ${negCount>0?`<span style="color:#ff4466;font-size:8px">▼${negCount}</span>`:""}
+        </div>
+      </div>
+      <div style="position:relative;height:8px;background:var(--bg2);border-radius:4px">
+        <div style="position:absolute;top:0;left:0;height:100%;width:${(base/5)*100}%;background:rgba(100,180,100,0.35);border-radius:4px"></div>
+        <div style="position:absolute;top:0;left:0;height:100%;width:${(blend/5)*100}%;background:${blendColor};border-radius:4px;opacity:0.8;transition:width 0.6s"></div>
+      </div>
+    </div>`;
+  }).join("");
+
+  // 地域の声
+  const rv = allVoices.filter(v=>v.region_id===selectedId);
+  document.getElementById("region-voices").innerHTML = rv.length===0
+    ? `<div style="font-size:10px;color:var(--dim)">この地域の投稿はまだありません</div>`
+    : rv.map(v=>{
+        const uc = v.urgency==="high"?var_red:v.urgency==="medium"?var_yellow:var_dim;
+        return `<div style="border-left:2px solid ${urgencyColor(v.urgency)};padding:8px 12px;margin-bottom:8px;background:rgba(0,10,20,0.4)">
+          <div style="display:flex;gap:8px;margin-bottom:4px;align-items:center">
+            <span style="font-size:8px;color:${urgencyColor(v.urgency)};border:1px solid ${urgencyColor(v.urgency)}66;padding:1px 5px;letter-spacing:1px">${v.urgency.toUpperCase()}</span>
+            <span style="font-size:8px;color:var(--dim)">${v.submitter_type}</span>
+            <span style="font-size:8px;color:var(--dim2)">${formatDate(v.created_at)}</span>
+          </div>
+          <div style="font-size:11px;color:var(--text2)">${v.summary}</div>
+        </div>`;
+      }).join("");
+
+  // シグナル分析
+  const regionSigs = allSignals.filter(s=>s.region_id===selectedId);
+  const catCounts = {};
+  CATS.forEach(c=>catCounts[c.id]={pos:0,neg:0,total:0});
+  regionSigs.forEach(s=>{
+    if(catCounts[s.category]){
+      catCounts[s.category].total++;
+      if(s.direction==="positive") catCounts[s.category].pos++;
+      else if(s.direction==="negative") catCounts[s.category].neg++;
+    }
+  });
+  document.getElementById("signal-analytics").innerHTML = `
+    <div style="font-size:9px;color:var(--dim);margin-bottom:10px">受信シグナル: ${regionSigs.length}件（直近30日）</div>
+    ${CATS.map(cat=>{
+      const c = catCounts[cat.id];
+      if(c.total===0) return `<div class="signal-cat-bar">
+        <div class="scb-header"><span style="color:var(--dim)">${cat.icon} ${cat.label}</span><span style="color:var(--dim2)">シグナルなし</span></div>
+        <div class="scb-track"><div class="scb-pos" style="width:0%"></div></div></div>`;
+      const posW = (c.pos/c.total)*100;
+      const negW = (c.neg/c.total)*100;
+      return `<div class="signal-cat-bar">
+        <div class="scb-header">
+          <span style="color:var(--text2)">${cat.icon} ${cat.label}</span>
+          <span style="display:flex;gap:8px;font-size:8px">
+            <span style="color:#00ff88">▲${c.pos}</span>
+            <span style="color:#ff4466">▼${c.neg}</span>
+            <span style="color:var(--dim)">(${c.total}件)</span>
+          </span>
+        </div>
+        <div style="display:flex;height:6px;background:var(--bg2);border-radius:3px;overflow:hidden">
+          <div style="width:${posW}%;background:#00ff88;border-radius:3px 0 0 3px"></div>
+          <div style="width:${negW}%;background:#ff4466;border-radius:0 3px 3px 0"></div>
+        </div>
+      </div>`;
+    }).join("")}`;
+}
+
+function urgencyColor(u) {
+  return u==="high"?"#ff4466":u==="medium"?"#ffcc44":"#334455";
+}
+function formatDate(d) {
+  const dt = new Date(d);
+  return `${dt.getMonth()+1}/${dt.getDate()} ${String(dt.getHours()).padStart(2,"0")}:${String(dt.getMinutes()).padStart(2,"0")}`;
+}
+const var_red="#ff4466", var_yellow="#ffcc44", var_dim="#334455";
+
+// ── 投稿フォーム ────────────────────────────────────────────
+async function submitVoice() {
+  const region = document.getElementById("submit-region").value;
+  const text = document.getElementById("submit-text").value.trim();
+  const type = document.getElementById("submit-type").value;
+  const anon = document.getElementById("submit-anon").checked;
+  if(!region || !text) {
+    alert("地域とテキストを入力してください");
+    return;
+  }
+
+  const btn = document.getElementById("submit-btn");
+  btn.disabled = true;
+  btn.textContent = "AI分析中...";
+
+  // JPCDP Vercelへ送信（実際の実装ではエンドポイントを変更）
+  // ここではローカルでAI分析をシミュレート
+  try {
+    const res = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "anthropic-dangerous-direct-browser-access": "true",
+      },
+      body: JSON.stringify({
+        model: "claude-sonnet-4-20250514",
+        max_tokens: 600,
+        messages: [{
+          role: "user",
+          content: `MSIシグナル抽出AIです。以下の現場報告から宣教指標シグナルをJSON抽出してください。
+
+報告: "${text}"
+
+回答はJSONのみ:
+{"signals":[{"category":"density/baptism/access/bearer/accessibility/openness","direction":"positive/negative/neutral","strength":1～3,"evidence":"20文字以内","suggested_delta":-1～1}],"summary":"40文字以内","urgency":"high/medium/low"}`
+        }]
+      })
+    });
+    const data = await res.json();
+    let analysis = {signals:[],summary:text.slice(0,40),urgency:"low"};
+    try {
+      const raw = data.content?.[0]?.text?.replace(/```json|```/g,"").trim();
+      analysis = JSON.parse(raw);
+    } catch(e){}
+
+    const regName = REGIONS.find(r=>r.id===region)?.name || region;
+    // ローカルに追加
+    const newVoice = {region_id:region,summary:analysis.summary,urgency:analysis.urgency,submitter_type:type,created_at:new Date().toISOString()};
+    allVoices.unshift(newVoice);
+    analysis.signals.forEach(s=>{
+      allSignals.push({...s,region_id:region,created_at:new Date().toISOString()});
+    });
+
+    // 結果表示
+    document.getElementById("submit-result").style.display = "block";
+    document.getElementById("submit-result").innerHTML = `
+      <div style="border:1px solid var(--purple);padding:16px;background:rgba(204,136,255,0.06);margin-top:12px;animation:slideIn 0.3s ease">
+        <div style="font-size:8px;color:var(--purple);letter-spacing:3px;margin-bottom:10px">✓ 投稿受信 → AI分析完了</div>
+        <div style="font-size:11px;color:var(--text2);margin-bottom:10px">[${regName}] ${analysis.summary}</div>
+        <div style="font-size:8px;color:${urgencyColor(analysis.urgency)};margin-bottom:10px">
+          緊急度: ${analysis.urgency.toUpperCase()}
+        </div>
+        <div style="font-size:9px;color:var(--dim);margin-bottom:8px">抽出シグナル (${analysis.signals.length}件)</div>
+        ${analysis.signals.map(s=>`
+          <div style="padding:6px 8px;border:1px solid ${s.direction==="positive"?"#00ff8844":s.direction==="negative"?"#ff446644":"#334455"};margin-bottom:4px;font-size:9px">
+            <span style="color:${s.direction==="positive"?"#00ff88":s.direction==="negative"?"#ff4466":"#667788"}">${s.direction==="positive"?"▲":"▼"}</span>
+            <span style="color:var(--text2);margin:0 6px">${CATS.find(c=>c.id===s.category)?.label||s.category}</span>
+            <span style="color:var(--dim)">強度:${s.strength}</span>
+            <span style="color:var(--dim);margin-left:8px">"${s.evidence}"</span>
+            <span style="color:${s.suggested_delta>0?"#00ff88":"#ff4466"};margin-left:8px">Δ${s.suggested_delta>0?"+":""}${s.suggested_delta}</span>
+          </div>`).join("")}
+        <div style="margin-top:12px;font-size:9px;color:var(--dim)">MSIへの反映が完了しました。「MSIブレンド」タブで確認できます。</div>
+      </div>`;
+
+    renderSidebar();
+    document.getElementById("submit-text").value = "";
+    document.getElementById("char-count").textContent = "0/500";
+
+  } catch(err) {
+    document.getElementById("submit-result").style.display = "block";
+    document.getElementById("submit-result").innerHTML =
+      `<div style="color:#ff4466;font-size:10px;margin-top:8px">⚠ エラー: ${err.message}</div>`;
+  }
+
+  btn.disabled = false;
+  btn.textContent = "◈ 現場の声を送信 → AI分析 → MSIに反映";
+}
+
+// ── シグナルフィード ────────────────────────────────────────
+function renderFeed() {
+  const sorted = [...allVoices].sort((a,b)=>new Date(b.created_at)-new Date(a.created_at));
+  document.getElementById("signal-feed").innerHTML = sorted.map(v=>{
+    const regName = REGIONS.find(r=>r.id===v.region_id)?.name || v.region_id;
+    const sigs = allSignals.filter(s=>s.region_id===v.region_id);
+    return `<div class="signal-item">
+      <div class="signal-header">
+        <span class="signal-region">[${regName}]</span>
+        <span class="signal-type">${v.submitter_type}</span>
+        <span class="signal-urgency" style="color:${urgencyColor(v.urgency)};border-color:${urgencyColor(v.urgency)}66">
+          ${v.urgency.toUpperCase()}
+        </span>
+        <span style="margin-left:auto;font-size:8px;color:var(--dim2)">${formatDate(v.created_at)}</span>
+      </div>
+      <div class="signal-summary">${v.summary}</div>
+      <div class="signal-tags">
+        ${sigs.filter(s=>s.region_id===v.region_id).slice(0,3).map(s=>`
+          <span class="signal-tag" style="color:${s.direction==="positive"?"#00ff88":s.direction==="negative"?"#ff4466":"#667788"};border-color:${s.direction==="positive"?"#00ff8844":s.direction==="negative"?"#ff446644":"#334455"}">
+            ${s.direction==="positive"?"▲":"▼"} ${CATS.find(c=>c.id===s.category)?.label||s.category}
+          </span>`).join("")}
+      </div>
+    </div>`;
+  }).join("");
+}
+
+// ── ビュー切替 ──────────────────────────────────────────────
+function setView(v) {
+  currentView = v;
+  ["blend","submit","feed"].forEach(id=>{
+    document.getElementById(`view-${id}`).classList.toggle("active", id===v);
+    const btn = document.getElementById(`tab-${id}`);
+    if(btn){
+      btn.style.background = id===v?"rgba(204,136,255,0.08)":"transparent";
+      btn.style.borderColor = id===v?"var(--purple)":"transparent";
+      btn.style.color = id===v?"var(--purple)":"#445566";
+      btn.textContent = (id===v?"▶ ":"· ") + {blend:"MSIブレンド",submit:"声を投稿",feed:"シグナルフィード"}[id];
+    }
+  });
+  if(v==="blend") renderBlend();
+  if(v==="feed") renderFeed();
+}
+
+function selectRegion(id) {
+  selectedId = id;
+  renderSidebar();
+  if(currentView==="blend") renderBlend();
+}
+
+// ── 時計 ────────────────────────────────────────────────────
+setInterval(()=>{
+  const n=new Date(), p=x=>String(x).padStart(2,"0");
+  document.getElementById("clock").textContent =
+    `${n.getFullYear()}-${p(n.getMonth()+1)}-${p(n.getDate())} ${p(n.getHours())}:${p(n.getMinutes())}:${p(n.getSeconds())}`;
+},1000);
+
+// ── 初期化 ──────────────────────────────────────────────────
+renderSidebar();
+renderBlend();
+</script>
+</body>
+</html>
