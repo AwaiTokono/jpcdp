@@ -386,7 +386,6 @@ footer strong{color:var(--amber);}
   <div class="nav-logo">JPCDP <span class="nav-logo-full">// JAPAN PROTESTANT CHURCH DIGITAL PLATFORM</span></div>
   <div class="nav-status">OPERATIONAL</div>
   <a href="#voices" class="nav-voices-link"><span class="nav-voices-full">// あなたの声を投稿する</span><span class="nav-voices-short">// 投稿</span></a>
-  <a href="/phase4.html" style="font-size:.6rem;letter-spacing:.1em;color:#cc88ff;background:rgba(204,136,255,0.12);padding:.35rem .9rem;text-decoration:none;font-weight:700;flex-shrink:0;border:1px solid rgba(204,136,255,0.4);">◈ BroadListening × MSI</a>
   <div class="nav-ver" style="margin-left:auto;">v2026.03.06</div>
 </nav>
 <nav class="sec-nav">
@@ -401,7 +400,6 @@ footer strong{color:var(--amber);}
     <a href="#rec" class="sec-nav-link">08 提言</a>
     <a href="#data" class="sec-nav-link">09 統計データ</a>
     <a href="#voices" class="sec-nav-link">10 あなたの声</a>
-    <a href="/phase4.html" class="sec-nav-link" style="color:#cc88ff;border-color:rgba(204,136,255,0.4);">◈ MSIブレンド</a>
   </div>
 </nav>
 
@@ -1355,7 +1353,7 @@ const secNavObs=new IntersectionObserver(entries=>{
     const active=document.querySelector(`.sec-nav-link[href="#${best.id}"]`);
     if(active){active.classList.add('active');active.scrollIntoView({block:'nearest',inline:'center'});}
   }
-},{threshold:[0.1,0.3,0.5],rootMargin:'-20% 0px -60% 0px'});
+},{threshold:[0.05,0.1,0.2],rootMargin:'-100px 0px -60% 0px'});
 secIds.forEach(id=>{const el=document.getElementById(id);if(el)secNavObs.observe(el);});
 </script>
 </body>
