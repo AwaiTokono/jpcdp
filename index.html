@@ -377,6 +377,7 @@ footer strong{color:var(--amber);}
 .nav-voices-short{display:none;}
 @keyframes navPulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(232,160,32,.4);}50%{opacity:.85;box-shadow:0 0 0 6px rgba(232,160,32,0);}}
 
+
 </style>
 </head>
 <body>
@@ -400,6 +401,7 @@ footer strong{color:var(--amber);}
     <a href="#rec" class="sec-nav-link">08 提言</a>
     <a href="#data" class="sec-nav-link">09 統計データ</a>
     <a href="#voices" class="sec-nav-link">10 あなたの声</a>
+    <a href="phase4.html" class="sec-nav-link" style="color:#cc88ff;border-color:rgba(204,136,255,.3);" target="_blank">◈ MSIブレンド</a>
   </div>
 </nav>
 
@@ -991,6 +993,8 @@ footer strong{color:var(--amber);}
   </div>
 </section>
 
+
+
 </main>
 
 <footer>
@@ -1293,7 +1297,8 @@ if(document.getElementById('cBottleneck')){
   },options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>` ボトルネック強度: ${ctx.raw}/100`}}},scales:{x:{min:0,max:100,grid:{color:'rgba(255,255,255,.05)'}},y:{grid:{display:false}}}}});
 }
 
-/* セクションナビ アクティブ */
+
+/* ===== SCROLL ===== */
 const secNavLinks=document.querySelectorAll('.sec-nav-link');
 const secIds=['geo','vacant','finance','pastor','ud','heatmap','mission','rec','data','voices'];
 
