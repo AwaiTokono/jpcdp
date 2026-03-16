@@ -171,6 +171,7 @@ textarea { min-height:100px; line-height:1.7; }
 .status-dot { width:6px; height:6px; border-radius:50%; display:inline-block; margin-right:4px; }
 .status-live { background:var(--green); box-shadow:0 0 6px var(--green); animation:pulse 2s ease infinite; }
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 </head>
 <body>
 <div id="app">
@@ -180,7 +181,7 @@ textarea { min-height:100px; line-height:1.7; }
     <div class="tb-left">
       <div>
         <div style="font-size:8px;color:var(--dim2);letter-spacing:4px">JPCDP // AWAI LLC // PHASE 4</div>
-        <a href="index.html" style="font-size:9px;color:var(--dim);letter-spacing:2px;text-decoration:none;border:1px solid var(--border2);padding:3px 8px;margin-right:8px;">← JPCDP</a>
+        <a href="index.html" style="display:inline-flex;align-items:center;gap:6px;font-size:10px;color:#e8a020;letter-spacing:2px;text-decoration:none;border:1px solid rgba(232,160,32,.4);padding:5px 12px;background:rgba(232,160,32,.08);font-weight:700;">← JPCDP に戻る</a>
         <div class="tb-title">BroadListening <span style="color:var(--purple)">×</span> MSI</div>
       </div>
       <div style="width:1px;height:26px;background:var(--border)"></div>
@@ -213,6 +214,34 @@ textarea { min-height:100px; line-height:1.7; }
         <span class="ticker-item"><span class="ticker-region">[四国]</span><span class="ticker-urgency-high">HIGH</span><span>高知—教会空白と交通困難が重複</span></span>
       </div>
     </div>
+  </div>
+
+  <!-- MSI説明パネル -->
+  <div id="msi-about" style="border-bottom:1px solid var(--border);background:rgba(204,136,255,.04);padding:10px 16px;display:flex;gap:24px;flex-wrap:wrap;align-items:flex-start;">
+    <div style="flex-shrink:0;">
+      <div style="font-size:8px;color:var(--purple);letter-spacing:3px;margin-bottom:4px;">◈ MSI とは</div>
+      <div style="font-size:10px;color:var(--text2);line-height:1.8;max-width:460px;">
+        <b style="color:#cc88ff;">宣教構造指数（Mission Structure Index）</b>は、日本の各地域における教会の宣教的健全性を0〜100で数値化した指標です。
+        統計データ（教会密度・洗礼率・担い手数など）と、現場から投稿された声をAIで分析・統合し、リアルタイムに更新されます。
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px 16px;font-size:9px;">
+      <div style="color:var(--dim2);letter-spacing:2px;grid-column:1/-1;margin-bottom:2px;">6つの評価指標</div>
+      <div><span style="color:#cc88ff;">⛪</span> 教会密度</div>
+      <div><span style="color:#cc88ff;">✦</span> 洗礼率</div>
+      <div><span style="color:#cc88ff;">◎</span> 福音アクセス</div>
+      <div><span style="color:#cc88ff;">◈</span> 担い手持続性</div>
+      <div><span style="color:#cc88ff;">◐</span> アクセシビリティ</div>
+      <div><span style="color:#cc88ff;">◑</span> 地域開放性</div>
+    </div>
+    <div style="font-size:9px;line-height:2.2;">
+      <div style="color:var(--dim2);letter-spacing:2px;margin-bottom:2px;">グレード判定</div>
+      <div><span style="color:#00ff88;">■ 80+</span> 宣教成熟（MATURE）</div>
+      <div><span style="color:#44bbff;">■ 60+</span> 宣教維持（STABLE）</div>
+      <div><span style="color:#ffcc44;">■ 40+</span> 宣教脆弱（FRAGILE）</div>
+      <div><span style="color:#ff4466;">■ 40未満</span> 宣教空白（CRITICAL）</div>
+    </div>
+    <button onclick="document.getElementById('msi-about').style.display='none'" style="font-size:8px;color:var(--dim2);background:transparent;border:1px solid var(--border);padding:3px 8px;cursor:pointer;font-family:var(--font);align-self:flex-start;margin-left:auto;">✕ 閉じる</button>
   </div>
 
   <div id="body">
@@ -274,6 +303,18 @@ textarea { min-height:100px; line-height:1.7; }
             <div class="msi-box-grade" id="blend-code" style="color:var(--purple)">--</div>
             <div class="msi-box-name" id="blend-name">--</div>
             <div id="delta-display" style="margin-top:6px"></div>
+          </div>
+        </div>
+
+        <!-- スパイダーチャート -->
+        <div class="card" style="margin-bottom:14px;">
+          <div class="card-label">RADAR CHART // 6指標 スパイダーチャート</div>
+          <div style="display:flex;align-items:center;gap:12px;font-size:8px;color:var(--dim);margin-bottom:10px;">
+            <span style="display:flex;align-items:center;gap:4px;"><span style="display:inline-block;width:14px;height:2px;background:rgba(100,200,100,.5);"></span>統計ベース</span>
+            <span style="display:flex;align-items:center;gap:4px;"><span style="display:inline-block;width:14px;height:2px;background:#cc88ff;"></span>ブレンド後</span>
+          </div>
+          <div style="position:relative;width:100%;max-width:320px;margin:0 auto;height:260px;">
+            <canvas id="msi-radar"></canvas>
           </div>
         </div>
 
@@ -590,6 +631,7 @@ function renderBlend() {
         </div>
       </div>`;
     }).join("")}`;
+  renderRadar(bd);
 }
 
 function urgencyColor(u) {
@@ -746,6 +788,65 @@ setInterval(()=>{
 },1000);
 
 // ── 初期化 ──────────────────────────────────────────────────
+let msiRadarChart = null;
+
+function renderRadar(bd) {
+  const canvas = document.getElementById('msi-radar');
+  if (!canvas) return;
+  const labels = CATS.map(c => c.icon + ' ' + c.label);
+  const baseData = bd.base.map(v => (v / 5) * 100);
+  const blendData = bd.blended.map(v => (v / 5) * 100);
+  if (msiRadarChart) {
+    msiRadarChart.data.datasets[0].data = baseData;
+    msiRadarChart.data.datasets[1].data = blendData;
+    msiRadarChart.update();
+    return;
+  }
+  msiRadarChart = new Chart(canvas, {
+    type: 'radar',
+    data: {
+      labels,
+      datasets: [
+        {
+          label: '統計ベース',
+          data: baseData,
+          backgroundColor: 'rgba(100,200,100,.12)',
+          borderColor: 'rgba(100,200,100,.5)',
+          borderWidth: 1.5,
+          pointBackgroundColor: 'rgba(100,200,100,.7)',
+          pointRadius: 3,
+        },
+        {
+          label: 'ブレンド後',
+          data: blendData,
+          backgroundColor: 'rgba(204,136,255,.15)',
+          borderColor: '#cc88ff',
+          borderWidth: 2,
+          pointBackgroundColor: '#cc88ff',
+          pointRadius: 3,
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        r: {
+          min: 0, max: 100,
+          ticks: { stepSize: 25, display: false },
+          grid: { color: 'rgba(255,255,255,.06)' },
+          angleLines: { color: 'rgba(255,255,255,.06)' },
+          pointLabels: {
+            color: '#7a8a9a',
+            font: { size: 10, family: "'JetBrains Mono', monospace" },
+          },
+        },
+      },
+    },
+  });
+}
+
 renderSidebar();
 renderBlend();
 </script>
